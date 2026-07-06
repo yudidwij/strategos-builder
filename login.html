@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Login page for the SOT-Drive STRATEGOS strategic analysis workspace."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+              cta: "0 16px 48px rgba(138, 31, 53, 0.35)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.20),transparent_36%)]"></div>
+    <div class="absolute right-0 top-24 -z-10 h-72 w-72 rounded-full bg-info/10 blur-3xl"></div>
+
+    <main id="main-content" class="mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-8 sm:px-6 lg:px-8">
+      <div class="mb-8 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold">
+            SD
+          </div>
+          <div>
+            <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+            <p class="text-xs text-cool-gray">STRATEGOS Workspace</p>
+          </div>
+        </a>
+        <a
+          href="register.html"
+          class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-2 text-sm font-medium text-soft-white transition hover:border-info/40 hover:bg-white/10"
+        >
+          Create account
+        </a>
+      </div>
+
+      <div class="grid flex-1 items-center gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <section class="rounded-[2rem] border border-border-blue bg-navy-core/70 p-6 shadow-glow backdrop-blur-xl md:p-8">
+          <div class="inline-flex items-center gap-2 rounded-full border border-info/30 bg-info/10 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-info">
+            Secure Access Point
+          </div>
+          <h1 class="mt-6 text-4xl font-semibold tracking-[-0.03em] text-soft-white md:text-5xl">
+            Return to your strategic workspace.
+          </h1>
+          <p class="mt-5 max-w-xl text-base leading-8 text-slate-200">
+            Continue your STRATEGOS workflow with a phase-gated workspace that keeps matrix validation, approval logic, and strategic traceability visible.
+          </p>
+
+          <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+              <p class="text-[11px] uppercase tracking-[0.18em] text-cool-gray">Visible states</p>
+              <p class="mt-3 text-sm font-semibold text-soft-white">Empty, error, loading, success</p>
+              <p class="mt-2 text-sm text-cool-gray">Auth feedback stays explicit and readable on dark surfaces.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+              <p class="text-[11px] uppercase tracking-[0.18em] text-cool-gray">Controlled flow</p>
+              <p class="mt-3 text-sm font-semibold text-soft-white">Clear entry into dashboard</p>
+              <p class="mt-2 text-sm text-cool-gray">Designed as the approved public entry point before dashboard phases unlock.</p>
+            </article>
+          </div>
+
+          <div class="mt-8 rounded-3xl border border-border-blue bg-navy-surface/60 p-5">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <p class="text-sm font-semibold text-soft-white">Workspace context preview</p>
+                <p class="mt-1 text-sm text-cool-gray">Auth pages stay aligned with the same executive-grade visual system.</p>
+              </div>
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">
+                Ready
+              </span>
+            </div>
+            <ul class="mt-4 space-y-3 text-sm text-cool-gray">
+              <li class="flex gap-3">
+                <span class="mt-2 h-2 w-2 rounded-full bg-info"></span>
+                Phase tracker and approval flow will live behind this entry point.
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 h-2 w-2 rounded-full bg-maroon-glow"></span>
+                Strategic outputs later retain traceability source badges.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="mx-auto w-full max-w-xl rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl md:p-8">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-maroon-glow">Login</p>
+              <h2 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-soft-white">Sign in to SOT-Drive</h2>
+              <p class="mt-3 text-sm leading-7 text-cool-gray">
+                Use your email and password to continue to the strategic analysis workspace.
+              </p>
+            </div>
+            <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">
+              Entry UI
+            </span>
+          </div>
+
+          <form class="mt-8 space-y-5" action="dashboard.html" method="get">
+            <div>
+              <label for="email" class="text-sm font-medium text-slate-100">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="name@company.com"
+                class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-core px-4 py-3 text-sm text-soft-white placeholder:text-slate-500 focus:border-info focus:outline-none focus:ring-2 focus:ring-info/30"
+              />
+              <p class="mt-2 text-xs text-cool-gray">Required field. Use a valid business email for workspace access.</p>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between gap-3">
+                <label for="password" class="text-sm font-medium text-slate-100">Password</label>
+                <a href="#auth-support" class="text-xs text-info transition hover:text-soft-white">Forgot password?</a>
+              </div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Enter your password"
+                class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-core px-4 py-3 text-sm text-soft-white placeholder:text-slate-500 focus:border-maroon-glow focus:outline-none focus:ring-2 focus:ring-maroon-glow/30"
+              />
+              <p class="mt-2 text-xs text-cool-gray">Password field remains masked and accessible.</p>
+            </div>
+
+            <div class="flex flex-col gap-3 rounded-2xl border border-border-blue bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
+              <label class="inline-flex items-center gap-3 text-sm text-slate-200">
+                <input
+                  type="checkbox"
+                  class="h-4 w-4 rounded border-border-blue bg-navy-core text-maroon-glow focus:ring-info/40"
+                />
+                Remember me
+              </label>
+              <span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-warning">
+                Placeholder auth state
+              </span>
+            </div>
+
+            <div class="space-y-3 rounded-2xl border border-error/30 bg-error/10 p-4">
+              <p class="text-sm font-medium text-red-200">Example error state</p>
+              <p class="text-xs leading-6 text-red-100/90">
+                Email or password is missing, or the credentials do not match the expected account.
+              </p>
+            </div>
+
+            <div class="space-y-3 rounded-2xl border border-success/30 bg-success/10 p-4">
+              <p class="text-sm font-medium text-emerald-200">Example success redirect state</p>
+              <p class="text-xs leading-6 text-emerald-100/90">
+                On success, the user continues to the dashboard shell after authentication is connected in a later phase.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              class="inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-maroon-glow to-maroon-dark px-5 py-3 text-sm font-semibold text-white shadow-cta transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+            >
+              Login to Dashboard
+            </button>
+
+            <button
+              type="button"
+              class="inline-flex w-full items-center justify-center rounded-2xl border border-border-blue bg-navy-core px-5 py-3 text-sm font-semibold text-cool-gray"
+            >
+              Loading state preview
+            </button>
+
+            <div class="rounded-2xl border border-info/30 bg-info/10 p-4">
+              <p class="text-sm font-semibold text-soft-white">Demo access</p>
+              <p class="mt-2 text-xs leading-6 text-sky-50/90">
+                Karena auth backend belum dihubungkan, gunakan shortcut ini untuk masuk langsung ke halaman frontend.
+              </p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-3">
+                <a
+                  href="dashboard.html"
+                  class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10"
+                >
+                  Dashboard
+                </a>
+                <a
+                  href="analysis.html"
+                  class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10"
+                >
+                  Analysis
+                </a>
+                <a
+                  href="results.html"
+                  class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10"
+                >
+                  Results
+                </a>
+              </div>
+            </div>
+          </form>
+
+          <p class="mt-6 text-center text-sm text-cool-gray">
+            Need an account?
+            <a href="register.html" class="font-medium text-soft-white transition hover:text-info">Register here</a>
+          </p>
+          <p id="auth-support" class="mt-4 text-center text-xs text-cool-gray">
+            Password recovery remains a placeholder in this frontend-only phase.
+          </p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

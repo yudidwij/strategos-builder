@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Registration page for the SOT-Drive STRATEGOS strategic analysis workspace."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+              cta: "0 16px 48px rgba(138, 31, 53, 0.35)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.20),transparent_36%)]"></div>
+    <div class="absolute left-0 top-36 -z-10 h-72 w-72 rounded-full bg-maroon-glow/10 blur-3xl"></div>
+
+    <main id="main-content" class="mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-8 sm:px-6 lg:px-8">
+      <div class="mb-8 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold">
+            SD
+          </div>
+          <div>
+            <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+            <p class="text-xs text-cool-gray">STRATEGOS Workspace</p>
+          </div>
+        </a>
+        <a
+          href="login.html"
+          class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-2 text-sm font-medium text-soft-white transition hover:border-info/40 hover:bg-white/10"
+        >
+          Back to login
+        </a>
+      </div>
+
+      <div class="grid flex-1 items-start gap-8 lg:grid-cols-[1.03fr_0.97fr]">
+        <section class="mx-auto w-full max-w-2xl rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl md:p-8">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-maroon-glow">Register</p>
+              <h1 class="mt-3 text-3xl font-semibold tracking-[-0.03em] text-soft-white md:text-4xl">
+                Create your SOT-Drive account
+              </h1>
+              <p class="mt-3 max-w-2xl text-sm leading-7 text-cool-gray">
+                Set up an account for strategic analysis projects, company setup, and future dashboard access.
+              </p>
+            </div>
+            <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">
+              Public entry
+            </span>
+          </div>
+
+          <form class="mt-8 grid gap-5 md:grid-cols-2" action="dashboard.html" method="get">
+            <div class="md:col-span-2">
+              <label for="full-name" class="text-sm font-medium text-slate-100">Full name</label>
+              <input
+                id="full-name"
+                name="full-name"
+                type="text"
+                placeholder="Your full name"
+                class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-core px-4 py-3 text-sm text-soft-white placeholder:text-slate-500 focus:border-info focus:outline-none focus:ring-2 focus:ring-info/30"
+              />
+            </div>
+
+            <div>
+              <label for="register-email" class="text-sm font-medium text-slate-100">Email</label>
+              <input
+                id="register-email"
+                name="register-email"
+                type="email"
+                placeholder="name@company.com"
+                class="mt-2 w-full rounded-2xl border border-error/50 bg-navy-core px-4 py-3 text-sm text-soft-white placeholder:text-slate-500 focus:border-info focus:outline-none focus:ring-2 focus:ring-info/30"
+              />
+              <p class="mt-2 text-xs font-medium text-red-300">Example invalid email state shown here for UI coverage.</p>
+            </div>
+
+            <div>
+              <label for="company-name" class="text-sm font-medium text-slate-100">Company name</label>
+              <input
+                id="company-name"
+                name="company-name"
+                type="text"
+                placeholder="Company or client name"
+                class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-core px-4 py-3 text-sm text-soft-white placeholder:text-slate-500 focus:border-info focus:outline-none focus:ring-2 focus:ring-info/30"
+              />
+            </div>
+
+            <div>
+              <label for="role" class="text-sm font-medium text-slate-100">Role</label>
+              <select
+                id="role"
+                name="role"
+                class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-core px-4 py-3 text-sm text-soft-white focus:border-maroon-glow focus:outline-none focus:ring-2 focus:ring-maroon-glow/30"
+              >
+                <option>Consultant</option>
+                <option>Business Owner</option>
+                <option>Corporate Strategy Team</option>
+                <option>Executive / Viewer</option>
+                <option>Analyst</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="password" class="text-sm font-medium text-slate-100">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Create password"
+                class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-core px-4 py-3 text-sm text-soft-white placeholder:text-slate-500 focus:border-maroon-glow focus:outline-none focus:ring-2 focus:ring-maroon-glow/30"
+              />
+            </div>
+
+            <div>
+              <label for="confirm-password" class="text-sm font-medium text-slate-100">Confirm password</label>
+              <input
+                id="confirm-password"
+                name="confirm-password"
+                type="password"
+                placeholder="Repeat password"
+                class="mt-2 w-full rounded-2xl border border-warning/50 bg-navy-core px-4 py-3 text-sm text-soft-white placeholder:text-slate-500 focus:border-warning focus:outline-none focus:ring-2 focus:ring-warning/30"
+              />
+              <p class="mt-2 text-xs font-medium text-amber-300">Example password mismatch state for validation preview.</p>
+            </div>
+
+            <div class="md:col-span-2 rounded-2xl border border-border-blue bg-white/5 p-4">
+              <label class="inline-flex items-start gap-3 text-sm leading-6 text-slate-200">
+                <input
+                  type="checkbox"
+                  class="mt-1 h-4 w-4 rounded border-border-blue bg-navy-core text-maroon-glow focus:ring-info/40"
+                />
+                <span>
+                  I agree to use SOT-Drive for structured strategy analysis and understand this page currently represents frontend registration flow only.
+                </span>
+              </label>
+            </div>
+
+            <div class="md:col-span-2 space-y-3 rounded-2xl border border-warning/30 bg-warning/10 p-4">
+              <p class="text-sm font-medium text-amber-100">Validation UI coverage</p>
+              <ul class="space-y-2 text-xs leading-6 text-amber-50/90">
+                <li>Required field states should appear when inputs are left empty.</li>
+                <li>Password mismatch is highlighted before submission.</li>
+                <li>Invalid email formatting is shown inline.</li>
+              </ul>
+            </div>
+
+            <div class="md:col-span-2 space-y-3 rounded-2xl border border-success/30 bg-success/10 p-4">
+              <p class="text-sm font-medium text-emerald-200">Example success registration state</p>
+              <p class="text-xs leading-6 text-emerald-100/90">
+                After a successful registration flow in a later phase, the user can continue into the protected workspace.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              class="md:col-span-2 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-maroon-glow to-maroon-dark px-5 py-3 text-sm font-semibold text-white shadow-cta transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+            >
+              Register and Open Dashboard
+            </button>
+
+            <div class="md:col-span-2 rounded-2xl border border-info/30 bg-info/10 p-4">
+              <p class="text-sm font-semibold text-soft-white">Demo access</p>
+              <p class="mt-2 text-xs leading-6 text-sky-50/90">
+                Untuk frontend statis ini, kamu juga bisa lompat langsung ke halaman workspace tanpa menunggu auth backend.
+              </p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-3">
+                <a
+                  href="dashboard.html"
+                  class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10"
+                >
+                  Dashboard
+                </a>
+                <a
+                  href="analysis.html"
+                  class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10"
+                >
+                  Analysis
+                </a>
+                <a
+                  href="results.html"
+                  class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10"
+                >
+                  Results
+                </a>
+              </div>
+            </div>
+          </form>
+
+          <p class="mt-6 text-center text-sm text-cool-gray">
+            Already have an account?
+            <a href="login.html" class="font-medium text-soft-white transition hover:text-info">Login here</a>
+          </p>
+        </section>
+
+        <section class="rounded-[2rem] border border-border-blue bg-navy-core/70 p-6 shadow-glow backdrop-blur-xl md:p-8">
+          <div class="inline-flex items-center gap-2 rounded-full border border-info/30 bg-info/10 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-info">
+            Registration Context
+          </div>
+          <h2 class="mt-6 text-4xl font-semibold tracking-[-0.03em] text-soft-white md:text-5xl">
+            Start with identity, then move into structured strategic work.
+          </h2>
+          <p class="mt-5 text-base leading-8 text-slate-200">
+            This registration page introduces the public entry flow for consultants, business owners, analysts, and executives before later dashboard phases are implemented.
+          </p>
+
+          <div class="mt-8 grid gap-4">
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+              <p class="text-[11px] uppercase tracking-[0.18em] text-cool-gray">Role-aware entry</p>
+              <p class="mt-3 text-sm font-semibold text-soft-white">Supports multiple user types</p>
+              <p class="mt-2 text-sm text-cool-gray">Consultant, owner, corporate strategy team, executive, and analyst perspectives are represented in the form design.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+              <p class="text-[11px] uppercase tracking-[0.18em] text-cool-gray">Consistent visual system</p>
+              <p class="mt-3 text-sm font-semibold text-soft-white">Aligned with the landing page</p>
+              <p class="mt-2 text-sm text-cool-gray">Dark navy surfaces, maroon CTA accents, and readable validation states stay consistent across public pages.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-cool-gray">Future path</p>
+                  <p class="mt-3 text-sm font-semibold text-soft-white">Dashboard after auth</p>
+                </div>
+                <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">
+                  Next
+                </span>
+              </div>
+              <p class="mt-2 text-sm text-cool-gray">Successful account setup prepares users for the upcoming admin dashboard shell in the next approved phase.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

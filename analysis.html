@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysis Workspace | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Analysis input workspace for all STRATEGOS phases in SOT-Drive."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+              locked: "#475569",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+              cta: "0 16px 48px rgba(138, 31, 53, 0.35)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body data-page="analysis" class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.18),transparent_36%)]"></div>
+    <div class="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-info/10 blur-3xl"></div>
+
+    <div class="min-h-screen lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
+      <aside class="border-b border-white/5 bg-navy-core/90 backdrop-blur-xl lg:min-h-screen lg:border-b-0 lg:border-r lg:border-white/5">
+        <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-6">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold text-soft-white">
+              SD
+            </div>
+            <div>
+              <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+              <p class="text-xs text-cool-gray">Analysis Workspace</p>
+            </div>
+          </a>
+          <button
+            type="button"
+            class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-3 py-2 text-xs font-medium text-cool-gray lg:hidden"
+          >
+            Menu
+          </button>
+        </div>
+
+        <div class="px-4 pb-6 sm:px-6 lg:px-6">
+          <div class="rounded-[1.75rem] border border-border-blue bg-navy-surface/70 p-4 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Current Project</p>
+            <h2 class="mt-3 text-base font-semibold text-soft-white">PT Aurora Foods Transformation</h2>
+            <p class="mt-2 text-sm leading-6 text-cool-gray">
+              Structured strategic analysis across diagnosis, matrices, synthesis, prioritization, and execution planning.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">
+                F7 Live
+              </span>
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">
+                Input Workspace
+              </span>
+            </div>
+          </div>
+
+          <nav class="mt-6 space-y-2">
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="dashboard.html">
+              <span>Overview</span>
+              <span class="text-xs text-cool-gray">F5</span>
+            </a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="dashboard.html#phase-tracker">
+              <span>Phase Tracker</span>
+              <span class="text-xs text-cool-gray">F6</span>
+            </a>
+            <a class="flex items-center justify-between rounded-2xl border border-maroon-glow/30 bg-maroon-glow/10 px-4 py-3 text-sm font-medium text-soft-white" href="analysis.html">
+              <span>Analysis Workspace</span>
+              <span class="text-xs text-rose-200">Live</span>
+            </a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm text-soft-white" href="results.html">
+              <span>Results Dashboard</span>
+              <span class="text-xs text-sky-100">Live</span>
+            </a>
+          </nav>
+
+          <div class="mt-6 rounded-[1.75rem] border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Workspace Rules</p>
+            <ul class="mt-4 space-y-3 text-sm text-cool-gray">
+              <li class="flex gap-3">
+                <span class="mt-2 h-2 w-2 rounded-full bg-success"></span>
+                Next phase remains locked until the current phase is approved.
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 h-2 w-2 rounded-full bg-warning"></span>
+                QSPM allows blank AS or 1-4 only. Zero is not allowed.
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 h-2 w-2 rounded-full bg-info"></span>
+                Derived modules show source and dependency notes before input begins.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <div class="flex min-h-screen flex-col">
+        <header class="border-b border-white/5 bg-navy-deep/80 backdrop-blur-xl">
+          <div class="flex flex-col gap-4 px-4 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Analysis Input Workspace</p>
+              <h1 class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-soft-white sm:text-3xl">
+                STRATEGOS phase-by-phase input canvas
+              </h1>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <div class="inline-flex items-center gap-3 rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray">
+                <span class="h-2 w-2 rounded-full bg-warning"></span>
+                Current review: IFE Matrix
+              </div>
+              <a
+                href="#phase-0"
+                class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-maroon-glow to-maroon-dark px-5 py-3 text-sm font-semibold text-white shadow-cta transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+              >
+                Open Phase Inputs
+              </a>
+            </div>
+          </div>
+        </header>
+
+        <main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <section class="rounded-[1.75rem] border border-border-blue bg-white/5 p-4 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Quick Access</p>
+                <p class="mt-2 text-sm text-cool-gray">Analisis aktif ada di sini, dan hasil maupun overview bisa dibuka langsung dari bar ini.</p>
+              </div>
+              <div class="flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="dashboard.html"
+                  class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-3 text-sm font-medium text-soft-white transition hover:border-info hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                >
+                  Buka Dashboard
+                </a>
+                <a
+                  href="results.html"
+                  class="inline-flex items-center justify-center rounded-2xl border border-maroon-glow/30 bg-maroon-glow/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:border-maroon-glow hover:bg-maroon-glow/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                >
+                  Buka Results
+                </a>
+                <a
+                  href="login.html"
+                  class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                >
+                  Kembali ke Login
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-maroon-glow/30 bg-maroon-glow/10 p-6 shadow-glow backdrop-blur-xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-200">Frontend Input Center</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">
+                  Analysis Hub untuk membuka workspace input per phase
+                </h2>
+                <p class="mt-3 max-w-3xl text-sm leading-7 text-rose-50/85">
+                  Dashboard berfungsi sebagai overview, Results berfungsi sebagai output, dan halaman ini sekarang
+                  menjadi pusat navigasi untuk membuka workspace input per phase. P1 EFE sudah dipisahkan ke halaman
+                  khusus agar pengerjaan lebih fokus dan komprehensif.
+                </p>
+              </div>
+              <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">
+                Input Active
+              </span>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <p data-draft-indicator class="text-sm text-rose-50/80">Draft autosave belum berisi data</p>
+              <div class="flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="button"
+                  data-export="excel"
+                  class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark"
+                >
+                  Download Excel
+                </button>
+                <button
+                  type="button"
+                  data-export="pdf"
+                  class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark"
+                >
+                  Download PDF
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+              <a href="analysis.html?phase=p0" data-phase-link="p0" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
+                <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P0</span>
+                <span class="mt-2 block font-semibold">Company Intake</span>
+              </a>
+              <a href="phase-1-efe.html" data-phase-link="p1" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
+                <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P1</span>
+                <span class="mt-2 block font-semibold">EFE Input</span>
+              </a>
+              <a href="analysis.html?phase=p2" data-phase-link="p2" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
+                <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P2</span>
+                <span class="mt-2 block font-semibold">IFE Input</span>
+              </a>
+              <a href="analysis.html?phase=p3" data-phase-link="p3" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
+                <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P3</span>
+                <span class="mt-2 block font-semibold">CPM Input</span>
+              </a>
+              <a href="analysis.html?phase=p4" data-phase-link="p4" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
+                <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P4</span>
+                <span class="mt-2 block font-semibold">SWOT/TOWS</span>
+              </a>
+              <a href="analysis.html?phase=p5" data-phase-link="p5" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
+                <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P5-P8</span>
+                <span class="mt-2 block font-semibold">Matching Tools</span>
+              </a>
+              <a href="analysis.html?phase=p9" data-phase-link="p9" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
+                <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P9</span>
+                <span class="mt-2 block font-semibold">QSPM Input</span>
+              </a>
+              <a href="analysis.html?phase=p10" data-phase-link="p10" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
+                <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P10-P14</span>
+                <span class="mt-2 block font-semibold">BSC & Summary</span>
+              </a>
+            </div>
+          </section>
+
+          <section class="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
+            <article class="rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-maroon-glow">Phase Rail</p>
+                  <h2 class="mt-3 text-xl font-semibold text-soft-white">15-step workflow map</h2>
+                </div>
+                <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">
+                  Gated
+                </span>
+              </div>
+              <div class="mt-5 grid gap-2">
+                <a href="analysis.html?phase=p0" data-phase-link="p0" class="rounded-2xl border border-success/30 bg-success/10 px-4 py-3 text-sm text-soft-white transition hover:brightness-110">P0 Intake &amp; Diagnosis</a>
+                <a href="phase-1-efe.html" data-phase-link="p1" class="rounded-2xl border border-success/30 bg-success/10 px-4 py-3 text-sm text-soft-white transition hover:brightness-110">P1 EFE Matrix</a>
+                <a href="analysis.html?phase=p2" data-phase-link="p2" class="rounded-2xl border border-warning/30 bg-warning/10 px-4 py-3 text-sm text-soft-white transition hover:brightness-110">P2 IFE Matrix</a>
+                <a href="analysis.html?phase=p3" data-phase-link="p3" class="rounded-2xl border border-maroon-glow/30 bg-maroon-glow/10 px-4 py-3 text-sm text-soft-white transition hover:brightness-110">P3 CPM Matrix</a>
+                <a href="analysis.html?phase=p4" data-phase-link="p4" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P4 SWOT &amp; TOWS</a>
+                <a href="analysis.html?phase=p5" data-phase-link="p5" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P5 SPACE Matrix</a>
+                <a href="analysis.html?phase=p6" data-phase-link="p6" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P6 BCG Matrix</a>
+                <a href="analysis.html?phase=p7" data-phase-link="p7" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P7 IE Matrix</a>
+                <a href="analysis.html?phase=p8" data-phase-link="p8" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P8 Intersection Rule</a>
+                <a href="analysis.html?phase=p9" data-phase-link="p9" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P9 QSPM Matrix</a>
+                <a href="analysis.html?phase=p10" data-phase-link="p10" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P10 BSC Financial</a>
+                <a href="analysis.html?phase=p11" data-phase-link="p11" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P11 BSC Customer</a>
+                <a href="analysis.html?phase=p12" data-phase-link="p12" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P12 BSC Internal Process</a>
+                <a href="analysis.html?phase=p13" data-phase-link="p13" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P13 BSC Learning &amp; Growth</a>
+                <a href="analysis.html?phase=p14" data-phase-link="p14" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P14 Strategy Map &amp; Executive Summary</a>
+              </div>
+            </article>
+
+            <article class="rounded-[2rem] border border-border-blue bg-navy-core/75 p-6 shadow-glow backdrop-blur-xl">
+              <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div>
+                  <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Validation Summary</p>
+                  <h2 class="mt-3 text-xl font-semibold text-soft-white">Framework rules remain visible during input</h2>
+                </div>
+                <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">
+                  UI Guardrails
+                </span>
+              </div>
+              <div class="mt-5 grid gap-4 md:grid-cols-2">
+                <div class="rounded-2xl border border-warning/30 bg-warning/10 p-4">
+                  <p class="text-sm font-semibold text-soft-white">Blocking validation</p>
+                  <ul class="mt-3 space-y-2 text-sm text-amber-50/90">
+                    <li>Weight totals must equal 1.0 in EFE, IFE, and CPM.</li>
+                    <li>Locked derived phases cannot be edited before dependencies are approved.</li>
+                    <li>QSPM will not show or accept `AS = 0`.</li>
+                  </ul>
+                </div>
+                <div class="rounded-2xl border border-info/30 bg-info/10 p-4">
+                  <p class="text-sm font-semibold text-soft-white">Guidance validation</p>
+                  <ul class="mt-3 space-y-2 text-sm text-sky-50/90">
+                    <li>EFE ratings remain company-specific.</li>
+                    <li>IFE strengths use ratings 3-4; weaknesses use 1-2.</li>
+                    <li>Strategy outputs keep dependency and source references visible.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mt-5 rounded-2xl border border-border-blue bg-white/5 p-4">
+                <p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Compliance checklist</p>
+                <div class="mt-3 grid gap-3 md:grid-cols-2">
+                  <div class="rounded-2xl border border-white/10 bg-black/10 p-3 text-sm text-slate-200">AQCD quality must screen out low-quality key factors.</div>
+                  <div class="rounded-2xl border border-white/10 bg-black/10 p-3 text-sm text-slate-200">Intersection Rule must appear before umbrella strategy and QSPM prioritization.</div>
+                  <div class="rounded-2xl border border-white/10 bg-black/10 p-3 text-sm text-slate-200">BSC objectives must trace back to strategic themes.</div>
+                  <div class="rounded-2xl border border-white/10 bg-black/10 p-3 text-sm text-slate-200">Executive summary cannot add unsupported recommendations.</div>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-maroon-glow">Analysis Modules</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">
+                  All STRATEGOS phases represented in one workspace
+                </h2>
+              </div>
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">
+                F7 Complete
+              </span>
+            </div>
+
+            <div class="mt-6 rounded-[1.75rem] border border-info/30 bg-info/10 p-5">
+              <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.16em] text-info">Phase Sub-Page</p>
+                  <h3 data-phase-current-label class="mt-2 text-xl font-semibold text-soft-white">P0 Intake &amp; Diagnosis</h3>
+                  <p data-phase-current-desc class="mt-2 text-sm text-sky-50/90">Mode fokus phase aktif. Klik phase lain untuk membuka sub-page analysis yang sesuai.</p>
+                </div>
+                <div class="flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href="analysis.html?phase=p0"
+                    data-phase-prev
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10"
+                  >
+                    Previous Phase
+                  </a>
+                  <a
+                    href="phase-1-efe.html"
+                    data-phase-next
+                    class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20"
+                  >
+                    Next Phase
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 space-y-4">
+              <details id="phase-0" data-phase-section="p0" open class="group rounded-[1.75rem] border border-border-blue bg-navy-core/70 p-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-info">P0 Intake &amp; Diagnosis</p>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Company setup and baseline assumptions</h3>
+                  </div>
+                  <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">Open</span>
+                </summary>
+                <div class="mt-5 grid gap-4 md:grid-cols-2">
+                  <label class="text-sm text-slate-100">Company name<input type="text" value="PT Aurora Foods Transformation" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                  <label class="text-sm text-slate-100">Industry<input type="text" value="Packaged food and beverage" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                  <label class="text-sm text-slate-100">Primary products<input type="text" value="Ready-to-eat snacks, condiments, and beverages" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                  <label class="text-sm text-slate-100">Strategic objective<input type="text" value="Grow channels and improve portfolio focus" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                </div>
+                <label class="mt-4 block text-sm text-slate-100">Available data and assumptions<textarea class="mt-2 min-h-28 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Financial baseline, competitor pricing, distributor interviews, category trend data, and internal sales performance are available for early analysis.</textarea></label>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Save Intake Draft
+                  </button>
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Send for Review
+                  </button>
+                </div>
+              </details>
+
+              <details id="phase-1" data-phase-section="p1" open class="group rounded-[1.75rem] border border-border-blue bg-navy-core/70 p-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-info">P1 EFE Matrix</p>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Dedicated workspace redirect</h3>
+                  </div>
+                  <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">Approved</span>
+                </summary>
+                <div class="mt-5 grid gap-4 xl:grid-cols-[0.85fr_1.15fr]">
+                  <article class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">Dedicated page active</p>
+                    <p class="mt-2 text-sm leading-7 text-cool-gray">
+                      P1 EFE sudah dipindahkan ke halaman HTML khusus agar brainstorming faktor, filter AQCD, dan tabel
+                      evaluasi EFE bisa dikerjakan tanpa bercampur dengan phase lain.
+                    </p>
+                    <div class="mt-4 flex flex-wrap gap-3">
+                      <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">20 Opportunity brainstorm slots</span>
+                      <span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-warning">20 Threat brainstorm slots</span>
+                      <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-success">Top 10 each in EFE table</span>
+                    </div>
+                  </article>
+                  <article class="rounded-2xl border border-info/30 bg-info/10 p-4">
+                    <p class="text-sm font-semibold text-soft-white">What is inside the P1 page</p>
+                    <ul class="mt-3 space-y-2 text-sm text-sky-50/90">
+                      <li>Brainstorming table with AQCD filters per factor.</li>
+                      <li>Dedicated Opportunity and Threat banks with up to 20 rows each.</li>
+                      <li>EFE evaluation table with top 10 qualified factors per side.</li>
+                      <li>Auto pairwise heuristic or manual weights with total weight validation.</li>
+                    </ul>
+                  </article>
+                </div>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href="phase-1-efe.html"
+                    class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Open Dedicated P1 Page
+                  </a>
+                  <a
+                    href="analysis.html?phase=p2"
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Open P2 IFE Hub View
+                  </a>
+                </div>
+              </details>
+
+              <details id="phase-2" data-phase-section="p2" open class="group rounded-[1.75rem] border border-warning/30 bg-warning/10 p-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-warning">P2 IFE Matrix</p>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Internal factor builder</h3>
+                  </div>
+                  <span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-warning">Need Review</span>
+                </summary>
+                <div class="mt-5 overflow-x-auto rounded-2xl border border-warning/30">
+                  <table class="min-w-full text-left text-sm">
+                    <caption class="sr-only">IFE matrix factors, AQCD quality, weights, ratings, and validation notes</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-4 py-3">Factor Type</th>
+                        <th class="px-4 py-3">Factor</th>
+                        <th class="px-4 py-3">AQCD</th>
+                        <th class="px-4 py-3">Weight</th>
+                        <th class="px-4 py-3">Rating</th>
+                        <th class="px-4 py-3">Validation</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-warning/20">
+                      <tr class="bg-white/5">
+                        <td class="px-4 py-3">Strength</td>
+                        <td class="px-4 py-3">Strong distributor relationships in tier-two cities</td>
+                        <td class="px-4 py-3"><span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-success">3/4</span></td>
+                        <td class="px-4 py-3 font-mono">0.15</td>
+                        <td class="px-4 py-3 font-mono">4</td>
+                        <td class="px-4 py-3 text-slate-200">Strength rating within 3-4</td>
+                      </tr>
+                      <tr class="bg-navy-surface/40">
+                        <td class="px-4 py-3">Weakness</td>
+                        <td class="px-4 py-3">Fragmented product portfolio complexity</td>
+                        <td class="px-4 py-3"><span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-warning">2/4</span></td>
+                        <td class="px-4 py-3 font-mono">0.10</td>
+                        <td class="px-4 py-3 font-mono">2</td>
+                        <td class="px-4 py-3 text-slate-200">Weakness rating within 1-2</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="mt-4 rounded-2xl border border-warning/30 bg-black/10 p-4 text-sm text-amber-50/90">
+                  Review note: two weakness rows still need confirmation before approval. Weight total must still close at 1.0.
+                </div>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-warning/30 bg-warning/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-warning/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Save IFE Revision
+                  </button>
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-black/10 px-4 py-3 text-sm font-medium text-slate-100 transition hover:bg-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-warning"
+                  >
+                    Recheck Validation
+                  </button>
+                </div>
+              </details>
+
+              <details id="phase-3" data-phase-section="p3" class="group rounded-[1.75rem] border border-maroon-glow/30 bg-maroon-glow/10 p-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-rose-200">P3 CPM Matrix</p>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Competitor comparison matrix</h3>
+                  </div>
+                  <span class="rounded-full border border-maroon-glow/30 bg-maroon-glow/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-rose-200">In Progress</span>
+                </summary>
+                <div class="mt-5 overflow-x-auto rounded-2xl border border-maroon-glow/30">
+                  <table class="min-w-full text-left text-sm">
+                    <caption class="sr-only">CPM critical success factors with company and competitor ratings</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-4 py-3">CSF</th>
+                        <th class="px-4 py-3">Weight</th>
+                        <th class="px-4 py-3">Company</th>
+                        <th class="px-4 py-3">Competitor A</th>
+                        <th class="px-4 py-3">Competitor B</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-maroon-glow/20">
+                      <tr class="bg-white/5">
+                        <td class="px-4 py-3">Pricing flexibility</td>
+                        <td class="px-4 py-3 font-mono">0.20</td>
+                        <td class="px-4 py-3 font-mono">3</td>
+                        <td class="px-4 py-3 font-mono">4</td>
+                        <td class="px-4 py-3 font-mono">2</td>
+                      </tr>
+                      <tr class="bg-navy-surface/40">
+                        <td class="px-4 py-3">Channel execution</td>
+                        <td class="px-4 py-3 font-mono">0.18</td>
+                        <td class="px-4 py-3 font-mono">4</td>
+                        <td class="px-4 py-3 font-mono">3</td>
+                        <td class="px-4 py-3 font-mono">2</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="mt-5 grid gap-4 md:grid-cols-2">
+                  <label class="text-sm text-slate-100">New critical success factor<input type="text" value="Brand visibility in growth channels" class="mt-2 w-full rounded-2xl border border-maroon-glow/30 bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                  <label class="text-sm text-slate-100">CSF weight<input type="number" step="0.01" value="0.14" class="mt-2 w-full rounded-2xl border border-maroon-glow/30 bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                  <label class="text-sm text-slate-100">Company rating<input type="number" min="1" max="4" value="3" class="mt-2 w-full rounded-2xl border border-maroon-glow/30 bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                  <label class="text-sm text-slate-100">Competitor benchmark note<textarea class="mt-2 min-h-28 w-full rounded-2xl border border-maroon-glow/30 bg-navy-deep px-4 py-3 text-sm text-soft-white">Competitor A remains stronger in visibility spend, while Competitor B trails on modern trade execution.</textarea></label>
+                </div>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-maroon-glow/30 bg-maroon-glow/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-maroon-glow/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark"
+                  >
+                    Save CPM Input
+                  </button>
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark"
+                  >
+                    Recalculate Weight Total
+                  </button>
+                </div>
+              </details>
+
+              <details id="phase-4" data-phase-section="p4" class="group rounded-[1.75rem] border border-border-blue bg-navy-core/70 p-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-info">P4 SWOT &amp; TOWS</p>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Strategy generator from approved factors</h3>
+                  </div>
+                  <span class="rounded-full border border-slate-600 bg-locked/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-300">Locked by dependency</span>
+                </summary>
+                <div class="mt-5 grid gap-4 md:grid-cols-2">
+                  <article class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">SO Strategy</p>
+                    <p class="mt-2 text-sm text-cool-gray">Use strong distributor reach to capture health-positioned demand growth.</p>
+                    <span class="mt-3 inline-flex rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">Source: EFE P1 + IFE P2</span>
+                  </article>
+                  <article class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">WT Strategy</p>
+                    <p class="mt-2 text-sm text-cool-gray">Reduce portfolio complexity to withstand retailer margin pressure.</p>
+                    <span class="mt-3 inline-flex rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">Source: Approved key factors only</span>
+                  </article>
+                </div>
+                <div class="mt-5 grid gap-4 xl:grid-cols-2">
+                  <label class="text-sm text-slate-100">SO strategy draft<textarea class="mt-2 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Use distributor strength to expand higher-demand health-positioned SKUs in priority channels.</textarea></label>
+                  <label class="text-sm text-slate-100">WT strategy draft<textarea class="mt-2 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Rationalize slower-moving SKUs to reduce operational drag and retailer margin pressure.</textarea></label>
+                  <label class="text-sm text-slate-100">Approved factor source note<textarea class="mt-2 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Only approved EFE/IFE key factors should be referenced for TOWS construction.</textarea></label>
+                  <label class="text-sm text-slate-100">Dependency check<select class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white"><option>Waiting for approval</option><option>Approved factors ready</option></select></label>
+                </div>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Save TOWS Draft
+                  </button>
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Validate Source Factors
+                  </button>
+                </div>
+              </details>
+
+              <details id="phase-5" data-phase-section="p5" class="group rounded-[1.75rem] border border-border-blue bg-navy-core/70 p-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-info">P5-P8 Matching Tools</p>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">SPACE, BCG, IE, and Intersection Rule</h3>
+                  </div>
+                  <span class="rounded-full border border-slate-600 bg-locked/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-300">Structured inputs</span>
+                </summary>
+                <div class="mt-5 grid gap-4 xl:grid-cols-2">
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">SPACE Matrix</p>
+                    <div class="mt-3 grid gap-3 sm:grid-cols-2">
+                      <label class="text-sm text-slate-100">FP<input type="number" value="5" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                      <label class="text-sm text-slate-100">CP<input type="number" value="-3" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                      <label class="text-sm text-slate-100">SP<input type="number" value="-4" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                      <label class="text-sm text-slate-100">IP<input type="number" value="4" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                    </div>
+                    <p class="mt-4 text-sm text-cool-gray">Output must show FP, CP, SP, IP, X, Y, then quadrant.</p>
+                  </div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">BCG Matrix</p>
+                    <div class="mt-3 grid gap-3 sm:grid-cols-2">
+                      <label class="text-sm text-slate-100">RMSP<input type="number" step="0.01" value="0.82" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                      <label class="text-sm text-slate-100">IGR<input type="number" step="0.01" value="0.14" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                    </div>
+                    <p class="mt-4 text-sm text-cool-gray">RMSP and IGR must be visible before quadrant classification.</p>
+                  </div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">IE Matrix</p>
+                    <div class="mt-3 flex flex-wrap gap-3">
+                      <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">Source: EFE Score P1</span>
+                      <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">Source: IFE Score P2</span>
+                    </div>
+                    <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                      <label class="text-sm text-slate-100">IFE score<input type="number" step="0.01" value="2.58" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                      <label class="text-sm text-slate-100">EFE score<input type="number" step="0.01" value="2.96" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                    </div>
+                    <p class="mt-4 text-sm text-cool-gray">The cell position should derive from approved scores instead of manual duplication.</p>
+                  </div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">Intersection Rule</p>
+                    <textarea class="mt-3 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Cross-tool strategy appearance count, synthesis notes, and umbrella strategy candidate list appear here before QSPM begins.</textarea>
+                    <span class="mt-3 inline-flex rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-warning">Must appear before umbrella strategy use</span>
+                  </div>
+                </div>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Save Matching Inputs
+                  </button>
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Recompute Quadrants
+                  </button>
+                </div>
+              </details>
+
+              <details id="phase-9" data-phase-section="p9" class="group rounded-[1.75rem] border border-border-blue bg-navy-core/70 p-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-info">P9 QSPM Matrix</p>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Strategy prioritization with protected AS rules</h3>
+                  </div>
+                  <span class="rounded-full border border-slate-600 bg-locked/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-300">Awaiting synthesis</span>
+                </summary>
+                <div class="mt-5 overflow-x-auto rounded-2xl border border-border-blue">
+                  <table class="min-w-full text-left text-sm">
+                    <caption class="sr-only">QSPM weighted key factors with AS and TAS values</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-4 py-3">Key Factor</th>
+                        <th class="px-4 py-3">Weight</th>
+                        <th class="px-4 py-3">Strategy A AS</th>
+                        <th class="px-4 py-3">Strategy A TAS</th>
+                        <th class="px-4 py-3">Strategy B AS</th>
+                        <th class="px-4 py-3">Strategy B TAS</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-border-blue/60">
+                      <tr class="bg-white/5">
+                        <td class="px-4 py-3">Distributor reach strength</td>
+                        <td class="px-4 py-3 font-mono">0.15</td>
+                        <td class="px-4 py-3">Blank / Not Relevant</td>
+                        <td class="px-4 py-3 font-mono">-</td>
+                        <td class="px-4 py-3 font-mono">4</td>
+                        <td class="px-4 py-3 font-mono">0.60</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                  <label class="text-sm text-slate-100">Strategy A name<input type="text" value="Portfolio Focus Program" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                  <label class="text-sm text-slate-100">Strategy B name<input type="text" value="Channel Acceleration Program" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                  <label class="text-sm text-slate-100">AS selection rule<select class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white"><option>Blank or 1-4 only</option><option>Blank for not relevant</option></select></label>
+                  <label class="text-sm text-slate-100">Strategy A AS<input type="text" value="" placeholder="Kosongkan jika tidak relevan" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white placeholder:text-cool-gray" /></label>
+                  <label class="text-sm text-slate-100">Strategy B AS<input type="number" min="1" max="4" value="4" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                  <label class="text-sm text-slate-100">Priority note<textarea class="mt-2 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Top strategies should become the basis for Strategic Themes and flow into BSC objectives.</textarea></label>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-3">
+                  <span class="rounded-full border border-error/30 bg-error/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-red-200">AS = 0 is not available</span>
+                  <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">Blank means not relevant, not zero</span>
+                </div>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Save QSPM Draft
+                  </button>
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Rank Strategic Themes
+                  </button>
+                </div>
+              </details>
+
+              <details id="phase-10" data-phase-section="p10" class="group rounded-[1.75rem] border border-border-blue bg-navy-core/70 p-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-info">P10-P13 Balanced Scorecard</p>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Execution perspectives and traceable objectives</h3>
+                  </div>
+                  <span class="rounded-full border border-slate-600 bg-locked/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-300">Theme dependent</span>
+                </summary>
+                <div class="mt-5 grid gap-4 xl:grid-cols-2">
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">BSC Financial</p>
+                    <div class="mt-3 overflow-x-auto">
+                      <table class="min-w-full text-left text-sm">
+                        <caption class="sr-only">Balanced Scorecard financial perspective summary</caption>
+                        <thead class="text-cool-gray"><tr><th class="pr-4 pb-2">Objective</th><th class="pr-4 pb-2">KPI</th><th class="pb-2">Initiative</th></tr></thead>
+                        <tbody><tr><td class="pr-4 py-2">Improve contribution margin</td><td class="pr-4 py-2">Margin %</td><td class="py-2">Portfolio focus program</td></tr></tbody>
+                      </table>
+                    </div>
+                    <span class="mt-3 inline-flex rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">Source: Strategic Themes</span>
+                  </div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">BSC Customer</p>
+                    <div class="mt-3 overflow-x-auto">
+                      <table class="min-w-full text-left text-sm">
+                        <caption class="sr-only">Balanced Scorecard customer perspective summary</caption>
+                        <thead class="text-cool-gray"><tr><th class="pr-4 pb-2">Segment</th><th class="pr-4 pb-2">Objective</th><th class="pb-2">KPI</th></tr></thead>
+                        <tbody><tr><td class="pr-4 py-2">Modern trade</td><td class="pr-4 py-2">Strengthen shelf performance</td><td class="py-2">Distribution score</td></tr></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">BSC Internal Process</p>
+                    <div class="mt-3 overflow-x-auto">
+                      <table class="min-w-full text-left text-sm">
+                        <caption class="sr-only">Balanced Scorecard internal process perspective summary</caption>
+                        <thead class="text-cool-gray"><tr><th class="pr-4 pb-2">Process Cluster</th><th class="pr-4 pb-2">Objective</th><th class="pb-2">Initiative</th></tr></thead>
+                        <tbody><tr><td class="pr-4 py-2">Portfolio management</td><td class="pr-4 py-2">Simplify SKU mix</td><td class="py-2">Rationalization sprint</td></tr></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">BSC Learning &amp; Growth</p>
+                    <div class="mt-3 overflow-x-auto">
+                      <table class="min-w-full text-left text-sm">
+                        <caption class="sr-only">Balanced Scorecard learning and growth perspective summary</caption>
+                        <thead class="text-cool-gray"><tr><th class="pr-4 pb-2">Capital</th><th class="pr-4 pb-2">Objective</th><th class="pb-2">Readiness</th></tr></thead>
+                        <tbody><tr><td class="pr-4 py-2">Information capital</td><td class="pr-4 py-2">Improve sales insight visibility</td><td class="py-2">Medium</td></tr></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5 grid gap-4 xl:grid-cols-2">
+                  <label class="text-sm text-slate-100">Financial objective input<textarea class="mt-2 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Improve contribution margin through sharper portfolio focus.</textarea></label>
+                  <label class="text-sm text-slate-100">Customer objective input<textarea class="mt-2 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Strengthen execution in prioritized modern trade and high-growth channels.</textarea></label>
+                  <label class="text-sm text-slate-100">Internal process objective<textarea class="mt-2 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Tighten portfolio governance and route-to-market routines.</textarea></label>
+                  <label class="text-sm text-slate-100">Learning & growth objective<textarea class="mt-2 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Improve insight visibility and execution discipline capability.</textarea></label>
+                </div>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Save BSC Inputs
+                  </button>
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Check Theme Traceability
+                  </button>
+                </div>
+              </details>
+
+              <details id="phase-14" data-phase-section="p14" class="group rounded-[1.75rem] border border-border-blue bg-navy-core/70 p-5">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-info">P14 Strategy Map &amp; Executive Summary</p>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Cause-effect and final summary inputs</h3>
+                  </div>
+                  <span class="rounded-full border border-slate-600 bg-locked/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-300">Output dependent</span>
+                </summary>
+                <div class="mt-5 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">Strategy map chain</p>
+                    <div class="mt-4 space-y-3">
+                      <div class="rounded-2xl border border-white/10 bg-black/10 p-3 text-sm text-slate-200">Learning &amp; Growth</div>
+                      <div class="pl-4 text-cool-gray">↓</div>
+                      <div class="rounded-2xl border border-white/10 bg-black/10 p-3 text-sm text-slate-200">Internal Process</div>
+                      <div class="pl-4 text-cool-gray">↓</div>
+                      <div class="rounded-2xl border border-white/10 bg-black/10 p-3 text-sm text-slate-200">Customer</div>
+                      <div class="pl-4 text-cool-gray">↓</div>
+                      <div class="rounded-2xl border border-white/10 bg-black/10 p-3 text-sm text-slate-200">Financial</div>
+                    </div>
+                    <div class="mt-4 grid gap-3">
+                      <label class="text-sm text-slate-100">Learning &amp; Growth node<input type="text" value="Improve sales insight and governance capability" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                      <label class="text-sm text-slate-100">Financial node<input type="text" value="Improve contribution margin and profitable growth mix" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
+                    </div>
+                  </div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">Executive summary guardrail</p>
+                    <textarea class="mt-3 min-h-40 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Summary text must only use approved outputs from prior phases. No new recommendation can appear without a source chain from approved matrices, synthesis, or BSC objectives.</textarea>
+                    <div class="mt-4 flex flex-wrap gap-3">
+                      <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">Source badge required</span>
+                      <span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-warning">No unsupported recommendation</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Save Strategy Map Input
+                  </button>
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                  >
+                    Validate Executive Summary
+                  </button>
+                </div>
+              </details>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

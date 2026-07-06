@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOT-Drive | STRATEGOS Strategic Analysis Workspace</title>
+    <meta
+      name="description"
+      content="SOT-Drive is a phase-gated STRATEGOS strategic analysis workspace for turning company data into evidence-based strategy."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+              locked: "#475569",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+              cta: "0 16px 48px rgba(138, 31, 53, 0.35)",
+            },
+            backgroundImage: {
+              "hero-gradient":
+                "linear-gradient(135deg, rgba(7,20,38,1) 0%, rgba(11,31,58,1) 48%, rgba(34,9,20,1) 100%)",
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-[32rem] bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.22),transparent_36%)]"></div>
+    <div class="absolute right-0 top-24 -z-10 h-72 w-72 rounded-full bg-info/10 blur-3xl"></div>
+    <div class="absolute left-0 top-[32rem] -z-10 h-80 w-80 rounded-full bg-maroon-glow/10 blur-3xl"></div>
+
+    <header class="sticky top-0 z-30 border-b border-white/5 bg-navy-deep/80 backdrop-blur-xl">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a href="#top" class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold text-soft-white">
+            SD
+          </div>
+          <div>
+            <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+            <p class="text-xs text-cool-gray">STRATEGOS Workspace</p>
+          </div>
+        </a>
+        <nav class="hidden items-center gap-6 text-sm text-cool-gray md:flex">
+          <a class="transition hover:text-soft-white" href="#framework">Framework</a>
+          <a class="transition hover:text-soft-white" href="#workflow">Workflow</a>
+          <a class="transition hover:text-soft-white" href="#benefits">Benefits</a>
+          <a class="transition hover:text-soft-white" href="#preview">Preview</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a
+            href="login.html"
+            class="hidden rounded-2xl px-4 py-2 text-sm text-cool-gray transition hover:bg-white/5 hover:text-soft-white sm:inline-flex"
+          >
+            Login
+          </a>
+          <a
+            href="register.html"
+            class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-maroon-glow to-maroon-dark px-4 py-2 text-sm font-semibold text-white shadow-cta transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+          >
+            Register
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="mx-auto max-w-7xl px-4 pb-16 pt-14 sm:px-6 md:pb-24 md:pt-20 lg:px-8">
+        <div class="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
+          <div>
+            <div class="inline-flex items-center gap-2 rounded-full border border-info/30 bg-info/10 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-info">
+              Evidence-Based Strategy Workspace
+            </div>
+            <h1 class="mt-6 max-w-4xl text-4xl font-semibold tracking-[-0.03em] text-soft-white sm:text-5xl lg:text-6xl">
+              Turn company data into strategic direction with a phase-gated STRATEGOS workspace.
+            </h1>
+            <p class="mt-6 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
+              SOT-Drive helps strategy teams move from fragmented spreadsheets to a guided workflow that connects
+              diagnosis, matrices, prioritization, Balanced Scorecard, and executive summary in one modern interface.
+            </p>
+            <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+              <a
+                href="login.html"
+                class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-maroon-glow to-maroon-dark px-6 py-3 text-sm font-semibold text-white shadow-cta transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+              >
+                Login to Workspace
+              </a>
+              <a
+                href="register.html"
+                class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-navy-surface px-6 py-3 text-sm font-semibold text-soft-white transition hover:border-info/40 hover:bg-navy-elevated"
+              >
+                Create Account
+              </a>
+            </div>
+            <div class="mt-10 grid gap-4 sm:grid-cols-3">
+              <article class="rounded-3xl border border-border-blue bg-white/5 p-4 backdrop-blur-xl shadow-panel">
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Workflow</p>
+                <p class="mt-3 font-mono text-2xl text-soft-white">15 Steps</p>
+                <p class="mt-2 text-sm text-cool-gray">Phase 0 to 14 mapped to STRATEGOS flow.</p>
+              </article>
+              <article class="rounded-3xl border border-border-blue bg-white/5 p-4 backdrop-blur-xl shadow-panel">
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Guardrails</p>
+                <p class="mt-3 font-mono text-2xl text-soft-white">18 Rules</p>
+                <p class="mt-2 text-sm text-cool-gray">Validation states visible before approval.</p>
+              </article>
+              <article class="rounded-3xl border border-border-blue bg-white/5 p-4 backdrop-blur-xl shadow-panel">
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Traceability</p>
+                <p class="mt-3 font-mono text-2xl text-soft-white">End-to-End</p>
+                <p class="mt-2 text-sm text-cool-gray">Strategic outputs keep source lineage attached.</p>
+              </article>
+            </div>
+          </div>
+
+          <div id="preview" class="relative">
+            <div class="absolute -left-6 top-10 hidden h-20 w-20 rounded-full bg-maroon-glow/20 blur-2xl lg:block"></div>
+            <div class="rounded-[2rem] border border-border-blue bg-navy-core/80 p-5 shadow-glow backdrop-blur-xl">
+              <div class="rounded-[1.7rem] border border-white/5 bg-navy-surface/80 p-4">
+                <div class="flex items-center justify-between rounded-3xl border border-border-blue bg-white/5 px-4 py-3">
+                  <div>
+                    <p class="text-xs uppercase tracking-[0.18em] text-cool-gray">Active Project</p>
+                    <p class="mt-1 text-sm font-semibold text-soft-white">PT Aurora Foods Transformation</p>
+                  </div>
+                  <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">
+                    Approved
+                  </span>
+                </div>
+                <div class="mt-4 grid gap-4 md:grid-cols-2">
+                  <article class="rounded-3xl border border-border-blue bg-navy-core/70 p-4">
+                    <div class="flex items-center justify-between">
+                      <p class="text-sm font-medium text-soft-white">Phase Readiness</p>
+                      <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">
+                        Live
+                      </span>
+                    </div>
+                    <div class="mt-4 flex items-end gap-3">
+                      <p class="font-mono text-4xl text-soft-white">78%</p>
+                      <p class="pb-1 text-sm text-cool-gray">Mostly Ready</p>
+                    </div>
+                    <div class="mt-4 h-2 rounded-full bg-white/10">
+                      <div class="h-2 w-[78%] rounded-full bg-gradient-to-r from-info to-maroon-glow"></div>
+                    </div>
+                    <p class="mt-3 text-sm text-cool-gray">Framework Readiness Index tracks coverage, validation, and traceability.</p>
+                  </article>
+                  <article class="rounded-3xl border border-border-blue bg-navy-core/70 p-4">
+                    <div class="flex items-center justify-between">
+                      <p class="text-sm font-medium text-soft-white">Approval Gate</p>
+                      <span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-warning">
+                        Locked
+                      </span>
+                    </div>
+                    <ul class="mt-4 space-y-3 text-sm text-cool-gray">
+                      <li class="flex items-start gap-3">
+                        <span class="mt-1 h-2 w-2 rounded-full bg-success"></span>
+                        EFE total weight validated to 1.0
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="mt-1 h-2 w-2 rounded-full bg-warning"></span>
+                        TOWS waits for approved key factors
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="mt-1 h-2 w-2 rounded-full bg-error"></span>
+                        QSPM blocks any AS = 0 input
+                      </li>
+                    </ul>
+                  </article>
+                </div>
+                <article class="mt-4 rounded-3xl border border-border-blue bg-navy-core/70 p-4">
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p class="text-sm font-medium text-soft-white">Strategic Theme Traceability</p>
+                      <p class="mt-1 text-sm text-cool-gray">Every output keeps visible source lineage from prior approved phases.</p>
+                    </div>
+                    <span class="rounded-full border border-maroon-glow/40 bg-maroon-glow/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-rose-200">
+                      Source: QSPM P9
+                    </span>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="border-y border-white/5 bg-navy-core/70 py-16 md:py-24">
+        <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
+          <div>
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-maroon-glow">Problem Statement</p>
+            <h2 class="mt-4 text-3xl font-semibold tracking-[-0.03em] text-soft-white sm:text-4xl">
+              Strategy work breaks down when analysis lives in disconnected files.
+            </h2>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="text-sm font-semibold text-soft-white">Untraceable recommendations</p>
+              <p class="mt-3 text-sm leading-7 text-cool-gray">
+                Teams often produce strategic ideas that cannot be traced back to approved external and internal factors.
+              </p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="text-sm font-semibold text-soft-white">Weak validation discipline</p>
+              <p class="mt-3 text-sm leading-7 text-cool-gray">
+                Weight totals, AQCD quality, and rating constraints are easy to miss when the process stays manual.
+              </p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="text-sm font-semibold text-soft-white">Broken phase flow</p>
+              <p class="mt-3 text-sm leading-7 text-cool-gray">
+                Teams jump ahead into synthesis and execution before earlier phases are approved and evidence-ready.
+              </p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="text-sm font-semibold text-soft-white">Executive view mismatch</p>
+              <p class="mt-3 text-sm leading-7 text-cool-gray">
+                Balanced Scorecard, strategy map, and summary outputs often lose their connection to the analysis base.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="framework" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+        <div class="flex max-w-3xl flex-col gap-4">
+          <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Framework Overview</p>
+          <h2 class="text-3xl font-semibold tracking-[-0.03em] text-soft-white sm:text-4xl">
+            Built around the full STRATEGOS journey from diagnosis to execution.
+          </h2>
+          <p class="text-base leading-8 text-cool-gray">
+            SOT-Drive structures the strategic workflow across input, matching, decision, and execution stages while keeping each phase reviewable, approvable, and evidence-based.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-4 lg:grid-cols-4">
+          <article class="rounded-3xl border border-border-blue bg-navy-surface/70 p-5 backdrop-blur-xl">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-cool-gray">Input Stage</p>
+            <h3 class="mt-3 text-xl font-semibold text-soft-white">Diagnosis + Matrices</h3>
+            <p class="mt-3 text-sm leading-7 text-cool-gray">Intake, EFE, IFE, and CPM establish the evidence base and scoring discipline.</p>
+          </article>
+          <article class="rounded-3xl border border-border-blue bg-navy-surface/70 p-5 backdrop-blur-xl">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-cool-gray">Matching Stage</p>
+            <h3 class="mt-3 text-xl font-semibold text-soft-white">TOWS + Positioning</h3>
+            <p class="mt-3 text-sm leading-7 text-cool-gray">SWOT/TOWS, SPACE, BCG, and IE shape strategic alternatives from approved inputs.</p>
+          </article>
+          <article class="rounded-3xl border border-border-blue bg-navy-surface/70 p-5 backdrop-blur-xl">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-cool-gray">Decision Stage</p>
+            <h3 class="mt-3 text-xl font-semibold text-soft-white">Intersection + QSPM</h3>
+            <p class="mt-3 text-sm leading-7 text-cool-gray">Intersection Rule and QSPM rank strategies without allowing invalid AS = 0 states.</p>
+          </article>
+          <article class="rounded-3xl border border-border-blue bg-navy-surface/70 p-5 backdrop-blur-xl">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-cool-gray">Execution Stage</p>
+            <h3 class="mt-3 text-xl font-semibold text-soft-white">BSC + Strategy Map</h3>
+            <p class="mt-3 text-sm leading-7 text-cool-gray">Balanced Scorecard and executive summary remain traceable to approved strategic themes.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="workflow" class="border-y border-white/5 bg-navy-core/70 py-16 md:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex max-w-3xl flex-col gap-4">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-maroon-glow">14-Phase Strategic Workflow</p>
+            <h2 class="text-3xl font-semibold tracking-[-0.03em] text-soft-white sm:text-4xl">
+              Every phase is visible, gated, and designed to prevent premature strategy jumps.
+            </h2>
+          </div>
+          <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P0</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">Intake &amp; Diagnosis</h3>
+              <p class="mt-2 text-sm text-cool-gray">Company profile, industry, products, goals, competitors, and available data.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P1</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">EFE Matrix</h3>
+              <p class="mt-2 text-sm text-cool-gray">External factors, AQCD quality, company-specific ratings, and weight control.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P2</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">IFE Matrix</h3>
+              <p class="mt-2 text-sm text-cool-gray">Strength and weakness scoring with rating constraints and validation guards.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P3</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">CPM Matrix</h3>
+              <p class="mt-2 text-sm text-cool-gray">Critical success factor comparison against industry competitors.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P4</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">SWOT &amp; TOWS</h3>
+              <p class="mt-2 text-sm text-cool-gray">Strategy formulation that only uses approved EFE and IFE key factors.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P5</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">SPACE Matrix</h3>
+              <p class="mt-2 text-sm text-cool-gray">FP, CP, SP, IP, coordinates, and quadrant logic shown in order.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P6</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">BCG Matrix</h3>
+              <p class="mt-2 text-sm text-cool-gray">RMSP and IGR displayed before quadrant classification.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P7</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">IE Matrix</h3>
+              <p class="mt-2 text-sm text-cool-gray">Derived from approved EFE and IFE scores, not manual re-entry.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P8</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">Intersection Rule</h3>
+              <p class="mt-2 text-sm text-cool-gray">Cross-tool synthesis appears before umbrella strategy decisions.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P9</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">QSPM Matrix</h3>
+              <p class="mt-2 text-sm text-cool-gray">AS values support blank or 1-4 only, never zero.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P10-P13</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">Balanced Scorecard</h3>
+              <p class="mt-2 text-sm text-cool-gray">Financial, Customer, Internal Process, and Learning &amp; Growth perspectives stay linked to themes.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-5 backdrop-blur-xl">
+              <p class="font-mono text-sm text-info">P14</p>
+              <h3 class="mt-3 text-lg font-semibold text-soft-white">Strategy Map &amp; Summary</h3>
+              <p class="mt-2 text-sm text-cool-gray">Cause-effect map and executive summary built only from approved prior outputs.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+        <div class="grid gap-6 lg:grid-cols-2">
+          <article class="rounded-[2rem] border border-border-blue bg-navy-surface/70 p-6 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Feature Highlights</p>
+            <h2 class="mt-4 text-3xl font-semibold tracking-[-0.03em] text-soft-white">Strategic discipline built into the interface.</h2>
+            <ul class="mt-6 space-y-4 text-sm leading-7 text-cool-gray">
+              <li class="flex gap-3">
+                <span class="mt-2 h-2.5 w-2.5 rounded-full bg-success"></span>
+                Approval gates lock the next phase until the current one is valid and approved.
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 h-2.5 w-2.5 rounded-full bg-info"></span>
+                Validation messaging keeps AQCD, weights, ratings, and traceability visible to the user.
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 h-2.5 w-2.5 rounded-full bg-maroon-glow"></span>
+                Results preserve source badges so strategic themes and BSC objectives stay evidence-based.
+              </li>
+            </ul>
+          </article>
+          <article class="rounded-[2rem] border border-border-blue bg-navy-surface/70 p-6 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-maroon-glow">What Teams Get</p>
+            <h2 class="mt-4 text-3xl font-semibold tracking-[-0.03em] text-soft-white">A cleaner path from analysis to executive communication.</h2>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              <div class="rounded-3xl border border-white/5 bg-white/5 p-4">
+                <p class="text-sm font-semibold text-soft-white">Consultant-ready</p>
+                <p class="mt-2 text-sm text-cool-gray">Structured project flow for client analysis and review.</p>
+              </div>
+              <div class="rounded-3xl border border-white/5 bg-white/5 p-4">
+                <p class="text-sm font-semibold text-soft-white">Executive-readable</p>
+                <p class="mt-2 text-sm text-cool-gray">Outcome views stay concise while keeping source lineage available.</p>
+              </div>
+              <div class="rounded-3xl border border-white/5 bg-white/5 p-4">
+                <p class="text-sm font-semibold text-soft-white">Framework-safe</p>
+                <p class="mt-2 text-sm text-cool-gray">Guardrails reduce invalid transitions and unsupported recommendations.</p>
+              </div>
+              <div class="rounded-3xl border border-white/5 bg-white/5 p-4">
+                <p class="text-sm font-semibold text-soft-white">Presentation-friendly</p>
+                <p class="mt-2 text-sm text-cool-gray">Dark premium visual language suited for strategic workshops and reporting.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="benefits" class="border-y border-white/5 bg-navy-core/70 py-16 md:py-24">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex max-w-3xl flex-col gap-4">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Benefits</p>
+            <h2 class="text-3xl font-semibold tracking-[-0.03em] text-soft-white sm:text-4xl">
+              Designed for consultants, strategy teams, owners, and executives.
+            </h2>
+          </div>
+          <div class="mt-10 grid gap-4 lg:grid-cols-3">
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-6 backdrop-blur-xl">
+              <p class="text-sm font-semibold text-soft-white">For consultants</p>
+              <p class="mt-3 text-sm leading-7 text-cool-gray">Organize client engagements with a visible strategic process, review states, and cleaner handoff outputs.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-6 backdrop-blur-xl">
+              <p class="text-sm font-semibold text-soft-white">For companies</p>
+              <p class="mt-3 text-sm leading-7 text-cool-gray">Translate internal and external analysis into aligned initiatives without losing rigor between phases.</p>
+            </article>
+            <article class="rounded-3xl border border-border-blue bg-white/5 p-6 backdrop-blur-xl">
+              <p class="text-sm font-semibold text-soft-white">For leadership</p>
+              <p class="mt-3 text-sm leading-7 text-cool-gray">Review strategic direction in a dashboard language that connects themes, objectives, and execution logic.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+        <div class="rounded-[2rem] border border-maroon-glow/30 bg-gradient-to-br from-maroon-glow/18 via-navy-surface/80 to-navy-core/90 p-8 shadow-glow backdrop-blur-xl md:p-10">
+          <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-200">How It Works</p>
+              <h2 class="mt-4 text-3xl font-semibold tracking-[-0.03em] text-soft-white sm:text-4xl">
+                A modern landing point for phase-gated strategic analysis.
+              </h2>
+              <p class="mt-4 max-w-3xl text-base leading-8 text-slate-200">
+                SOT-Drive helps companies move through STRATEGOS with visible workflow discipline, matrix validation, strategic traceability, and executive-ready outputs.
+              </p>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <a
+                href="register.html"
+                class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-maroon-glow to-maroon-dark px-6 py-3 text-sm font-semibold text-white shadow-cta transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+              >
+                Start With Registration
+              </a>
+              <a
+                href="login.html"
+                class="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-soft-white transition hover:border-info/30 hover:bg-white/10"
+              >
+                Open Login
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/5 bg-navy-deep">
+      <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 text-sm text-cool-gray sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+        <div>
+          <p class="font-semibold tracking-[0.16em] text-soft-white">SOT-DRIVE</p>
+          <p class="mt-2 max-w-2xl">
+            Phase-gated strategic analysis workspace built around the STRATEGOS framework with validation discipline and traceable outputs.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a class="transition hover:text-soft-white" href="#framework">Framework</a>
+          <a class="transition hover:text-soft-white" href="#workflow">Workflow</a>
+          <a class="transition hover:text-soft-white" href="login.html">Login</a>
+          <a class="transition hover:text-soft-white" href="register.html">Register</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
