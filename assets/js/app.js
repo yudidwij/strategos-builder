@@ -2,6 +2,8 @@
   const STORAGE_KEY = "sotdrive-analysis-draft-v1";
   const EFE_STORAGE_KEY = "sotdrive-efe-items-v1";
   const EFE_SETTINGS_KEY = "sotdrive-efe-settings-v1";
+  const IFE_STORAGE_KEY = "sotdrive-ife-items-v1";
+  const IFE_SETTINGS_KEY = "sotdrive-ife-settings-v1";
   const EFE_SOURCE_OPTIONS = [
     {
       label: "PESTEL",
@@ -18,10 +20,16 @@
       ],
     },
   ];
+  const IFE_SOURCE_OPTIONS = [
+    {
+      label: "McKinsey 7S",
+      values: ["Strategy", "Structure", "Systems", "Shared Values", "Style", "Staff", "Skills"],
+    },
+  ];
   const PHASE_WORKSPACE_MAP = [
     { key: "p0", section: "phase-0", label: "P0 Intake & Diagnosis", description: "Company baseline, objective, scope, and data assumptions." },
     { key: "p1", section: "phase-1", label: "P1 EFE Matrix", description: "External factor identification and EFE workspace.", href: "phase-1-efe.html" },
-    { key: "p2", section: "phase-2", label: "P2 IFE Matrix", description: "Internal factor evaluation and validation workspace." },
+    { key: "p2", section: "phase-2", label: "P2 IFE Matrix", description: "Internal factor evaluation and validation workspace.", href: "phase-2-ife.html" },
     { key: "p3", section: "phase-3", label: "P3 CPM Matrix", description: "Competitive profile input and comparison workspace." },
     { key: "p4", section: "phase-4", label: "P4 SWOT & TOWS", description: "TOWS strategy drafting based on approved external and internal factors." },
     { key: "p5", section: "phase-5", label: "P5 SPACE Matrix", description: "Matching tools workspace for SPACE, BCG, IE, and Intersection Rule." },
@@ -192,8 +200,33 @@
     return safeWriteJson(EFE_SETTINGS_KEY, settings);
   }
 
+  function getIfeItems() {
+    return safeReadJson(IFE_STORAGE_KEY, []);
+  }
+
+  function setIfeItems(items) {
+    return safeWriteJson(IFE_STORAGE_KEY, items);
+  }
+
+  function getIfeSettings() {
+    return safeReadJson(IFE_SETTINGS_KEY, { weightingMode: "manual" });
+  }
+
+  function setIfeSettings(settings) {
+    return safeWriteJson(IFE_SETTINGS_KEY, settings);
+  }
+
   function buildSourceOptions(selectedValue) {
     return EFE_SOURCE_OPTIONS.map((group) => {
+      const options = group.values
+        .map((value) => `<option value="${value}"${value === selectedValue ? " selected" : ""}>${value}</option>`)
+        .join("");
+      return `<optgroup label="${group.label}">${options}</optgroup>`;
+    }).join("");
+  }
+
+  function buildIfeSourceOptions(selectedValue) {
+    return IFE_SOURCE_OPTIONS.map((group) => {
       const options = group.values
         .map((value) => `<option value="${value}"${value === selectedValue ? " selected" : ""}>${value}</option>`)
         .join("");
@@ -902,6 +935,602 @@
     });
   }
 
+  function getIfeInputRows() {
+    return Array.from(document.querySelectorAll("[data-ife-input-body] tr[data-ife-row-id]"));
+  }
+
+  function getIfeRowMeta(row) {
+    const bank = row.dataset.ifeBank || "strength";
+    const slot = Number(row.dataset.ifeSlot || 0);
+    return {
+      bank,
+      type: bank === "weakness" ? "Weakness" : "Strength",
+      slot,
+      id: `${bank}-${slot}`,
+    };
+  }
+
+  function getIfeRowFields(row) {
+    return {
+      factorInput: row.querySelector("[data-ife-field='factor']"),
+      sourceSelect: row.querySelector("[data-ife-field='source']"),
+      actionable: row.querySelector("[data-ife-field='aqcd-a']"),
+      quantitative: row.querySelector("[data-ife-field='aqcd-q']"),
+      comparable: row.querySelector("[data-ife-field='aqcd-c']"),
+      divisional: row.querySelector("[data-ife-field='aqcd-d']"),
+      status: row.querySelector("[data-ife-row-status]"),
+    };
+  }
+
+  function createIfeInputRows() {
+    document.querySelectorAll("[data-ife-input-body]").forEach((tbody) => {
+      if (tbody.children.length) return;
+
+      const bank = tbody.dataset.ifeInputBody;
+      const toneClass = bank === "weakness" ? "divide-warning/20" : "divide-success/20";
+      tbody.classList.add(...toneClass.split(" "));
+
+      for (let slot = 1; slot <= 20; slot += 1) {
+        const row = document.createElement("tr");
+        const id = `${bank}-${slot}`;
+        row.dataset.ifeRowId = id;
+        row.dataset.ifeBank = bank;
+        row.dataset.ifeSlot = String(slot);
+        row.className = slot % 2 === 0 ? "bg-navy-surface/40" : "bg-white/5";
+        row.innerHTML = `
+          <td class="px-3 py-3 font-mono text-soft-white">${slot}</td>
+          <td class="px-3 py-3">
+            <input
+              type="text"
+              data-ife-field="factor"
+              placeholder="Input ${bank} factor ${slot}"
+              class="w-full rounded-2xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white placeholder:text-cool-gray"
+            />
+          </td>
+          <td class="px-3 py-3">
+            <select
+              data-ife-field="source"
+              class="w-full rounded-2xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white"
+            >
+              ${buildIfeSourceOptions("Strategy")}
+            </select>
+          </td>
+          <td class="px-3 py-3 text-center"><input data-ife-field="aqcd-a" type="checkbox" class="h-4 w-4 rounded border-border-blue bg-navy-deep text-info focus:ring-info" /></td>
+          <td class="px-3 py-3 text-center"><input data-ife-field="aqcd-q" type="checkbox" class="h-4 w-4 rounded border-border-blue bg-navy-deep text-info focus:ring-info" /></td>
+          <td class="px-3 py-3 text-center"><input data-ife-field="aqcd-c" type="checkbox" class="h-4 w-4 rounded border-border-blue bg-navy-deep text-info focus:ring-info" /></td>
+          <td class="px-3 py-3 text-center"><input data-ife-field="aqcd-d" type="checkbox" class="h-4 w-4 rounded border-border-blue bg-navy-deep text-info focus:ring-info" /></td>
+          <td class="px-3 py-3">
+            <div class="flex min-w-[12rem] flex-col gap-2">
+              <div class="flex gap-2">
+                <button
+                  type="button"
+                  data-managed-action="true"
+                  data-ife-action="save-row"
+                  data-ife-id="${id}"
+                  class="inline-flex flex-1 items-center justify-center rounded-xl border border-info/30 bg-info/10 px-3 py-2 text-xs font-medium text-soft-white transition hover:bg-info/20"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  data-managed-action="true"
+                  data-ife-action="clear-row"
+                  data-ife-id="${id}"
+                  class="inline-flex flex-1 items-center justify-center rounded-xl border border-border-blue bg-white/5 px-3 py-2 text-xs font-medium text-cool-gray transition hover:text-soft-white"
+                >
+                  Clear
+                </button>
+              </div>
+              <p data-ife-row-status class="text-xs text-cool-gray">Belum terdaftar.</p>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(row);
+      }
+    });
+  }
+
+  function getQualifiedIfeItems() {
+    return getIfeItems()
+      .map((item) => ({
+        ...item,
+        aqcdScore: getAqcdScore(item.aqcd || {}),
+      }))
+      .filter((item) => item.aqcdScore >= 2);
+  }
+
+  function getRankedIfeItems() {
+    return ["strength", "weakness"].flatMap((bank) =>
+      getQualifiedIfeItems()
+        .filter((item) => item.type.toLowerCase() === bank)
+        .sort((a, b) => b.aqcdScore - a.aqcdScore || a.slot - b.slot)
+        .slice(0, 10)
+    );
+  }
+
+  function updateIfePageSummary(items = getRankedIfeItems()) {
+    const strengthItems = items.filter((item) => item.type === "Strength");
+    const weaknessItems = items.filter((item) => item.type === "Weakness");
+    const summary = {
+      strength: strengthItems.length,
+      weakness: weaknessItems.length,
+      totalWeight: items.reduce((total, item) => total + Number(item.weight || 0), 0),
+      weightedScore: items.reduce((total, item) => total + Number(item.weightedScore || 0), 0),
+      strengthWeight: strengthItems.reduce((total, item) => total + Number(item.weight || 0), 0),
+      strengthScore: strengthItems.reduce((total, item) => total + Number(item.weightedScore || 0), 0),
+      weaknessWeight: weaknessItems.reduce((total, item) => total + Number(item.weight || 0), 0),
+      weaknessScore: weaknessItems.reduce((total, item) => total + Number(item.weightedScore || 0), 0),
+    };
+    const settings = getIfeSettings();
+    const balanced = Math.abs(summary.totalWeight - 1) < 0.001 || items.length === 0;
+
+    const mappings = {
+      "mode": settings.weightingMode === "auto" ? "Auto Pairwise" : "Manual",
+      "strength-count": `${summary.strength}/10`,
+      "weakness-count": `${summary.weakness}/10`,
+      "weight-total": summary.totalWeight.toFixed(2),
+      "weight-total-inline": summary.totalWeight.toFixed(2),
+      "weighted-score-total": summary.weightedScore.toFixed(2),
+      "weighted-score-total-inline": summary.weightedScore.toFixed(2),
+      "strength-weight-total": summary.strengthWeight.toFixed(2),
+      "strength-score-total": summary.strengthScore.toFixed(2),
+      "weakness-weight-total": summary.weaknessWeight.toFixed(2),
+      "weakness-score-total": summary.weaknessScore.toFixed(2),
+      "grand-weight-total": summary.totalWeight.toFixed(2),
+      "grand-score-total": summary.weightedScore.toFixed(2),
+    };
+
+    Object.entries(mappings).forEach(([key, value]) => {
+      const node = document.querySelector(`[data-ife-summary='${key}']`);
+      if (node) node.textContent = value;
+    });
+
+    const weightStatus = balanced
+      ? "Total bobot sudah seimbang pada 1.00."
+      : "Total bobot seluruh Strength + Weakness harus tepat 1.00.";
+    const statusNode = document.querySelector("[data-ife-summary='weight-status']");
+    const statusInlineNode = document.querySelector("[data-ife-summary='weight-status-inline']");
+    const grandStatusNode = document.querySelector("[data-ife-summary='grand-status']");
+    if (statusNode) {
+      statusNode.textContent = weightStatus;
+      statusNode.className = balanced ? "text-sm text-emerald-200" : "text-sm text-amber-200";
+    }
+    if (statusInlineNode) {
+      statusInlineNode.textContent = weightStatus;
+      statusInlineNode.className = balanced ? "mt-3 text-sm text-emerald-200" : "mt-3 text-sm text-amber-200";
+    }
+    if (grandStatusNode) {
+      grandStatusNode.textContent = balanced ? "Balanced at 1.00" : "Weight total must equal 1.00";
+      grandStatusNode.className = balanced ? "px-3 py-4 text-xs text-emerald-200" : "px-3 py-4 text-xs text-amber-200";
+    }
+
+    const analysisNode = document.querySelector("[data-ife-summary='analysis']");
+    if (analysisNode) {
+      if (!items.length) {
+        analysisNode.textContent =
+          "Belum ada faktor yang masuk ke Tabel Key Internal Factor. Simpan faktor brainstorming yang lolos AQCD terlebih dahulu.";
+      } else if (!balanced) {
+        analysisNode.textContent =
+          "Analisis belum final karena total bobot belum sama dengan 1.00. Samakan dulu total bobot Strength dan Weakness, lalu baca total weighted score.";
+      } else if (summary.weightedScore > 2.5) {
+        analysisNode.textContent =
+          `Total IFE ${summary.weightedScore.toFixed(2)} menunjukkan posisi internal perusahaan kuat. Kekuatan utama relatif lebih dominan dibanding kelemahan yang ada.`;
+      } else if (summary.weightedScore < 2.5) {
+        analysisNode.textContent =
+          `Total IFE ${summary.weightedScore.toFixed(2)} menunjukkan posisi internal perusahaan lemah. Kelemahan masih cukup dominan dan perlu diperbaiki sebelum strategi agresif dijalankan.`;
+      } else {
+        analysisNode.textContent =
+          `Total IFE ${summary.weightedScore.toFixed(2)} menunjukkan posisi internal perusahaan berada di titik rata-rata. Ada modal kekuatan, tetapi belum cukup konsisten untuk menjadi keunggulan internal yang kokoh.`;
+      }
+    }
+  }
+
+  function setIfeSlotStatus(row, message, tone = "default") {
+    const status = row.querySelector("[data-ife-row-status]");
+    if (!status) return;
+    const tones = {
+      default: "text-cool-gray",
+      success: "text-emerald-200",
+      warning: "text-amber-200",
+    };
+    status.className = `text-xs ${tones[tone] || tones.default}`;
+    status.textContent = message;
+  }
+
+  function hydrateIfeRowsFromStore() {
+    const items = getIfeItems();
+    const rankedIds = new Set(getRankedIfeItems().map((item) => item.id));
+    getIfeInputRows().forEach((row) => {
+      const meta = getIfeRowMeta(row);
+      const item = items.find((entry) => entry.id === meta.id);
+      const fields = getIfeRowFields(row);
+
+      if (item) {
+        if (fields.sourceSelect) fields.sourceSelect.value = item.source;
+        if (fields.factorInput) fields.factorInput.value = item.factor;
+        if (fields.actionable) fields.actionable.checked = !!item.aqcd?.actionable;
+        if (fields.quantitative) fields.quantitative.checked = !!item.aqcd?.quantitative;
+        if (fields.comparable) fields.comparable.checked = !!item.aqcd?.comparable;
+        if (fields.divisional) fields.divisional.checked = !!item.aqcd?.divisional;
+        if (rankedIds.has(item.id)) {
+          setIfeSlotStatus(row, "Lolos AQCD dan masuk tabel IFE.", "success");
+        } else if (getAqcdScore(item.aqcd || {}) >= 2) {
+          setIfeSlotStatus(row, "Lolos AQCD, tetapi belum masuk top 10.", "warning");
+        } else {
+          setIfeSlotStatus(row, "Belum terdaftar.", "default");
+        }
+      } else {
+        setIfeSlotStatus(row, "Belum terdaftar.", "default");
+      }
+    });
+  }
+
+  function getAllowedIfeRatings(type) {
+    return type === "Weakness" ? ["1", "2"] : ["3", "4"];
+  }
+
+  function buildIfeRatingOptions(type, selected) {
+    const allowed = getAllowedIfeRatings(type);
+    const options = allowed
+      .map((value) => `<option value="${value}"${selected === value ? " selected" : ""}>${value}</option>`)
+      .join("");
+    return `<option value=""${selected ? "" : " selected"}>Select</option>${options}`;
+  }
+
+  function applyAutoIfeWeights() {
+    setIfeSettings({ weightingMode: "auto" });
+    const items = getIfeItems().map((item) => ({ ...item }));
+    const rankedItems = getRankedIfeItems();
+
+    if (!rankedItems.length) {
+      updateIfePageSummary([]);
+      showToast("Belum ada faktor IFE yang lolos AQCD untuk dihitung bobotnya.", "warning");
+      return;
+    }
+
+    if (rankedItems.length === 1) {
+      const onlyId = rankedItems[0].id;
+      const nextItems = items.map((item) =>
+        item.id === onlyId
+          ? { ...item, weight: "1.00", weightedScore: calculateWeightedScore("1.00", item.rating) }
+          : item
+      );
+      setIfeItems(nextItems);
+      renderRegisteredIfeTables();
+      showToast("Auto pairwise diterapkan untuk 1 faktor IFE aktif.", "success");
+      return;
+    }
+
+    const weightsById = {};
+    let totalPairwise = 0;
+    rankedItems.forEach((leftItem, leftIndex) => {
+      let wins = 0;
+      rankedItems.forEach((rightItem, rightIndex) => {
+        if (leftIndex === rightIndex || leftIndex > rightIndex) return;
+        const leftScore = leftItem.aqcdScore;
+        const rightScore = rightItem.aqcdScore;
+        if (leftScore > rightScore) {
+          wins += 1;
+        } else if (leftScore < rightScore) {
+          weightsById[rightItem.id] = (weightsById[rightItem.id] || 0) + 1;
+        } else {
+          wins += 0.5;
+          weightsById[rightItem.id] = (weightsById[rightItem.id] || 0) + 0.5;
+        }
+        totalPairwise += 1;
+      });
+      weightsById[leftItem.id] = (weightsById[leftItem.id] || 0) + wins;
+    });
+
+    const rankedIds = new Set(rankedItems.map((item) => item.id));
+    const formattedWeightsById = {};
+    let assignedWeight = 0;
+    rankedItems.forEach((item, index) => {
+      if (totalPairwise <= 0) {
+        formattedWeightsById[item.id] = "0.00";
+        return;
+      }
+      if (index === rankedItems.length - 1) {
+        formattedWeightsById[item.id] = Math.max(0, 1 - assignedWeight).toFixed(2);
+        return;
+      }
+      const weight = ((weightsById[item.id] || 0) / totalPairwise).toFixed(2);
+      formattedWeightsById[item.id] = weight;
+      assignedWeight += Number.parseFloat(weight);
+    });
+
+    const nextItems = items.map((item) => {
+      if (!rankedIds.has(item.id)) return item;
+      const weight = formattedWeightsById[item.id] || "0.00";
+      return { ...item, weight, weightedScore: calculateWeightedScore(weight, item.rating) };
+    });
+
+    setIfeItems(nextItems);
+    renderRegisteredIfeTables();
+    showToast("Auto Weight Pairwise IFE berhasil diterapkan.", "success");
+  }
+
+  function setManualIfeWeightingMode() {
+    setIfeSettings({ weightingMode: "manual" });
+    renderRegisteredIfeTables();
+    showToast("Mode bobot manual IFE aktif. Pastikan total bobot = 1.00.", "info");
+  }
+
+  function renderRegisteredIfeTables() {
+    const items = getRankedIfeItems();
+    const settings = getIfeSettings();
+    const isManual = settings.weightingMode !== "auto";
+
+    ["strength", "weakness"].forEach((bank) => {
+      const tbody = document.querySelector(`[data-ife-registered-body="${bank}"]`);
+      if (!tbody) return;
+      const filtered = items.filter((item) => item.type.toLowerCase() === bank).sort((a, b) => b.aqcdScore - a.aqcdScore || a.slot - b.slot);
+      if (!filtered.length) {
+        tbody.innerHTML = `
+          <tr class="bg-white/5">
+            <td colspan="8" class="px-3 py-4 text-sm text-cool-gray">Belum ada ${bank} yang lolos AQCD dan terdaftar.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered
+        .map((item, index) => {
+          const score = item.aqcdScore;
+          const quality = getAqcdQuality(score);
+          const rowTone = index % 2 === 0 ? "bg-white/5" : "bg-navy-surface/40";
+          const qualityTone = quality === "High" ? "border-success/30 bg-success/10 text-success" : "border-warning/30 bg-warning/10 text-warning";
+          const weightValue = item.weight || "";
+          const weightedScore = calculateWeightedScore(weightValue, item.rating);
+          const validationText =
+            item.type === "Strength"
+              ? "Strength rating hanya boleh 3-4"
+              : "Weakness rating hanya boleh 1-2";
+          return `
+            <tr class="${rowTone}">
+              <td class="px-3 py-3 text-soft-white">${item.factor}</td>
+              <td class="px-3 py-3 text-cool-gray">${item.source}</td>
+              <td class="px-3 py-3 font-mono text-soft-white">${score}/4</td>
+              <td class="px-3 py-3"><span class="rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.16em] ${qualityTone}">${quality}</span></td>
+              <td class="px-3 py-3">
+                <input
+                  type="number"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  ${isManual ? "" : "disabled"}
+                  value="${weightValue}"
+                  data-managed-action="true"
+                  data-ife-table-field="weight"
+                  data-ife-id="${item.id}"
+                  class="w-24 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white disabled:cursor-not-allowed disabled:opacity-60"
+                />
+              </td>
+              <td class="px-3 py-3">
+                <select
+                  data-managed-action="true"
+                  data-ife-table-field="rating"
+                  data-ife-id="${item.id}"
+                  class="w-24 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white"
+                >
+                  ${buildIfeRatingOptions(item.type, item.rating)}
+                </select>
+              </td>
+              <td class="px-3 py-3 font-mono text-soft-white">${weightedScore || "-"}</td>
+              <td class="px-3 py-3">
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" data-managed-action="true" data-ife-table-action="edit" data-ife-id="${item.id}" class="inline-flex items-center justify-center rounded-xl border border-info/30 bg-info/10 px-3 py-2 text-xs font-medium text-soft-white transition hover:bg-info/20">Edit</button>
+                  <button type="button" data-managed-action="true" data-ife-table-action="delete" data-ife-id="${item.id}" class="inline-flex items-center justify-center rounded-xl border border-warning/30 bg-warning/10 px-3 py-2 text-xs font-medium text-soft-white transition hover:bg-warning/20">Delete</button>
+                </div>
+                <p class="mt-2 text-[11px] text-cool-gray">${validationText}</p>
+              </td>
+            </tr>
+          `;
+        })
+        .join("");
+    });
+
+    updateIfePageSummary(items);
+    hydrateIfeRowsFromStore();
+  }
+
+  function updateIfeEvaluationField(id, field, value) {
+    const items = getIfeItems();
+    const item = items.find((entry) => entry.id === id);
+    if (!item) return;
+
+    if (field === "rating") {
+      const allowed = getAllowedIfeRatings(item.type);
+      if (value && !allowed.includes(value)) {
+        showToast(item.type === "Strength" ? "Strength hanya boleh memakai rating 3 atau 4." : "Weakness hanya boleh memakai rating 1 atau 2.", "warning");
+        renderRegisteredIfeTables();
+        return;
+      }
+    }
+
+    const nextItems = items.map((entry) => {
+      if (entry.id !== id) return entry;
+      const nextValue = field === "weight" ? normalizeWeightValue(value) : value;
+      const nextItem = { ...entry, [field]: nextValue };
+      nextItem.weightedScore = calculateWeightedScore(nextItem.weight, nextItem.rating);
+      return nextItem;
+    });
+    setIfeItems(nextItems);
+    renderRegisteredIfeTables();
+  }
+
+  function saveIfeRow(id, options = {}) {
+    const { silent = false } = options;
+    const row = getIfeInputRows().find((entry) => getIfeRowMeta(entry).id === id);
+    if (!row) return;
+    const { type, slot } = getIfeRowMeta(row);
+    const fields = getIfeRowFields(row);
+    const factor = fields.factorInput?.value?.trim() || "";
+    if (!factor) {
+      setIfeSlotStatus(row, "Factor wajib diisi sebelum disimpan.", "warning");
+      if (!silent) showToast("Factor IFE belum diisi.", "warning");
+      return;
+    }
+
+    const aqcd = {
+      actionable: !!fields.actionable?.checked,
+      quantitative: !!fields.quantitative?.checked,
+      comparable: !!fields.comparable?.checked,
+      divisional: !!fields.divisional?.checked,
+    };
+    const aqcdScore = getAqcdScore(aqcd);
+    if (aqcdScore < 2) {
+      setIfeSlotStatus(row, "AQCD masih rendah. Minimal 2 checklist untuk register.", "warning");
+      if (!silent) showToast("AQCD terlalu rendah. Faktor belum bisa diregister.", "warning");
+      return;
+    }
+
+    const source = fields.sourceSelect?.value || "Strategy";
+    const items = getIfeItems().filter((item) => item.id !== id);
+    const existing = getIfeItems().find((item) => item.id === id);
+    items.push({
+      id,
+      type,
+      slot,
+      source,
+      factor,
+      aqcd,
+      weight: existing?.weight || "",
+      rating: existing?.rating || "",
+      weightedScore: existing?.weightedScore || "",
+    });
+    setIfeItems(items);
+    saveAllFields();
+    updateDraftIndicators();
+    renderRegisteredIfeTables();
+    const rankedIds = new Set(getRankedIfeItems().map((item) => item.id));
+    setIfeSlotStatus(row, rankedIds.has(id) ? "Lolos AQCD dan masuk tabel IFE." : "Lolos AQCD, tetapi belum masuk top 10.", rankedIds.has(id) ? "success" : "warning");
+    if (!silent) showToast(`${type} ${slot} berhasil disimpan dengan AQCD ${aqcdScore}/4.`, "success");
+  }
+
+  function saveIfeBank(bank) {
+    const rows = getIfeInputRows().filter((row) => getIfeRowMeta(row).bank === bank);
+    let savedCount = 0;
+    let skippedEmpty = 0;
+    let skippedLowAqcd = 0;
+    rows.forEach((row) => {
+      const meta = getIfeRowMeta(row);
+      const fields = getIfeRowFields(row);
+      const factor = fields.factorInput?.value?.trim() || "";
+      if (!factor) {
+        skippedEmpty += 1;
+        return;
+      }
+      const aqcd = {
+        actionable: !!fields.actionable?.checked,
+        quantitative: !!fields.quantitative?.checked,
+        comparable: !!fields.comparable?.checked,
+        divisional: !!fields.divisional?.checked,
+      };
+      if (getAqcdScore(aqcd) < 2) {
+        setIfeSlotStatus(row, "AQCD masih rendah. Minimal 2 checklist untuk register.", "warning");
+        skippedLowAqcd += 1;
+        return;
+      }
+      saveIfeRow(meta.id, { silent: true });
+      savedCount += 1;
+    });
+    const bankLabel = bank === "weakness" ? "Weakness" : "Strength";
+    showToast(`${bankLabel}: ${savedCount} tersimpan, ${skippedLowAqcd} AQCD rendah, ${skippedEmpty} kosong.`, savedCount > 0 ? "success" : "warning");
+  }
+
+  function clearIfeRow(id, removeSaved = false) {
+    const row = getIfeInputRows().find((entry) => getIfeRowMeta(entry).id === id);
+    if (!row) return;
+    const fields = getIfeRowFields(row);
+    if (fields.sourceSelect) fields.sourceSelect.value = IFE_SOURCE_OPTIONS[0].values[0];
+    if (fields.factorInput) fields.factorInput.value = "";
+    if (fields.actionable) fields.actionable.checked = false;
+    if (fields.quantitative) fields.quantitative.checked = false;
+    if (fields.comparable) fields.comparable.checked = false;
+    if (fields.divisional) fields.divisional.checked = false;
+    if (removeSaved) {
+      setIfeItems(getIfeItems().filter((item) => item.id !== id));
+      renderRegisteredIfeTables();
+      setIfeSlotStatus(row, "Item dihapus dari tabel evaluasi.", "warning");
+      showToast("Item IFE berhasil dihapus.", "success");
+    } else {
+      setIfeSlotStatus(row, "Baris dibersihkan. Simpan lagi jika perlu.", "default");
+    }
+    saveAllFields();
+    updateDraftIndicators();
+  }
+
+  function editIfeRow(id) {
+    const items = getIfeItems();
+    const item = items.find((entry) => entry.id === id);
+    const row = getIfeInputRows().find((entry) => getIfeRowMeta(entry).id === id);
+    if (!item || !row) return;
+    const fields = getIfeRowFields(row);
+    if (fields.sourceSelect) fields.sourceSelect.value = item.source;
+    if (fields.factorInput) fields.factorInput.value = item.factor;
+    if (fields.actionable) fields.actionable.checked = !!item.aqcd?.actionable;
+    if (fields.quantitative) fields.quantitative.checked = !!item.aqcd?.quantitative;
+    if (fields.comparable) fields.comparable.checked = !!item.aqcd?.comparable;
+    if (fields.divisional) fields.divisional.checked = !!item.aqcd?.divisional;
+    saveAllFields();
+    updateDraftIndicators();
+    setIfeSlotStatus(row, "Mode edit aktif. Ubah nilai lalu klik Save.", "success");
+    row.scrollIntoView({ behavior: "smooth", block: "center" });
+    showToast(`Mode edit dibuka untuk ${item.type.toLowerCase()} ${item.slot}.`, "info");
+  }
+
+  function attachIfeInteractions() {
+    if (!document.querySelector("[data-ife-input-body]")) return;
+
+    createIfeInputRows();
+    hydrateIfeRowsFromStore();
+    renderRegisteredIfeTables();
+
+    document.addEventListener("click", (event) => {
+      const saveButton = event.target.closest("[data-ife-action='save-row']");
+      if (saveButton) {
+        saveIfeRow(saveButton.dataset.ifeId);
+        return;
+      }
+      const clearButton = event.target.closest("[data-ife-action='clear-row']");
+      if (clearButton) {
+        clearIfeRow(clearButton.dataset.ifeId, false);
+        return;
+      }
+      const saveBankButton = event.target.closest("[data-ife-action='save-bank']");
+      if (saveBankButton) {
+        saveIfeBank(saveBankButton.dataset.ifeBank);
+        return;
+      }
+      const autoWeightButton = event.target.closest("[data-ife-weight-mode='auto']");
+      if (autoWeightButton) {
+        applyAutoIfeWeights();
+        return;
+      }
+      const manualWeightButton = event.target.closest("[data-ife-weight-mode='manual']");
+      if (manualWeightButton) {
+        setManualIfeWeightingMode();
+        return;
+      }
+      const editButton = event.target.closest("[data-ife-table-action='edit']");
+      if (editButton) {
+        editIfeRow(editButton.dataset.ifeId);
+        return;
+      }
+      const deleteButton = event.target.closest("[data-ife-table-action='delete']");
+      if (deleteButton) {
+        clearIfeRow(deleteButton.dataset.ifeId, true);
+      }
+    });
+
+    document.addEventListener("change", (event) => {
+      const field = event.target.closest("[data-ife-table-field]");
+      if (!field) return;
+      updateIfeEvaluationField(field.dataset.ifeId, field.dataset.ifeTableField, field.value);
+    });
+  }
+
   function getActivePhaseConfig() {
     const params = new URLSearchParams(window.location.search);
     const phaseKey = params.get("phase") || "p0";
@@ -1080,8 +1709,11 @@
   function init() {
     attachExportActions();
 
-    if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-efe") {
+    if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-efe" || document.body.dataset.page === "phase-ife") {
       attachDraftPersistence();
+      if (document.body.dataset.page === "phase-ife") {
+        attachIfeInteractions();
+      }
       if (document.body.dataset.page === "analysis") {
         updatePhaseWorkspaceRouting();
       }

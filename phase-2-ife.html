@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P2 IFE Matrix | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Dedicated Phase 2 IFE Matrix workspace for internal factor brainstorming, AQCD filtering, and IFE evaluation."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+              locked: "#475569",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+              cta: "0 16px 48px rgba(138, 31, 53, 0.35)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body data-page="phase-ife" class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.18),transparent_36%)]"></div>
+    <div class="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-info/10 blur-3xl"></div>
+
+    <div class="min-h-screen lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
+      <aside class="border-b border-white/5 bg-navy-core/90 backdrop-blur-xl lg:min-h-screen lg:border-b-0 lg:border-r lg:border-white/5">
+        <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-6">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold text-soft-white">SD</div>
+            <div>
+              <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+              <p class="text-xs text-cool-gray">Phase 2 Workspace</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="px-4 pb-6 sm:px-6 lg:px-6">
+          <div class="rounded-[1.75rem] border border-border-blue bg-navy-surface/70 p-4 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Active Phase</p>
+            <h2 class="mt-3 text-base font-semibold text-soft-white">P2 Internal Factor Evaluation</h2>
+            <p class="mt-2 text-sm leading-6 text-cool-gray">
+              Brainstorm internal factors with 7S classification, filter them through AQCD, then evaluate the top factors in the IFE matrix.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">Dedicated Page</span>
+              <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">Max 20 + 20</span>
+            </div>
+          </div>
+
+          <nav class="mt-6 space-y-2">
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="dashboard.html"><span>Overview</span><span class="text-xs text-cool-gray">F5</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm text-soft-white" href="analysis.html"><span>Analysis Hub</span><span class="text-xs text-sky-100">Back</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-warning/30 bg-warning/10 px-4 py-3 text-sm font-medium text-soft-white" href="phase-2-ife.html"><span>P2 IFE Matrix</span><span class="text-xs text-amber-100">Live</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="results.html"><span>Results Dashboard</span><span class="text-xs text-cool-gray">Output</span></a>
+          </nav>
+
+          <div class="mt-6 rounded-[1.75rem] border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">P2 Rules</p>
+            <ul class="mt-4 space-y-3 text-sm text-cool-gray">
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-success"></span>Brainstorming bank can store up to 20 `Strength` and 20 `Weakness` factors.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-warning"></span>Only the top 10 AQCD-qualified factors per group move into the IFE evaluation tables.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-info"></span>`Strength` ratings only use `3-4`, while `Weakness` ratings only use `1-2`.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <div class="flex min-h-screen flex-col">
+        <header class="border-b border-white/5 bg-navy-deep/80 backdrop-blur-xl">
+          <div class="flex flex-col gap-4 px-4 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Phase 2 Dedicated Workspace</p>
+              <h1 class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-soft-white sm:text-3xl">IFE Matrix with brainstorming bank and evaluation table</h1>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="analysis.html" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Back to Analysis Hub</a>
+              <a href="analysis.html?phase=p3" class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-maroon-glow to-maroon-dark px-5 py-3 text-sm font-semibold text-white shadow-cta transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Continue to P3 CPM</a>
+            </div>
+          </div>
+        </header>
+
+        <main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <section class="rounded-[1.75rem] border border-maroon-glow/30 bg-maroon-glow/10 p-6 shadow-glow backdrop-blur-xl">
+            <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+              <div>
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-200">IFE Workspace</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Dua lapis kerja untuk faktor internal</h2>
+                <p class="mt-3 max-w-3xl text-sm leading-7 text-rose-50/85">
+                  Bagian pertama dipakai untuk brainstorming dan filter AQCD. Bagian kedua adalah tabel IFE akhir yang hanya
+                  memuat top 10 `Strength` dan top 10 `Weakness` hasil filter kualitas.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <button type="button" data-export="excel" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark">Download Excel</button>
+                <button type="button" data-export="pdf" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark">Download PDF</button>
+              </div>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <p data-draft-indicator class="text-sm text-rose-50/80">Draft autosave belum berisi data</p>
+              <div class="flex flex-wrap gap-3">
+                <button type="button" data-managed-action="true" data-ife-weight-mode="auto" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20">Auto Weight Pairwise</button>
+                <button type="button" data-managed-action="true" data-ife-weight-mode="manual" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10">Use Manual Weighting</button>
+              </div>
+            </div>
+
+            <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+              <article class="rounded-3xl border border-border-blue bg-navy-surface/70 p-4"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Mode</p><p data-ife-summary="mode" class="mt-3 text-lg font-semibold text-soft-white">Manual</p></article>
+              <article class="rounded-3xl border border-border-blue bg-navy-surface/70 p-4"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Strength in IFE</p><p data-ife-summary="strength-count" class="mt-3 text-lg font-semibold text-soft-white">0/10</p></article>
+              <article class="rounded-3xl border border-border-blue bg-navy-surface/70 p-4"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Weakness in IFE</p><p data-ife-summary="weakness-count" class="mt-3 text-lg font-semibold text-soft-white">0/10</p></article>
+              <article class="rounded-3xl border border-border-blue bg-navy-surface/70 p-4"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Total Weight</p><p data-ife-summary="weight-total" class="mt-3 font-mono text-lg font-semibold text-soft-white">0.00</p></article>
+              <article class="rounded-3xl border border-border-blue bg-navy-surface/70 p-4"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Total Weighted Score</p><p data-ife-summary="weighted-score-total" class="mt-3 font-mono text-lg font-semibold text-soft-white">0.00</p></article>
+            </div>
+            <p data-ife-summary="weight-status" class="mt-4 text-sm text-amber-200">Total bobot seluruh Strength + Weakness harus tepat 1.00.</p>
+          </section>
+
+          <section class="mt-6 grid gap-6 xl:grid-cols-2">
+            <article class="rounded-[2rem] border border-success/30 bg-success/10 p-5 shadow-panel backdrop-blur-xl">
+              <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-success">Part 1</p>
+                  <h2 class="mt-2 text-xl font-semibold text-soft-white">Strength Brainstorming Bank</h2>
+                  <p class="mt-2 text-sm text-emerald-50/85">Simpan hingga 20 faktor. Gunakan klasifikasi internal `7S` untuk memetakan kekuatan utama perusahaan.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                  <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-success">20 Slots</span>
+                  <button type="button" data-managed-action="true" data-ife-action="save-bank" data-ife-bank="strength" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20">Save All Strength</button>
+                </div>
+              </div>
+              <div class="mt-4 rounded-2xl border border-white/10 bg-black/10 p-4 text-sm text-emerald-50/85">
+                Klasifikasi yang digunakan: `Strategy`, `Structure`, `Systems`, `Shared Values`, `Style`, `Staff`, `Skills`.
+              </div>
+              <div class="mt-5 overflow-x-auto rounded-2xl border border-success/30">
+                <table class="min-w-[1280px] text-left text-sm">
+                  <caption class="sr-only">Strength AQCD brainstorming table</caption>
+                  <thead class="bg-navy-elevated text-slate-100">
+                    <tr>
+                      <th class="px-3 py-3">No</th>
+                      <th class="px-3 py-3">Factor</th>
+                      <th class="px-3 py-3">7S Classification</th>
+                      <th class="px-3 py-3" title="Actionable: faktor ini harus bisa mendorong keputusan atau tindakan strategis">Actionable</th>
+                      <th class="px-3 py-3" title="Quantitative: faktor sebaiknya mengandung angka, rasio, atau ukuran yang bisa dihitung">Quantitative</th>
+                      <th class="px-3 py-3" title="Comparable: faktor sebaiknya bisa dibandingkan antar waktu, antar kondisi, atau antar unit">Comparable</th>
+                      <th class="px-3 py-3" title="Divisional: faktor sebaiknya relevan ke fungsi, unit, wilayah, produk, atau segmen tertentu">Divisional</th>
+                      <th class="px-3 py-3">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody data-ife-input-body="strength" class="divide-y divide-success/20"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="rounded-[2rem] border border-warning/30 bg-warning/10 p-5 shadow-panel backdrop-blur-xl">
+              <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-warning">Part 1</p>
+                  <h2 class="mt-2 text-xl font-semibold text-soft-white">Weakness Brainstorming Bank</h2>
+                  <p class="mt-2 text-sm text-amber-50/85">Simpan hingga 20 faktor. Gunakan klasifikasi internal `7S` untuk memetakan kelemahan utama perusahaan.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                  <span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-warning">20 Slots</span>
+                  <button type="button" data-managed-action="true" data-ife-action="save-bank" data-ife-bank="weakness" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20">Save All Weakness</button>
+                </div>
+              </div>
+              <div class="mt-4 rounded-2xl border border-white/10 bg-black/10 p-4 text-sm text-amber-50/85">
+                Rating untuk kelemahan di Part 2 hanya boleh `1` atau `2`.
+              </div>
+              <div class="mt-5 overflow-x-auto rounded-2xl border border-warning/30">
+                <table class="min-w-[1280px] text-left text-sm">
+                  <caption class="sr-only">Weakness AQCD brainstorming table</caption>
+                  <thead class="bg-navy-elevated text-slate-100">
+                    <tr>
+                      <th class="px-3 py-3">No</th>
+                      <th class="px-3 py-3">Factor</th>
+                      <th class="px-3 py-3">7S Classification</th>
+                      <th class="px-3 py-3" title="Actionable: faktor ini harus bisa mendorong keputusan atau tindakan strategis">Actionable</th>
+                      <th class="px-3 py-3" title="Quantitative: faktor sebaiknya mengandung angka, rasio, atau ukuran yang bisa dihitung">Quantitative</th>
+                      <th class="px-3 py-3" title="Comparable: faktor sebaiknya bisa dibandingkan antar waktu, antar kondisi, atau antar unit">Comparable</th>
+                      <th class="px-3 py-3" title="Divisional: faktor sebaiknya relevan ke fungsi, unit, wilayah, produk, atau segmen tertentu">Divisional</th>
+                      <th class="px-3 py-3">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody data-ife-input-body="weakness" class="divide-y divide-warning/20"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Part 2</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Tabel Key Internal Factor</h2>
+                <p class="mt-3 max-w-3xl text-sm leading-7 text-cool-gray">
+                  Tabel ini hanya menampilkan top 10 faktor `Strength` dan top 10 faktor `Weakness` yang lolos AQCD.
+                  Bobot bisa dihitung otomatis dengan auto pairwise heuristic atau dimasukkan manual oleh user.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                `Strength` memakai rating `3-4`, sedangkan `Weakness` memakai rating `1-2`. `Weighted Score` dihitung sebagai `Weight × Rating`.
+              </div>
+            </div>
+
+            <div class="mt-6 space-y-6">
+              <article class="rounded-[1.75rem] border border-success/30 bg-success/10 p-4">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold text-soft-white">Strength</p>
+                    <p class="mt-1 text-sm text-emerald-50/85">Top 10 hasil AQCD untuk kekuatan internal.</p>
+                  </div>
+                  <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-success">Max 10</span>
+                </div>
+                <div class="mt-4 overflow-x-auto rounded-2xl border border-success/30">
+                  <table class="min-w-[1120px] table-fixed text-left text-sm">
+                    <caption class="sr-only">Strength IFE evaluation table</caption>
+                    <colgroup>
+                      <col class="w-[30%]" />
+                      <col class="w-[16%]" />
+                      <col class="w-[9%]" />
+                      <col class="w-[10%]" />
+                      <col class="w-[9%]" />
+                      <col class="w-[8%]" />
+                      <col class="w-[10%]" />
+                      <col class="w-[18%]" />
+                    </colgroup>
+                    <thead class="bg-success/10 text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">Factor</th>
+                        <th class="px-3 py-3">Source</th>
+                        <th class="px-3 py-3">AQCD Score</th>
+                        <th class="px-3 py-3">Quality</th>
+                        <th class="px-3 py-3">Weight</th>
+                        <th class="px-3 py-3">Rating</th>
+                        <th class="px-3 py-3">Weighted Score</th>
+                        <th class="px-3 py-3">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody data-ife-registered-body="strength" class="divide-y divide-success/20"></tbody>
+                    <tfoot>
+                      <tr class="border-t border-success/30 bg-success/5">
+                        <td colspan="4" class="px-3 py-3 text-sm font-semibold text-soft-white">Strength Subtotal</td>
+                        <td data-ife-summary="strength-weight-total" class="px-3 py-3 font-mono text-soft-white">0.00</td>
+                        <td class="px-3 py-3 text-cool-gray">-</td>
+                        <td data-ife-summary="strength-score-total" class="px-3 py-3 font-mono text-soft-white">0.00</td>
+                        <td class="px-3 py-3 text-cool-gray">-</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </article>
+
+              <article class="rounded-[1.75rem] border border-warning/30 bg-warning/10 p-4">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold text-soft-white">Weakness</p>
+                    <p class="mt-1 text-sm text-amber-50/85">Top 10 hasil AQCD untuk kelemahan internal.</p>
+                  </div>
+                  <span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-warning">Max 10</span>
+                </div>
+                <div class="mt-4 overflow-x-auto rounded-2xl border border-warning/30">
+                  <table class="min-w-[1120px] table-fixed text-left text-sm">
+                    <caption class="sr-only">Weakness IFE evaluation table</caption>
+                    <colgroup>
+                      <col class="w-[30%]" />
+                      <col class="w-[16%]" />
+                      <col class="w-[9%]" />
+                      <col class="w-[10%]" />
+                      <col class="w-[9%]" />
+                      <col class="w-[8%]" />
+                      <col class="w-[10%]" />
+                      <col class="w-[18%]" />
+                    </colgroup>
+                    <thead class="bg-warning/10 text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">Factor</th>
+                        <th class="px-3 py-3">Source</th>
+                        <th class="px-3 py-3">AQCD Score</th>
+                        <th class="px-3 py-3">Quality</th>
+                        <th class="px-3 py-3">Weight</th>
+                        <th class="px-3 py-3">Rating</th>
+                        <th class="px-3 py-3">Weighted Score</th>
+                        <th class="px-3 py-3">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody data-ife-registered-body="weakness" class="divide-y divide-warning/20"></tbody>
+                    <tfoot>
+                      <tr class="border-t border-warning/30 bg-warning/5">
+                        <td colspan="4" class="px-3 py-3 text-sm font-semibold text-soft-white">Weakness Subtotal</td>
+                        <td data-ife-summary="weakness-weight-total" class="px-3 py-3 font-mono text-soft-white">0.00</td>
+                        <td class="px-3 py-3 text-cool-gray">-</td>
+                        <td data-ife-summary="weakness-score-total" class="px-3 py-3 font-mono text-soft-white">0.00</td>
+                        <td class="px-3 py-3 text-cool-gray">-</td>
+                      </tr>
+                      <tr class="border-t border-warning/30 bg-navy-core/80">
+                        <td colspan="4" class="px-3 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-soft-white">Grand Total Key Internal Factor</td>
+                        <td data-ife-summary="grand-weight-total" class="px-3 py-4 font-mono text-base font-semibold text-soft-white">0.00</td>
+                        <td class="px-3 py-4 text-cool-gray">-</td>
+                        <td data-ife-summary="grand-score-total" class="px-3 py-4 font-mono text-base font-semibold text-soft-white">0.00</td>
+                        <td data-ife-summary="grand-status" class="px-3 py-4 text-xs text-amber-200">Weight total must equal 1.00</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </article>
+
+              <article class="rounded-[1.75rem] border border-border-blue bg-navy-core/70 p-5">
+                <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Total Bobot</p><p data-ife-summary="weight-total-inline" class="mt-3 font-mono text-2xl font-semibold text-soft-white">0.00</p></div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Total Weighted Score</p><p data-ife-summary="weighted-score-total-inline" class="mt-3 font-mono text-2xl font-semibold text-soft-white">0.00</p></div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4 md:col-span-2"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Status Bobot</p><p data-ife-summary="weight-status-inline" class="mt-3 text-sm text-amber-200">Total bobot seluruh Strength + Weakness harus tepat 1.00.</p></div>
+                </div>
+                <div class="mt-5 rounded-2xl border border-info/30 bg-info/10 p-4">
+                  <p class="text-sm font-semibold text-soft-white">Analisis Hasil IFE</p>
+                  <p data-ife-summary="analysis" class="mt-2 text-sm leading-7 text-sky-50/90">
+                    Lengkapi bobot dan rating terlebih dahulu. Sistem akan membaca total IFE untuk menilai apakah posisi internal perusahaan kuat atau lemah.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

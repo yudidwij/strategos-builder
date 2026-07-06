@@ -31,12 +31,14 @@
 - Analysis input workspace for all STRATEGOS phases
 - Analysis workspace now supports phase-focused `sub-page` style navigation using `analysis.html?phase=...` as the first step toward a more comprehensive per-phase flow
 - `P1 EFE` now has a dedicated HTML workspace at `phase-1-efe.html`, while `analysis.html` acts as the hub for opening phase workspaces
+- `P2 IFE` now has a dedicated HTML workspace at `phase-2-ife.html`, while `analysis.html` acts as the hub for opening phase workspaces
 - EFE Matrix refined with separate `Opportunity` and `Threat` input banks, up to 10 entries per side, sourced from `PESTEL` and `Porter Five Forces`
 - P1 EFE now uses table-based input rows with per-factor `AQCD` check columns, hover guidance, and registration into evaluation tables only after meeting the AQCD minimum
 - P1 EFE brainstorming banks now support up to `20 Opportunity` and `20 Threat` rows, while the EFE evaluation tables keep only the top `10` AQCD-qualified rows per side
 - P1 EFE evaluation now supports editable `weight`, `rating`, and live `weighted score`, with `manual` mode and `auto pairwise` mode for frontend-only weighting
 - P1 EFE brainstorming banks now include `Save All Opportunity` and `Save All Threat` actions, and Part 2 presents a single `Tabel Key External Factor` stack with total weight, total weighted score, and interpretation text
 - The P1 EFE tables now also show in-table subtotal rows for `Opportunity` and `Threat`, plus a `Grand Total Key External Factor` row at the bottom of the threat table
+- P2 IFE follows the same dedicated-page pattern with `Strength` and `Weakness` brainstorming banks, `7S` classification, top-10 qualified key factors, and IFE-specific rating rules (`Strength` 3-4, `Weakness` 1-2)
 - EFE guidance now reflects `AQCD` quality screening and `pairwise comparison` as the recommended weight-setting method
 - EFE factors now support frontend `save`, `edit`, and `delete` behavior with live table refresh in the analysis workspace
 - Legacy seeded EFE demo rows are automatically cleaned from browser storage so the workspace opens in a cleaner state
