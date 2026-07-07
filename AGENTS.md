@@ -13,6 +13,8 @@ Primary objective:
 
 ## Source of Truth Documents
 
+Implementation note: the current workspace already includes a dedicated Phase 8 Intersection Rule experience with synthesis table, integration gate controls, and umbrella strategy grouping for QSPM preparation.
+
 Read and follow these files in this repository:
 
 1. `PRD.md`

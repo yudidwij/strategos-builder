@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P8 Intersection Rule | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Dedicated Phase 8 Intersection Rule workspace for strategy synthesis, integration gate, and umbrella strategy preparation."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+              locked: "#475569",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body data-page="phase-intersection" class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.18),transparent_36%)]"></div>
+    <div class="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-info/10 blur-3xl"></div>
+
+    <div class="min-h-screen lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
+      <aside class="border-b border-white/5 bg-navy-core/90 backdrop-blur-xl lg:min-h-screen lg:border-b-0 lg:border-r lg:border-white/5">
+        <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-6">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold text-soft-white">SD</div>
+            <div>
+              <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+              <p class="text-xs text-cool-gray">Phase 8 Workspace</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="px-4 pb-6 sm:px-6 lg:px-6">
+          <div class="rounded-[1.75rem] border border-border-blue bg-navy-surface/70 p-4 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Active Phase</p>
+            <h2 class="mt-3 text-base font-semibold text-soft-white">P8 Intersection Rule</h2>
+            <p class="mt-2 text-sm leading-6 text-cool-gray">
+              Fase sintesis yang menggabungkan rekomendasi strategi dari TOWS, SPACE, BCG, dan IE sebelum masuk ke QSPM.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">Dedicated Page</span>
+              <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">Matching Stage</span>
+            </div>
+          </div>
+
+          <nav class="mt-6 space-y-2">
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="dashboard.html"><span>Overview</span><span class="text-xs text-cool-gray">F5</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm text-soft-white" href="analysis.html"><span>Analysis Hub</span><span class="text-xs text-sky-100">Back</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-soft-white" href="phase-7-ie.html"><span>P7 IE Matrix</span><span class="text-xs text-cool-gray">Prev</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white" href="phase-8-intersection.html"><span>P8 Intersection Rule</span><span class="text-xs text-sky-100">Live</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="results.html"><span>Results Dashboard</span><span class="text-xs text-cool-gray">Output</span></a>
+          </nav>
+
+          <div class="mt-6 rounded-[1.75rem] border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">P8 Rules</p>
+            <ul class="mt-4 space-y-3 text-sm text-cool-gray">
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-success"></span>Strategi yang muncul di 3+ tools menjadi prioritas utama.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-warning"></span>Strategi yang muncul di 2 tools menjadi kandidat dengan catatan.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-info"></span>Strategi integration wajib melewati `Integration Gate` sebelum siap ke QSPM.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <div class="flex min-h-screen flex-col">
+        <header class="border-b border-white/5 bg-navy-deep/80 backdrop-blur-xl">
+          <div class="flex flex-col gap-4 px-4 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Phase 8 Dedicated Workspace</p>
+              <h1 class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-soft-white sm:text-3xl">Intersection Rule and umbrella strategy synthesis</h1>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="analysis.html" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Back to Analysis Hub</a>
+              <a href="analysis.html?phase=p9" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Next: P9 QSPM Matrix</a>
+            </div>
+          </div>
+        </header>
+
+        <main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <section class="rounded-[1.75rem] border border-maroon-glow/30 bg-maroon-glow/10 p-6 shadow-glow backdrop-blur-xl">
+            <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+              <div>
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-200">Synthesis Workspace</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Lintas rekomendasi strategi dari tool matching stage</h2>
+                <p class="mt-3 max-w-3xl text-sm leading-7 text-rose-50/85">
+                  Tabel sintesis ini menarik strategi dari `TOWS`, `SPACE`, `BCG`, dan `IE`, lalu menghitung berapa tool
+                  yang merekomendasikan strategi tersebut. Hasilnya menjadi dasar untuk menentukan prioritas dan
+                  menyiapkan umbrella strategy menuju `QSPM`.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Intersection Rule: `3+ tools = prioritas utama`, `2 tools = kandidat dengan catatan`, `1 tool = butuh justifikasi eksplisit`.
+              </div>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <p data-draft-indicator class="text-sm text-rose-50/80">Draft autosave belum berisi data</p>
+              <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">TOWS</p><p data-intersection-summary="tows" class="mt-2 text-lg font-semibold text-soft-white">0</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">SPACE</p><p data-intersection-summary="space" class="mt-2 text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">BCG</p><p data-intersection-summary="bcg" class="mt-2 text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">IE Cell</p><p data-intersection-summary="ie" class="mt-2 text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Priority 3+ Tools</p><p data-intersection-summary="priority-count" class="mt-2 text-lg font-semibold text-soft-white">0</p></div>
+              </div>
+            </div>
+
+            <p data-intersection-summary="gate-status" class="mt-4 text-sm text-amber-200">Belum ada strategi integration yang perlu gate.</p>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Part 1</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Intersection Strategy Table</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-cool-gray">
+                  Semua strategi unik dari tool matching stage disusun dalam satu tabel. Setiap baris menandai tool mana
+                  yang merekomendasikan strategi tersebut, total frekuensinya, dan status kesiapan menuju QSPM.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Traceability disimpan langsung pada kolom source reference agar user bisa melihat asal strategi dari tool sebelumnya.
+              </div>
+            </div>
+
+            <div class="mt-6 overflow-x-auto rounded-2xl border border-border-blue">
+              <table class="min-w-[1800px] text-left text-sm">
+                <caption class="sr-only">Intersection rule synthesis table</caption>
+                <thead class="bg-navy-elevated text-slate-100">
+                  <tr>
+                    <th class="px-4 py-3">Strategy</th>
+                    <th class="px-4 py-3">Category</th>
+                    <th class="px-4 py-3">TOWS</th>
+                    <th class="px-4 py-3">SPACE</th>
+                    <th class="px-4 py-3">BCG</th>
+                    <th class="px-4 py-3">IE</th>
+                    <th class="px-4 py-3">Tool Count</th>
+                    <th class="px-4 py-3">Priority</th>
+                    <th class="px-4 py-3">Integration Gate</th>
+                    <th class="px-4 py-3">QSPM Readiness</th>
+                    <th class="px-4 py-3">Source Reference</th>
+                  </tr>
+                </thead>
+                <tbody data-intersection-body class="divide-y divide-border-blue/40"></tbody>
+              </table>
+            </div>
+
+            <div class="mt-6 rounded-2xl border border-info/30 bg-info/10 p-4">
+              <p class="text-sm font-semibold text-soft-white">Analisis Intersection Rule</p>
+              <p data-intersection-summary="analysis" class="mt-2 text-sm leading-7 text-sky-50/90">
+                Intersection Rule belum bisa berjalan karena belum ada strategi yang terbaca dari tool matching stage.
+              </p>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-warning/30 bg-warning/10 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-amber-100">Part 2</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Integration Gate</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-amber-50/85">
+                  Semua strategi kategori integration harus mendapatkan keputusan gate dan justifikasi eksplisit sebelum
+                  dimasukkan sebagai kandidat kuat ke QSPM.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-warning/30 bg-black/10 p-4 text-sm text-amber-50/85">
+                Gunakan `Approved`, `Pending`, atau `Hold` untuk mengendalikan strategi integration yang perlu validasi tambahan.
+              </div>
+            </div>
+
+            <div class="mt-6 overflow-x-auto rounded-2xl border border-warning/30">
+              <table class="min-w-[1350px] text-left text-sm">
+                <caption class="sr-only">Integration gate table</caption>
+                <thead class="bg-navy-elevated text-slate-100">
+                  <tr>
+                    <th class="px-4 py-3">Integration Strategy</th>
+                    <th class="px-4 py-3">Tool Count</th>
+                    <th class="px-4 py-3">Recommended By</th>
+                    <th class="px-4 py-3">Gate Status</th>
+                    <th class="px-4 py-3">Explicit Justification</th>
+                  </tr>
+                </thead>
+                <tbody data-integration-gate-body class="divide-y divide-warning/20"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Part 3</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Umbrella Strategies for QSPM</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-cool-gray">
+                  Bagian ini mengelompokkan hasil intersection yang sudah siap ke dalam 4–6 umbrella strategies agar
+                  pemilihan strategi pada phase QSPM lebih ringkas, konsisten, dan tetap traceable.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Umbrella strategy dibentuk dari kandidat yang lolos gate dan memiliki dukungan lintas tool.
+              </div>
+            </div>
+
+            <div data-umbrella-host class="mt-6 grid gap-6 xl:grid-cols-2"></div>
+
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-border-blue bg-white/5 p-4">
+              <div>
+                <p class="text-sm font-semibold text-soft-white">Lanjut ke phase berikutnya</p>
+                <p class="mt-1 text-sm text-cool-gray">Setelah umbrella strategy siap, fase berikutnya adalah `P9 QSPM Matrix` untuk prioritisasi akhir.</p>
+              </div>
+              <a href="analysis.html?phase=p9" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-surface">Open P9 QSPM Matrix</a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

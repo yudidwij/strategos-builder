@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P6 BCG Matrix | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Dedicated Phase 6 BCG Matrix workspace for RMSP, IGR, quadrant reading, and strategic visualization."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+              locked: "#475569",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+              cta: "0 16px 48px rgba(138, 31, 53, 0.35)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body data-page="phase-bcg" class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.18),transparent_36%)]"></div>
+    <div class="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-info/10 blur-3xl"></div>
+
+    <div class="min-h-screen lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
+      <aside class="border-b border-white/5 bg-navy-core/90 backdrop-blur-xl lg:min-h-screen lg:border-b-0 lg:border-r lg:border-white/5">
+        <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-6">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold text-soft-white">SD</div>
+            <div>
+              <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+              <p class="text-xs text-cool-gray">Phase 6 Workspace</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="px-4 pb-6 sm:px-6 lg:px-6">
+          <div class="rounded-[1.75rem] border border-border-blue bg-navy-surface/70 p-4 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Active Phase</p>
+            <h2 class="mt-3 text-base font-semibold text-soft-white">P6 BCG Matrix</h2>
+            <p class="mt-2 text-sm leading-6 text-cool-gray">
+              Hitung `Relative Market Share Position` dan `Industry Growth Rate` untuk menentukan posisi bisnis pada kuadran BCG.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">Dedicated Page</span>
+              <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">RMSP + IGR Live</span>
+            </div>
+          </div>
+
+          <nav class="mt-6 space-y-2">
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="dashboard.html"><span>Overview</span><span class="text-xs text-cool-gray">F5</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm text-soft-white" href="analysis.html"><span>Analysis Hub</span><span class="text-xs text-sky-100">Back</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-soft-white" href="phase-5-space.html"><span>P5 SPACE Matrix</span><span class="text-xs text-cool-gray">Prev</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white" href="phase-6-bcg.html"><span>P6 BCG Matrix</span><span class="text-xs text-sky-100">Live</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-soft-white" href="phase-7-ie.html"><span>P7 IE Matrix</span><span class="text-xs text-cool-gray">Next</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="results.html"><span>Results Dashboard</span><span class="text-xs text-cool-gray">Output</span></a>
+          </nav>
+
+          <div class="mt-6 rounded-[1.75rem] border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">P6 Rules</p>
+            <ul class="mt-4 space-y-3 text-sm text-cool-gray">
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-success"></span>`RMSP = market share perusahaan / market share market leader` dan nilainya tidak lebih dari `1.00`.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-warning"></span>`IGR` dibaca dengan batas konvensional `10%` untuk membedakan pertumbuhan tinggi dan rendah.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-info"></span>Output wajib menampilkan market leader, RMSP perusahaan user, IGR, dan kuadran BCG sebelum membaca strategi.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <div class="flex min-h-screen flex-col">
+        <header class="border-b border-white/5 bg-navy-deep/80 backdrop-blur-xl">
+          <div class="flex flex-col gap-4 px-4 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Phase 6 Dedicated Workspace</p>
+              <h1 class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-soft-white sm:text-3xl">BCG Matrix with RMSP, IGR, and quadrant visualization</h1>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="analysis.html" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Back to Analysis Hub</a>
+              <a href="phase-7-ie.html" class="inline-flex items-center justify-center rounded-2xl border border-success/30 bg-success/10 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-success/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Next: P7 IE Matrix</a>
+              <span class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-5 py-3 text-sm font-medium text-soft-white">BCG Calculator Active</span>
+            </div>
+          </div>
+        </header>
+
+        <main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <section class="rounded-[1.75rem] border border-maroon-glow/30 bg-maroon-glow/10 p-6 shadow-glow backdrop-blur-xl">
+            <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+              <div>
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-200">BCG Workspace</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Market share dan growth rate untuk membaca posisi portofolio</h2>
+                <p class="mt-3 max-w-3xl text-sm leading-7 text-rose-50/85">
+                  BCG Matrix memakai dua sumbu utama: `Relative Market Share Position (RMSP)` dan `Industry Growth Rate (IGR)`.
+                  Karena data market intelligence penuh belum tersedia, halaman ini memakai asumsi market share dan growth rate yang
+                  bisa diisi user sebagai basis pembacaan kuadran.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <button type="button" data-export="excel" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark">Download Excel</button>
+                <button type="button" data-export="pdf" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark">Download PDF</button>
+              </div>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <p data-draft-indicator class="text-sm text-rose-50/80">Draft autosave belum berisi data</p>
+              <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Market Leader</p><p data-bcg-summary="leader-name" class="mt-2 text-base font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Leader Share</p><p data-bcg-summary="leader-share" class="mt-2 font-mono text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">RMSP</p><p data-bcg-summary="rmsp" class="mt-2 font-mono text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">IGR</p><p data-bcg-summary="igr" class="mt-2 font-mono text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Quadrant</p><p data-bcg-summary="quadrant" class="mt-2 text-lg font-semibold text-soft-white">Incomplete</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Point</p><p data-bcg-summary="point-label" class="mt-2 font-mono text-lg font-semibold text-soft-white">(-; -)</p></div>
+              </div>
+            </div>
+
+            <p data-bcg-summary="status" class="mt-4 text-sm text-amber-200">Isi market share perusahaan dan kompetitor untuk mendeteksi market leader.</p>
+          </section>
+
+          <section class="mt-6 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+            <article class="rounded-[2rem] border border-info/30 bg-info/10 p-5 shadow-panel backdrop-blur-xl">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-info">Input 1</p>
+                <h2 class="mt-2 text-xl font-semibold text-soft-white">Market Share dan RMSP</h2>
+                <p class="mt-2 text-sm text-sky-50/90">Masukkan market share tiap perusahaan. RMSP dihitung otomatis relatif terhadap market leader.</p>
+              </div>
+              <div class="mt-5 overflow-x-auto rounded-2xl border border-info/30">
+                <table class="min-w-[720px] text-left text-sm">
+                  <thead class="bg-navy-elevated text-slate-100">
+                    <tr>
+                      <th class="px-3 py-3">Perusahaan</th>
+                      <th class="px-3 py-3">Market Share (%)</th>
+                      <th class="px-3 py-3">Relative Market Share Position (RMSP)</th>
+                    </tr>
+                  </thead>
+                  <tbody data-bcg-market-body class="divide-y divide-info/20"></tbody>
+                </table>
+              </div>
+              <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                <div class="rounded-2xl border border-border-blue bg-black/10 p-4">
+                  <p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Total Market Share</p>
+                  <p data-bcg-summary="market-share-total" class="mt-3 font-mono text-2xl font-semibold text-soft-white">0.0%</p>
+                </div>
+                <div class="rounded-2xl border border-border-blue bg-black/10 p-4">
+                  <p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Validation</p>
+                  <p data-bcg-summary="market-share-status" class="mt-3 text-sm text-amber-200">Total market share harus tepat 100.0%.</p>
+                </div>
+              </div>
+              <div class="mt-4 rounded-2xl border border-border-blue bg-black/10 p-4 text-sm leading-7 text-sky-50/85">
+                <p class="font-semibold text-soft-white">Disclaimer</p>
+                <p class="mt-2">Data idealnya berasal dari market intelligence. Jika data industri belum lengkap, market share dapat diasumsikan dari pembacaan kompetitor pada phase CPM.</p>
+                <p class="mt-2">RMSP didefinisikan sebagai rasio market share suatu perusahaan terhadap market share market leader dalam industri yang sama.</p>
+                <p class="mt-2">Pastikan total seluruh market share perusahaan dan kompetitor disesuaikan hingga maksimum dan target akhirnya tepat `100%`.</p>
+              </div>
+            </article>
+
+            <article class="rounded-[2rem] border border-warning/30 bg-warning/10 p-5 shadow-panel backdrop-blur-xl">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-warning">Input 2</p>
+                <h2 class="mt-2 text-xl font-semibold text-soft-white">Revenue dan IGR</h2>
+                <p class="mt-2 text-sm text-amber-50/90">IGR dihitung dari revenue perusahaan user sebagai asumsi pendekatan pertumbuhan industri.</p>
+              </div>
+              <div class="mt-5 overflow-x-auto rounded-2xl border border-warning/30">
+                <table class="min-w-[640px] text-left text-sm">
+                  <thead class="bg-navy-elevated text-slate-100">
+                    <tr>
+                      <th class="px-3 py-3">Perusahaan</th>
+                      <th class="px-3 py-3"><span data-bcg-year="previous">2025</span></th>
+                      <th class="px-3 py-3"><span data-bcg-year="current">2026</span></th>
+                      <th class="px-3 py-3">IGR</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-warning/20">
+                    <tr class="bg-white/5">
+                      <td class="px-3 py-3 text-soft-white"><span data-bcg-company-label="company">Perusahaan User</span></td>
+                      <td class="px-3 py-3">
+                        <input type="number" step="0.01" value="300" data-managed-action="true" data-field-key="phase-6::revenue-previous" data-bcg-revenue="previous" class="w-28 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white" />
+                      </td>
+                      <td class="px-3 py-3">
+                        <input type="number" step="0.01" value="325" data-managed-action="true" data-field-key="phase-6::revenue-current" data-bcg-revenue="current" class="w-28 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white" />
+                      </td>
+                      <td data-bcg-summary="igr" class="px-3 py-3 font-mono text-soft-white">-</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-4 rounded-2xl border border-border-blue bg-black/10 p-4 text-sm leading-7 text-amber-50/85">
+                <p class="font-semibold text-soft-white">Disclaimer</p>
+                <p class="mt-2">IGR seharusnya mewakili pertumbuhan rata-rata industri. Jika data penuh belum tersedia, halaman ini memakai asumsi bahwa growth rate perusahaan user sama dengan growth rate industri untuk tujuan pembacaan awal.</p>
+                <p class="mt-2">Periode tahun mengikuti tahun saat ini dan tahun sebelumnya secara otomatis.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Computed Table</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">RMSP Ranking Table</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-cool-gray">
+                  Tabel ini menyusun perusahaan berdasarkan market share terbesar agar market leader dan RMSP setiap perusahaan mudah dibandingkan.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Jika perusahaan user adalah leader, sistem tetap menampilkan RMSP `1.00` sesuai aturan BCG.
+              </div>
+            </div>
+            <div class="mt-6 overflow-x-auto rounded-2xl border border-border-blue">
+              <table class="min-w-[720px] text-left text-sm">
+                <thead class="bg-navy-elevated text-slate-100">
+                  <tr>
+                    <th class="px-3 py-3">Perusahaan</th>
+                    <th class="px-3 py-3">Market Share (%)</th>
+                    <th class="px-3 py-3">RMSP</th>
+                    <th class="px-3 py-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody data-bcg-ranking-body class="divide-y divide-border-blue/60"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Result</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">BCG Matrix Visualization</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-cool-gray">
+                  Visualisasi berikut menempatkan perusahaan user pada kuadran BCG berdasarkan `RMSP` dan `IGR`.
+                  Garis batas vertikal memakai `RMSP 0.5`, sedangkan garis batas horizontal memakai `IGR 10%`.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-xs leading-6 text-sky-50/85">
+                BCG fokus membaca posisi portofolio: apakah bisnis perlu investasi, dipertahankan sebagai sumber kas, atau dilepas.
+              </div>
+            </div>
+
+            <div class="mt-6 flex flex-col gap-4 xl:flex-row xl:items-stretch xl:justify-center">
+              <div class="grid gap-4 xl:w-[18rem] xl:grid-rows-2">
+                <article class="rounded-2xl border border-info/30 bg-info/10 p-3">
+                  <p class="text-base font-semibold text-soft-white">I - Question Marks</p>
+                  <p class="mt-2 text-xs leading-6 text-sky-50/85">Pangsa pasar relatif masih rendah pada industri yang tumbuh cepat. Biasanya butuh dana besar dan keputusan strategis.</p>
+                </article>
+                <article class="rounded-2xl border border-warning/30 bg-warning/10 p-3">
+                  <p class="text-base font-semibold text-soft-white">IV - Dogs</p>
+                  <p class="mt-2 text-xs leading-6 text-amber-50/80">Pangsa pasar relatif rendah di industri yang tumbuh lambat. Fokusnya biasanya efisiensi, retrenchment, divestiture, atau liquidation.</p>
+                </article>
+              </div>
+
+              <div class="rounded-2xl border border-border-blue bg-[linear-gradient(180deg,rgba(7,20,38,0.98),rgba(11,31,58,0.96))] shadow-glow xl:flex-1 xl:max-w-[860px]">
+                <div class="p-3 lg:p-4">
+                  <svg data-bcg-diagram viewBox="0 0 980 760" class="mx-auto h-[620px] w-full max-w-[860px]"></svg>
+                </div>
+              </div>
+
+              <div class="grid gap-4 xl:w-[18rem] xl:grid-rows-2">
+                <article class="rounded-2xl border border-success/30 bg-success/10 p-3">
+                  <p class="text-base font-semibold text-soft-white">II - Stars</p>
+                  <p class="mt-2 text-xs leading-6 text-emerald-50/80">Peluang terbaik jangka panjang. Pangsa pasar relatif kuat di industri yang masih tumbuh cepat dan tetap memerlukan investasi.</p>
+                </article>
+                <article class="rounded-2xl border border-maroon-glow/30 bg-maroon-glow/10 p-3">
+                  <p class="text-base font-semibold text-soft-white">III - Cash Cows</p>
+                  <p class="mt-2 text-xs leading-6 text-rose-50/80">Pangsa pasar relatif kuat pada industri yang pertumbuhannya lebih rendah dan cenderung menjadi penghasil kas.</p>
+                </article>
+              </div>
+            </div>
+
+            <div class="mt-6 rounded-2xl border border-info/30 bg-info/10 p-4">
+              <p class="text-sm font-semibold text-soft-white">Analisis BCG Matrix</p>
+              <p data-bcg-summary="analysis" class="mt-2 text-sm leading-7 text-sky-50/90">
+                Lengkapi market share dan revenue untuk membaca posisi BCG Matrix.
+              </p>
+            </div>
+
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-border-blue bg-white/5 p-4">
+              <div>
+                <p class="text-sm font-semibold text-soft-white">Lanjut ke phase berikutnya</p>
+                <p class="mt-1 text-sm text-cool-gray">Setelah pembacaan BCG selesai, analisis dapat dilanjutkan ke `P7 IE Matrix` pada langkah berikutnya.</p>
+              </div>
+              <a href="phase-7-ie.html" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-surface">Open P7 IE Matrix</a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

@@ -17,6 +17,11 @@
 - `phase-1-efe.html`
 - `phase-2-ife.html`
 - `phase-3-cpm.html`
+- `phase-4-swot-tows.html`
+- `phase-5-space.html`
+- `phase-6-bcg.html`
+- `phase-7-ie.html`
+- `phase-8-intersection.html`
 - `results.html`
 - `assets/js/app.js`
 - `docs/PRD.md`
@@ -48,6 +53,13 @@
 - P3 CPM now uses a predefined CSF category dropdown (`Pemasaran`, `Ekspansi Jaringan`, `Kondisi Keuangan`, `Manajemen`, `Kualitas Produk`, `Loyalitas Pelanggan`, `Harga Bersaing`, `Pangsa Pasar`, `Unik Capabilities`) with duplicate-category prevention and inline visual hints per row
 - P3 CPM company label now inherits the Phase 0 `Company name`, while competitor labels remain editable in `Benchmark Setup`
 - P3 CPM analysis now produces a stronger narrative that explains total ranking, company position, score gaps, strongest CSF, and weakest CSF
+- P4 now starts a dedicated workspace at `phase-4-swot-tows.html`, where Part 1 SWOT Matrix automatically copies synced factors from the active EFE and IFE tables with generated `S/W/O/T` codes
+- P4 Part 2A now includes four dedicated TOWS builders for `SO`, `WO`, `ST`, and `WT`, each with factor pairing, auto-generated pair code, user-entered strategy initiative, and produk/output fields
+- P4 Part 2B now renders a TOWS strategy summary table that combines synced SWOT factor lists and all saved strategy initiatives from the builder section
+- P5 now has a dedicated workspace at `phase-5-space.html` with four-dimension SPACE scoring tables, automatic `FP/CP/SP/IP` averages, `X/Y` coordinate calculation, quadrant detection, and a live SPACE Matrix diagram
+- P6 now has a dedicated workspace at `phase-6-bcg.html` with market share inputs, automatic market leader detection, RMSP calculation, revenue-based IGR calculation, quadrant reading, and a live BCG Matrix visualization
+- P7 now has a dedicated workspace at `phase-7-ie.html` that reads approved total IFE and EFE scores, maps the active coordinate into the 9-cell IE Matrix, and shows the resulting cell, zone, and strategy direction without requiring extra input fields
+- P8 now has a dedicated workspace at `phase-8-intersection.html` with a cross-tool synthesis table, tool-count scoring, integration gate controls, and umbrella strategy grouping for QSPM preparation
 - EFE guidance now reflects `AQCD` quality screening and `pairwise comparison` as the recommended weight-setting method
 - EFE factors now support frontend `save`, `edit`, and `delete` behavior with live table refresh in the analysis workspace
 - Legacy seeded EFE demo rows are automatically cleaned from browser storage so the workspace opens in a cleaner state
@@ -61,6 +73,7 @@
 - Approved implementation phases in `docs/IMPLEMENTATION_PLAN.md` are marked completed through `F10`
 - Required pages from `AGENTS.md` are represented
 - STRATEGOS phases `0` through `14` are represented in tracker and workspace flows
+- Phase 8 Intersection Rule is available as a dedicated synthesis workspace with traceable umbrella strategy output
 - QSPM blank/not relevant behavior is represented and `AS = 0` is explicitly blocked in the UI
 - Traceability badges are present in strategic outputs and result summaries
 - Strategy map cause-effect order is shown as:

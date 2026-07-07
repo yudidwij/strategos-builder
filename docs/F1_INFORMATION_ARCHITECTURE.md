@@ -64,6 +64,7 @@ SOT-Drive
 | `/phase-1-efe.html` | P1 Dedicated Workspace | EFE brainstorming, AQCD filtering, Key External Factor table | Requires Phase 1 access |
 | `/phase-2-ife.html` | P2 Dedicated Workspace | IFE brainstorming, AQCD filtering, Key Internal Factor table | Requires Phase 2 access |
 | `/phase-3-cpm.html` | P3 Dedicated Workspace | CPM benchmark setup, CSF builder, comparative matrix | Requires Phase 3 access |
+| `/phase-8-intersection.html` | P8 Dedicated Workspace | Intersection synthesis table, integration gate, and umbrella strategy grouping | Requires prior approved matching outputs |
 | `/results.html` | Results Dashboard | Summary, traceability, BSC, strategy map preview | Requires approved outputs |
 
 ## Page Structure
@@ -140,7 +141,7 @@ SOT-Drive
 | 5 | SPACE Matrix | Positioning calculator | Required for synthesis |
 | 6 | BCG Matrix | Portfolio calculator | Required for synthesis |
 | 7 | IE Matrix | Internal-external matrix | Uses approved EFE + IFE scores |
-| 8 | Sintesis / Intersection Rule | Strategy synthesis table | Must precede umbrella strategies |
+| 8 | Sintesis / Intersection Rule | Dedicated synthesis workspace with tool-count table, integration gate, and umbrella strategy grouping | Must precede umbrella strategies |
 | 9 | QSPM Matrix | Prioritization matrix | Uses umbrella strategies and approved key factors |
 | 10 | BSC Financial | BSC table | Uses top strategic themes |
 | 11 | BSC Customer | BSC table | Uses top strategic themes |
@@ -178,6 +179,9 @@ SOT-Drive
 | Export Action | Dedicated pages, results | Browser PDF and Excel-compatible export trigger |
 | Traceability Badge | Results, BSC, strategy map | Shows source lineage |
 | Strategy Card | TOWS, Intersection, QSPM, results | Strategic output container |
+| Intersection Synthesis Table | Phase 8 | Tool-count, priority, gate, and source reference list |
+| Integration Gate Control | Phase 8 | Status selection and explicit justification for integration strategies |
+| Umbrella Strategy Card | Phase 8 | Groups candidates into QSPM-ready strategy clusters |
 | Score Card | Results | Weighted score and quadrant summary |
 | BSC Table | Phases 10-13, results | Perspective-specific objectives |
 | Strategy Map Block | Phase 14, results | Must show cause-effect chain |
@@ -257,6 +261,6 @@ SOT-Drive
 
 ## Current Alignment Note
 
-- Dokumen F1 ini sekarang berfungsi sebagai baseline arsitektur yang sudah diselaraskan dengan implementasi frontend terkini.
+- Dokumen F1 ini sekarang berfungsi sebagai baseline arsitektur yang sudah diselaraskan dengan implementasi frontend terkini, termasuk dedicated workspace phase 8 untuk Intersection Rule dan umbrella strategy preparation.
 - Phase-heavy matrix workspace telah berkembang dari satu halaman umum menjadi pola `analysis hub + dedicated phase page` untuk P1, P2, dan P3.
 - Approval history F1 tetap completed; perubahan di atas adalah sinkronisasi dokumentasi, bukan fase approval baru.

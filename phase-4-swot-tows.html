@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P4 SWOT & TOWS | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Dedicated Phase 4 SWOT and TOWS workspace for synced SWOT factors from EFE and IFE."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+              locked: "#475569",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+              cta: "0 16px 48px rgba(138, 31, 53, 0.35)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body data-page="phase-swot" class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.18),transparent_36%)]"></div>
+    <div class="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-info/10 blur-3xl"></div>
+
+    <div class="min-h-screen lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
+      <aside class="border-b border-white/5 bg-navy-core/90 backdrop-blur-xl lg:min-h-screen lg:border-b-0 lg:border-r lg:border-white/5">
+        <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-6">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold text-soft-white">SD</div>
+            <div>
+              <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+              <p class="text-xs text-cool-gray">Phase 4 Workspace</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="px-4 pb-6 sm:px-6 lg:px-6">
+          <div class="rounded-[1.75rem] border border-border-blue bg-navy-surface/70 p-4 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Active Phase</p>
+            <h2 class="mt-3 text-base font-semibold text-soft-white">P4 SWOT & TOWS Matrix</h2>
+            <p class="mt-2 text-sm leading-6 text-cool-gray">
+              Phase 4 dimulai dengan sinkronisasi faktor Strength, Weakness, Opportunity, dan Threat dari tabel IFE serta EFE.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">Dedicated Page</span>
+              <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">Part 1 + 2 Active</span>
+            </div>
+          </div>
+
+          <nav class="mt-6 space-y-2">
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="dashboard.html"><span>Overview</span><span class="text-xs text-cool-gray">F5</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm text-soft-white" href="analysis.html"><span>Analysis Hub</span><span class="text-xs text-sky-100">Back</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white" href="phase-4-swot-tows.html"><span>P4 SWOT & TOWS</span><span class="text-xs text-sky-100">Live</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="results.html"><span>Results Dashboard</span><span class="text-xs text-cool-gray">Output</span></a>
+          </nav>
+
+          <div class="mt-6 rounded-[1.75rem] border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">P4 Rules</p>
+            <ul class="mt-4 space-y-3 text-sm text-cool-gray">
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-success"></span>SWOT Part 1 hanya mengambil faktor yang sudah masuk tabel EFE dan IFE.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-warning"></span>Kode diberikan otomatis sebagai `S1-S10`, `W1-W10`, `O1-O10`, dan `T1-T10`.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-info"></span>Part 2 membangun strategi `SO`, `WO`, `ST`, dan `WT` dari pasangan faktor SWOT yang dipilih user.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <div class="flex min-h-screen flex-col">
+        <header class="border-b border-white/5 bg-navy-deep/80 backdrop-blur-xl">
+          <div class="flex flex-col gap-4 px-4 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Phase 4 Dedicated Workspace</p>
+              <h1 class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-soft-white sm:text-3xl">SWOT Matrix synced from EFE and IFE</h1>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="analysis.html" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Back to Analysis Hub</a>
+              <a href="phase-5-space.html" class="inline-flex items-center justify-center rounded-2xl border border-success/30 bg-success/10 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-success/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Next: P5 SPACE Matrix</a>
+              <span class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-5 py-3 text-sm font-medium text-soft-white">TOWS Builder Active</span>
+            </div>
+          </div>
+        </header>
+
+        <main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <section class="rounded-[1.75rem] border border-maroon-glow/30 bg-maroon-glow/10 p-6 shadow-glow backdrop-blur-xl">
+            <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+              <div>
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-200">SWOT Workspace</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Part 1 SWOT Matrix</h2>
+                <p class="mt-3 max-w-3xl text-sm leading-7 text-rose-50/85">
+                  Bagian pertama SWOT hanya memindahkan data dari `Tabel Key External Factor` pada Phase 1 dan
+                  `Tabel Key Internal Factor` pada Phase 2. Data ditampilkan ulang tanpa mengubah isi faktor, lalu
+                  diberi kode otomatis agar siap dipakai pada TOWS.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <button type="button" data-export="excel" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark">Download Excel</button>
+                <button type="button" data-export="pdf" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark">Download PDF</button>
+              </div>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <p data-draft-indicator class="text-sm text-rose-50/80">Draft autosave belum berisi data</p>
+              <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Strength</p><p data-swot-summary="strength-count" class="mt-2 text-lg font-semibold text-soft-white">0/10</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Weakness</p><p data-swot-summary="weakness-count" class="mt-2 text-lg font-semibold text-soft-white">0/10</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Opportunity</p><p data-swot-summary="opportunity-count" class="mt-2 text-lg font-semibold text-soft-white">0/10</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Threat</p><p data-swot-summary="threat-count" class="mt-2 text-lg font-semibold text-soft-white">0/10</p></div>
+              </div>
+            </div>
+
+            <p data-swot-summary="sync-status" class="mt-4 text-sm text-amber-200">Belum ada data EFE/IFE yang bisa dipindahkan ke SWOT Matrix.</p>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Part 1</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">SWOT Matrix</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-cool-gray">
+                  Matriks berikut adalah hasil sinkronisasi langsung dari EFE dan IFE. Kode `O/T/S/W` diberikan
+                  berdasarkan urutan faktor yang sudah lolos ke tabel phase sumber, sehingga siap dipakai sebagai referensi TOWS.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Faktor, source, bobot, rating, dan weighted score ditampilkan ulang untuk menjaga traceability antara SWOT dengan EFE/IFE.
+              </div>
+            </div>
+
+            <div class="mt-6 grid gap-6 xl:grid-cols-2">
+              <article class="rounded-[1.75rem] border border-success/30 bg-success/10 p-4">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold text-soft-white">Strength</p>
+                    <p class="mt-1 text-sm text-emerald-50/85">Disalin dari Tabel IFE bagian Strength.</p>
+                  </div>
+                  <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-success">S1-S10</span>
+                </div>
+                <div class="mt-4 overflow-x-auto rounded-2xl border border-success/30">
+                  <table class="min-w-[960px] text-left text-sm">
+                    <caption class="sr-only">Strength SWOT table</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">Code</th>
+                        <th class="px-3 py-3">Factor</th>
+                        <th class="px-3 py-3">Source</th>
+                        <th class="px-3 py-3">Weight</th>
+                        <th class="px-3 py-3">Rating</th>
+                        <th class="px-3 py-3">Weighted Score</th>
+                      </tr>
+                    </thead>
+                    <tbody data-swot-body="strength" class="divide-y divide-success/20"></tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="rounded-[1.75rem] border border-warning/30 bg-warning/10 p-4">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold text-soft-white">Weakness</p>
+                    <p class="mt-1 text-sm text-amber-50/85">Disalin dari Tabel IFE bagian Weakness.</p>
+                  </div>
+                  <span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-warning">W1-W10</span>
+                </div>
+                <div class="mt-4 overflow-x-auto rounded-2xl border border-warning/30">
+                  <table class="min-w-[960px] text-left text-sm">
+                    <caption class="sr-only">Weakness SWOT table</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">Code</th>
+                        <th class="px-3 py-3">Factor</th>
+                        <th class="px-3 py-3">Source</th>
+                        <th class="px-3 py-3">Weight</th>
+                        <th class="px-3 py-3">Rating</th>
+                        <th class="px-3 py-3">Weighted Score</th>
+                      </tr>
+                    </thead>
+                    <tbody data-swot-body="weakness" class="divide-y divide-warning/20"></tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="rounded-[1.75rem] border border-info/30 bg-info/10 p-4">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold text-soft-white">Opportunity</p>
+                    <p class="mt-1 text-sm text-sky-50/90">Disalin dari Tabel EFE bagian Opportunity.</p>
+                  </div>
+                  <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">O1-O10</span>
+                </div>
+                <div class="mt-4 overflow-x-auto rounded-2xl border border-info/30">
+                  <table class="min-w-[960px] text-left text-sm">
+                    <caption class="sr-only">Opportunity SWOT table</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">Code</th>
+                        <th class="px-3 py-3">Factor</th>
+                        <th class="px-3 py-3">Source</th>
+                        <th class="px-3 py-3">Weight</th>
+                        <th class="px-3 py-3">Rating</th>
+                        <th class="px-3 py-3">Weighted Score</th>
+                      </tr>
+                    </thead>
+                    <tbody data-swot-body="opportunity" class="divide-y divide-info/20"></tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="rounded-[1.75rem] border border-error/30 bg-error/10 p-4">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold text-soft-white">Threat</p>
+                    <p class="mt-1 text-sm text-rose-50/90">Disalin dari Tabel EFE bagian Threat.</p>
+                  </div>
+                  <span class="rounded-full border border-error/30 bg-error/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-rose-100">T1-T10</span>
+                </div>
+                <div class="mt-4 overflow-x-auto rounded-2xl border border-error/30">
+                  <table class="min-w-[960px] text-left text-sm">
+                    <caption class="sr-only">Threat SWOT table</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">Code</th>
+                        <th class="px-3 py-3">Factor</th>
+                        <th class="px-3 py-3">Source</th>
+                        <th class="px-3 py-3">Weight</th>
+                        <th class="px-3 py-3">Rating</th>
+                        <th class="px-3 py-3">Weighted Score</th>
+                      </tr>
+                    </thead>
+                    <tbody data-swot-body="threat" class="divide-y divide-error/20"></tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+
+            <div class="mt-6 rounded-2xl border border-info/30 bg-info/10 p-4">
+              <p class="text-sm font-semibold text-soft-white">Analisis Sinkronisasi</p>
+              <p data-swot-summary="analysis" class="mt-2 text-sm leading-7 text-sky-50/90">
+                Lengkapi dan simpan dahulu tabel EFE serta IFE agar SWOT Matrix dapat menarik faktor secara otomatis.
+              </p>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-maroon-glow/30 bg-maroon-glow/10 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-rose-200">Part 2A</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">TOWS Strategy Builder</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-rose-50/85">
+                  Pasangkan faktor SWOT untuk membentuk `Growth Strategy (SO)`, `Improvement Strategy (WO)`,
+                  `Offensive Defense Strategy (ST)`, dan `Total Defense Strategy (WT)`. Kode pasangan faktor terisi
+                  otomatis sesuai pilihan di kolom kiri dan kanan.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Setiap builder menyediakan hingga 10 slot. `Strength VS Opportunity` atau padanan kodenya akan terisi otomatis dalam format seperti `S1; O3`.
+              </div>
+            </div>
+
+            <div class="mt-6 space-y-6">
+              <article class="rounded-[1.75rem] border border-success/30 bg-success/10 p-5">
+                <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-success">2A.1</p>
+                    <h3 class="mt-2 text-xl font-semibold text-soft-white">Growth Strategy - SO</h3>
+                    <p class="mt-2 text-sm text-emerald-50/85">Strength x Opportunity untuk membangun strategi pertumbuhan.</p>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-success">10 Slots</span>
+                    <span class="rounded-full border border-border-blue bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-soft-white">Saved: <span data-tows-summary="growth-count">0/10</span></span>
+                    <button type="button" data-managed-action="true" data-tows-action="save-all" data-tows-bank="growth" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20">Save All SO</button>
+                  </div>
+                </div>
+                <div class="mt-5 overflow-x-auto rounded-2xl border border-success/30">
+                  <table class="min-w-[1850px] text-left text-sm">
+                    <caption class="sr-only">Growth strategy builder table</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">No</th>
+                        <th class="px-3 py-3">Strength Factor</th>
+                        <th class="px-3 py-3">Opportunity Factor</th>
+                        <th class="px-3 py-3">Strength VS Opportunity</th>
+                        <th class="px-3 py-3">Strategi Initiative</th>
+                        <th class="px-3 py-3">Jenis Strategi</th>
+                        <th class="px-3 py-3">Kategori Strategi</th>
+                        <th class="px-3 py-3">Produk/Output</th>
+                        <th class="px-3 py-3">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody data-tows-input-body="growth" class="divide-y divide-success/20"></tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="rounded-[1.75rem] border border-info/30 bg-info/10 p-5">
+                <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-info">2A.2</p>
+                    <h3 class="mt-2 text-xl font-semibold text-soft-white">Improvement Strategy - WO</h3>
+                    <p class="mt-2 text-sm text-sky-50/90">Weakness x Opportunity untuk strategi perbaikan dan akselerasi.</p>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">10 Slots</span>
+                    <span class="rounded-full border border-border-blue bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-soft-white">Saved: <span data-tows-summary="improvement-count">0/10</span></span>
+                    <button type="button" data-managed-action="true" data-tows-action="save-all" data-tows-bank="improvement" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20">Save All WO</button>
+                  </div>
+                </div>
+                <div class="mt-5 overflow-x-auto rounded-2xl border border-info/30">
+                  <table class="min-w-[1850px] text-left text-sm">
+                    <caption class="sr-only">Improvement strategy builder table</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">No</th>
+                        <th class="px-3 py-3">Weakness Factor</th>
+                        <th class="px-3 py-3">Opportunity Factor</th>
+                        <th class="px-3 py-3">Weakness VS Opportunity</th>
+                        <th class="px-3 py-3">Strategi Initiative</th>
+                        <th class="px-3 py-3">Jenis Strategi</th>
+                        <th class="px-3 py-3">Kategori Strategi</th>
+                        <th class="px-3 py-3">Produk/Output</th>
+                        <th class="px-3 py-3">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody data-tows-input-body="improvement" class="divide-y divide-info/20"></tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="rounded-[1.75rem] border border-warning/30 bg-warning/10 p-5">
+                <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-warning">2A.3</p>
+                    <h3 class="mt-2 text-xl font-semibold text-soft-white">Offensive Defense Strategy - ST</h3>
+                    <p class="mt-2 text-sm text-amber-50/85">Strength x Threat untuk strategi pertahanan ofensif.</p>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <span class="rounded-full border border-warning/30 bg-warning/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-warning">10 Slots</span>
+                    <span class="rounded-full border border-border-blue bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-soft-white">Saved: <span data-tows-summary="offensive-defense-count">0/10</span></span>
+                    <button type="button" data-managed-action="true" data-tows-action="save-all" data-tows-bank="offensive-defense" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20">Save All ST</button>
+                  </div>
+                </div>
+                <div class="mt-5 overflow-x-auto rounded-2xl border border-warning/30">
+                  <table class="min-w-[1850px] text-left text-sm">
+                    <caption class="sr-only">Offensive defense strategy builder table</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">No</th>
+                        <th class="px-3 py-3">Strength Factor</th>
+                        <th class="px-3 py-3">Threat Factor</th>
+                        <th class="px-3 py-3">Strength VS Threat</th>
+                        <th class="px-3 py-3">Strategi Initiative</th>
+                        <th class="px-3 py-3">Jenis Strategi</th>
+                        <th class="px-3 py-3">Kategori Strategi</th>
+                        <th class="px-3 py-3">Produk/Output</th>
+                        <th class="px-3 py-3">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody data-tows-input-body="offensive-defense" class="divide-y divide-warning/20"></tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="rounded-[1.75rem] border border-error/30 bg-error/10 p-5">
+                <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                  <div>
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-rose-200">2A.4</p>
+                    <h3 class="mt-2 text-xl font-semibold text-soft-white">Total Defense Strategy - WT</h3>
+                    <p class="mt-2 text-sm text-rose-50/90">Weakness x Threat untuk strategi pertahanan total.</p>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <span class="rounded-full border border-error/30 bg-error/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-rose-100">10 Slots</span>
+                    <span class="rounded-full border border-border-blue bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-soft-white">Saved: <span data-tows-summary="total-defense-count">0/10</span></span>
+                    <button type="button" data-managed-action="true" data-tows-action="save-all" data-tows-bank="total-defense" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20">Save All WT</button>
+                  </div>
+                </div>
+                <div class="mt-5 overflow-x-auto rounded-2xl border border-error/30">
+                  <table class="min-w-[1850px] text-left text-sm">
+                    <caption class="sr-only">Total defense strategy builder table</caption>
+                    <thead class="bg-navy-elevated text-slate-100">
+                      <tr>
+                        <th class="px-3 py-3">No</th>
+                        <th class="px-3 py-3">Weakness Factor</th>
+                        <th class="px-3 py-3">Threat Factor</th>
+                        <th class="px-3 py-3">Weakness VS Threat</th>
+                        <th class="px-3 py-3">Strategi Initiative</th>
+                        <th class="px-3 py-3">Jenis Strategi</th>
+                        <th class="px-3 py-3">Kategori Strategi</th>
+                        <th class="px-3 py-3">Produk/Output</th>
+                        <th class="px-3 py-3">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody data-tows-input-body="total-defense" class="divide-y divide-error/20"></tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Part 2B</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">TOWS Strategy Summary</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-cool-gray">
+                  Ringkasan ini menampilkan seluruh strategi TOWS yang sudah tersimpan dalam empat kuadran strategi.
+                  Formatnya dipadatkan seperti matriks strategi klasik agar lebih mudah dibaca dan dibandingkan.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Kolom kiri menampilkan kode pasangan faktor, dan kolom kanan menampilkan strategi initiative beserta output dari data yang ada di sistem.
+              </div>
+            </div>
+
+            <div class="mt-6 overflow-x-auto rounded-2xl border border-border-blue">
+              <table class="min-w-[1280px] table-fixed text-left text-sm">
+                <caption class="sr-only">TOWS strategy summary matrix</caption>
+                <colgroup>
+                  <col class="w-1/2" />
+                  <col class="w-1/2" />
+                </colgroup>
+                <tbody>
+                  <tr class="border-b border-border-blue">
+                    <td class="w-1/2 align-top border-r border-border-blue">
+                      <table class="w-full text-left text-sm">
+                        <thead class="bg-success/80 text-soft-white">
+                          <tr>
+                            <th colspan="2" class="px-4 py-2 text-center text-base font-semibold">Growth Strategy - SO</th>
+                          </tr>
+                        </thead>
+                        <tbody data-tows-strategy-list="growth"></tbody>
+                      </table>
+                    </td>
+                    <td class="w-1/2 align-top">
+                      <table class="w-full text-left text-sm">
+                        <thead class="bg-info/80 text-soft-white">
+                          <tr>
+                            <th colspan="2" class="px-4 py-2 text-center text-base font-semibold">Improvement Strategy - WO</th>
+                          </tr>
+                        </thead>
+                        <tbody data-tows-strategy-list="improvement"></tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="w-1/2 align-top border-r border-border-blue">
+                      <table class="w-full text-left text-sm">
+                        <thead class="bg-warning/90 text-navy-deep">
+                          <tr>
+                            <th colspan="2" class="px-4 py-2 text-center text-base font-semibold">Defence Strategy - ST</th>
+                          </tr>
+                        </thead>
+                        <tbody data-tows-strategy-list="offensive-defense"></tbody>
+                      </table>
+                    </td>
+                    <td class="w-1/2 align-top">
+                      <table class="w-full text-left text-sm">
+                        <thead class="bg-error/90 text-soft-white">
+                          <tr>
+                            <th colspan="2" class="px-4 py-2 text-center text-base font-semibold">Defence Strategy - WT</th>
+                          </tr>
+                        </thead>
+                        <tbody data-tows-strategy-list="total-defense"></tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mt-6 rounded-2xl border border-info/30 bg-info/10 p-4">
+              <p class="text-sm font-semibold text-soft-white">Analisis Ringkasan TOWS</p>
+              <p data-tows-summary="analysis" class="mt-2 text-sm leading-7 text-sky-50/90">
+                Belum ada strategi TOWS yang tersimpan. Pilih pasangan faktor pada bagian 2A lalu simpan strategy initiative dan produk/output.
+              </p>
+            </div>
+
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-success/30 bg-success/10 p-4">
+              <div>
+                <p class="text-sm font-semibold text-soft-white">Lanjut ke phase berikutnya</p>
+                <p class="mt-1 text-sm text-emerald-50/85">Setelah SWOT dan TOWS selesai direview, lanjutkan ke `P5 SPACE Matrix` untuk membaca posisi strategis perusahaan.</p>
+              </div>
+              <a href="phase-5-space.html" class="inline-flex items-center justify-center rounded-2xl border border-success/30 bg-navy-deep/50 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-navy-deep/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-navy-surface">Open P5 SPACE Matrix</a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

@@ -37,7 +37,8 @@ Setiap fase implementasi memiliki status. Setelah user approve, status akan dipe
 | Approval gate logic | Strengthened |
 | QSPM special rule | Strengthened |
 | Strategy Map guardrail | Strengthened |
-| Dedicated phase workspaces (P1-P3) | Added |
+| Dedicated phase workspaces (P1-P8) | Added |
+| Phase 8 Intersection Rule workspace | Added with synthesis table, integration gate, and umbrella strategy grouping |
 | Browser draft persistence | Added |
 | Browser export actions | Added |
 
@@ -91,6 +92,9 @@ Landing and auth pages establish the public experience first. Dashboard shell co
 | Dedicated phase launcher | Analysis workspace | Completed for analysis hub |
 | Export action | Dedicated phase pages, results | Completed with browser-native flow |
 | Strategy card | TOWS, Intersection, Results | Completed for analysis workspace |
+| Intersection synthesis table | Phase 8 | Completed with tool-count, priority, gate, and traceability |
+| Integration gate control | Phase 8 | Completed with status selection and explicit justification |
+| Umbrella strategy card | Phase 8 | Completed for QSPM preparation |
 | BSC table | BSC phases | Completed for analysis workspace |
 | Strategy map block | Phase 14 results | Completed for results dashboard |
 | Empty state | Dashboard/forms | Completed for dashboard shell |
@@ -225,5 +229,5 @@ MVP frontend selesai bila:
 11. QSPM special rule diterapkan.
 12. Strategy Map guardrail tersedia.
 13. File HTML/Tailwind siap direview dan dikembangkan ke backend di fase berikutnya.
-14. Dedicated phase workspace untuk P1 EFE, P2 IFE, dan P3 CPM tersedia dari analysis hub.
+14. Dedicated phase workspace untuk P1 EFE, P2 IFE, P3 CPM, P4 SWOT-TOWS, P5 SPACE, P6 BCG, dan P7 IE tersedia dari analysis hub.
 15. Browser-side draft persistence dan export dasar PDF/Excel tersedia tanpa dependency tambahan.

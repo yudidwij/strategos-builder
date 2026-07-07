@@ -151,7 +151,7 @@ Input workspace mengikuti 14 phase:
 | 5 | SPACE Matrix | FP, CP, SP, IP, koordinat, kuadran |
 | 6 | BCG Matrix | RMSP, IGR, kuadran |
 | 7 | IE Matrix | IFE score, EFE score, posisi sel |
-| 8 | Intersection Rule | Tabel strategi lintas tools, frekuensi, umbrella strategy |
+| 8 | Intersection Rule | Dedicated synthesis workspace with cross-tool strategy table, tool-count scoring, integration gate, and umbrella strategy grouping |
 | 9 | QSPM Matrix | Key factors, AS, TAS, Sum TAS, ranking |
 | 10 | BSC Financial | Objective, KPI, target, initiative |
 | 11 | BSC Customer | Segment, value proposition, objective, KPI |
@@ -188,7 +188,7 @@ Komponen utama:
 | SPACE Matrix | Positioning calculator | Input FP, CP, SP, IP, hitung X/Y, tampilkan kuadran |
 | BCG Matrix | Portfolio calculator | Input RMSP, IGR, tampilkan kuadran |
 | IE Matrix | Internal-external positioning | Mengambil skor IFE dan EFE dari phase approved |
-| Intersection Rule | Strategy synthesis | Menandai strategi yang muncul di TOWS, SPACE, BCG, IE |
+| Intersection Rule | Strategy synthesis | Menandai strategi yang muncul di TOWS, SPACE, BCG, IE, menghitung dukungan tools, dan menyiapkan umbrella strategy |
 | QSPM | Strategy prioritization | Input AS/TAS, Sum TAS, ranking, Top 3 Strategic Themes |
 | BSC Financial | Financial execution | Objective, KPI, target, initiative dari Strategic Themes |
 | BSC Customer | Customer execution | Segment, value proposition, objective, KPI, target, initiative |

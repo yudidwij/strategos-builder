@@ -199,6 +199,10 @@ Contoh naming ini untuk dokumentasi pola. Implementasi nanti bisa memakai `@appl
 
 ## Component Patterns
 
+### Synthesis Workspace Pattern
+
+Phase 8 Intersection Rule memerlukan pola visual yang berbeda dari matriks standar: tabel sintesis yang padat, chip status untuk tool support, panel gate untuk strategi integration, dan kartu umbrella strategy yang ringkas untuk transisi ke QSPM.
+
 ### 1. Navbar
 
 - Transparent over hero, solid surface on scroll for later implementation

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P5 SPACE Matrix | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Dedicated Phase 5 SPACE Matrix workspace for four-dimension scoring, coordinate calculation, and quadrant visualization."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+              locked: "#475569",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+              cta: "0 16px 48px rgba(138, 31, 53, 0.35)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body data-page="phase-space" class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.18),transparent_36%)]"></div>
+    <div class="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-info/10 blur-3xl"></div>
+
+    <div class="min-h-screen lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
+      <aside class="border-b border-white/5 bg-navy-core/90 backdrop-blur-xl lg:min-h-screen lg:border-b-0 lg:border-r lg:border-white/5">
+        <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-6">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold text-soft-white">SD</div>
+            <div>
+              <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+              <p class="text-xs text-cool-gray">Phase 5 Workspace</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="px-4 pb-6 sm:px-6 lg:px-6">
+          <div class="rounded-[1.75rem] border border-border-blue bg-navy-surface/70 p-4 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Active Phase</p>
+            <h2 class="mt-3 text-base font-semibold text-soft-white">P5 SPACE Matrix</h2>
+            <p class="mt-2 text-sm leading-6 text-cool-gray">
+              Hitung posisi strategis perusahaan berdasarkan empat dimensi SPACE Matrix dan lihat kuadran strategi yang dihasilkan.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">Dedicated Page</span>
+              <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">Diagram Active</span>
+            </div>
+          </div>
+
+          <nav class="mt-6 space-y-2">
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="dashboard.html"><span>Overview</span><span class="text-xs text-cool-gray">F5</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm text-soft-white" href="analysis.html"><span>Analysis Hub</span><span class="text-xs text-sky-100">Back</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white" href="phase-5-space.html"><span>P5 SPACE Matrix</span><span class="text-xs text-sky-100">Live</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-soft-white" href="phase-6-bcg.html"><span>P6 BCG Matrix</span><span class="text-xs text-cool-gray">Next</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="results.html"><span>Results Dashboard</span><span class="text-xs text-cool-gray">Output</span></a>
+          </nav>
+
+          <div class="mt-6 rounded-[1.75rem] border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">P5 Rules</p>
+            <ul class="mt-4 space-y-3 text-sm text-cool-gray">
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-success"></span>FP dan IP memakai skala `1` sampai `7`, di mana `7` adalah kondisi terbaik.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-warning"></span>CP dan SP memakai skala `-7` sampai `-1`, di mana `-1` adalah kondisi terbaik.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-info"></span>Output wajib menampilkan average FP, CP, SP, IP, lalu `X`, `Y`, dan `Quadrant`.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <div class="flex min-h-screen flex-col">
+        <header class="border-b border-white/5 bg-navy-deep/80 backdrop-blur-xl">
+          <div class="flex flex-col gap-4 px-4 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Phase 5 Dedicated Workspace</p>
+              <h1 class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-soft-white sm:text-3xl">SPACE Matrix with four-dimension scoring and quadrant visualization</h1>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="analysis.html" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Back to Analysis Hub</a>
+              <a href="phase-6-bcg.html" class="inline-flex items-center justify-center rounded-2xl border border-success/30 bg-success/10 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-success/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Next: P6 BCG Matrix</a>
+              <span class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-5 py-3 text-sm font-medium text-soft-white">SPACE Calculator Active</span>
+            </div>
+          </div>
+        </header>
+
+        <main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <section class="rounded-[1.75rem] border border-maroon-glow/30 bg-maroon-glow/10 p-6 shadow-glow backdrop-blur-xl">
+            <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+              <div>
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-200">SPACE Workspace</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Empat dimensi untuk menentukan posisi strategis</h2>
+                <p class="mt-3 max-w-3xl text-sm leading-7 text-rose-50/85">
+                  SPACE Matrix menggabungkan `Financial Position`, `Competitive Position`, `Stability Position`, dan
+                  `Industry Position`. Nilai rata-rata tiap dimensi dipakai untuk menghitung `X-axis` dan `Y-axis`,
+                  lalu perusahaan ditempatkan ke kuadran `Aggressive`, `Conservative`, `Defensive`, atau `Competitive`.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <button type="button" data-export="excel" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark">Download Excel</button>
+                <button type="button" data-export="pdf" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-maroon-dark">Download PDF</button>
+              </div>
+            </div>
+
+            <div class="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <p data-draft-indicator class="text-sm text-rose-50/80">Draft autosave belum berisi data</p>
+              <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-7">
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">FP Avg</p><p data-space-summary="fp-average" class="mt-2 text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">CP Avg</p><p data-space-summary="cp-average" class="mt-2 text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">SP Avg</p><p data-space-summary="sp-average" class="mt-2 text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">IP Avg</p><p data-space-summary="ip-average" class="mt-2 text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">X-axis</p><p data-space-summary="x-axis" class="mt-2 font-mono text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Y-axis</p><p data-space-summary="y-axis" class="mt-2 font-mono text-lg font-semibold text-soft-white">-</p></div>
+                <div class="rounded-2xl border border-border-blue bg-navy-surface/70 px-4 py-3"><p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Quadrant</p><p data-space-summary="quadrant" class="mt-2 text-lg font-semibold text-soft-white">Incomplete</p></div>
+              </div>
+            </div>
+
+            <p data-space-summary="sync-status" class="mt-4 text-sm text-amber-200">SPACE draft belum berisi nilai.</p>
+          </section>
+
+          <section class="mt-6 grid gap-6 xl:grid-cols-2">
+            <article class="rounded-[2rem] border border-success/30 bg-success/10 p-5 shadow-panel backdrop-blur-xl">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-success">Input</p>
+                <h2 class="mt-2 text-xl font-semibold text-soft-white">Penilaian Financial Position (FP)</h2>
+                <p class="mt-2 text-sm text-emerald-50/85">Skala `1-7`, semakin tinggi semakin baik.</p>
+              </div>
+              <div class="mt-5 overflow-x-auto rounded-2xl border border-success/30">
+                <table class="min-w-[980px] text-left text-sm">
+                  <thead class="bg-navy-elevated text-slate-100">
+                    <tr>
+                      <th class="px-3 py-3">Faktor</th>
+                      <th class="px-3 py-3">Nilai</th>
+                      <th class="px-3 py-3">Alasan</th>
+                    </tr>
+                  </thead>
+                  <tbody data-space-body="fp" class="divide-y divide-success/20"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="rounded-[2rem] border border-warning/30 bg-warning/10 p-5 shadow-panel backdrop-blur-xl">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-warning">Input</p>
+                <h2 class="mt-2 text-xl font-semibold text-soft-white">Penilaian Competitive Position (CP)</h2>
+                <p class="mt-2 text-sm text-amber-50/85">Skala `-7 sampai -1`, di mana `-1` adalah posisi terbaik.</p>
+              </div>
+              <div class="mt-5 overflow-x-auto rounded-2xl border border-warning/30">
+                <table class="min-w-[980px] text-left text-sm">
+                  <thead class="bg-navy-elevated text-slate-100">
+                    <tr>
+                      <th class="px-3 py-3">Faktor</th>
+                      <th class="px-3 py-3">Nilai</th>
+                      <th class="px-3 py-3">Alasan</th>
+                    </tr>
+                  </thead>
+                  <tbody data-space-body="cp" class="divide-y divide-warning/20"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="rounded-[2rem] border border-error/30 bg-error/10 p-5 shadow-panel backdrop-blur-xl">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-rose-200">Input</p>
+                <h2 class="mt-2 text-xl font-semibold text-soft-white">Penilaian Stability Position (SP)</h2>
+                <p class="mt-2 text-sm text-rose-50/90">Skala `-7 sampai -1`, di mana `-1` menunjukkan stabilitas terbaik.</p>
+              </div>
+              <div class="mt-5 overflow-x-auto rounded-2xl border border-error/30">
+                <table class="min-w-[980px] text-left text-sm">
+                  <thead class="bg-navy-elevated text-slate-100">
+                    <tr>
+                      <th class="px-3 py-3">Faktor</th>
+                      <th class="px-3 py-3">Nilai</th>
+                      <th class="px-3 py-3">Alasan</th>
+                    </tr>
+                  </thead>
+                  <tbody data-space-body="sp" class="divide-y divide-error/20"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="rounded-[2rem] border border-info/30 bg-info/10 p-5 shadow-panel backdrop-blur-xl">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-info">Input</p>
+                <h2 class="mt-2 text-xl font-semibold text-soft-white">Penilaian Industry Position (IP)</h2>
+                <p class="mt-2 text-sm text-sky-50/90">Skala `1-7`, semakin tinggi semakin kuat posisi industri.</p>
+              </div>
+              <div class="mt-5 overflow-x-auto rounded-2xl border border-info/30">
+                <table class="min-w-[980px] text-left text-sm">
+                  <thead class="bg-navy-elevated text-slate-100">
+                    <tr>
+                      <th class="px-3 py-3">Faktor</th>
+                      <th class="px-3 py-3">Nilai</th>
+                      <th class="px-3 py-3">Alasan</th>
+                    </tr>
+                  </thead>
+                  <tbody data-space-body="ip" class="divide-y divide-info/20"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-border-blue bg-navy-surface/75 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Result</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">SPACE Matrix Diagram</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-cool-gray">
+                  Diagram di bawah menggunakan rumus `X = CP average + IP average` dan `Y = FP average + SP average`.
+                  Panah dari titik pusat akan diarahkan ke koordinat hasil perhitungan untuk menentukan kuadran strategi.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Applicable strategies akan berubah otomatis mengikuti kuadran hasil perhitungan.
+              </div>
+            </div>
+
+            <div class="mt-6 grid gap-4 xl:grid-cols-3">
+              <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                <p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Coordinate</p>
+                <p data-space-summary="coordinate-label" class="mt-3 font-mono text-2xl font-semibold text-soft-white">(-; -)</p>
+              </div>
+              <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                <p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Diagram Quadrant</p>
+                <p data-space-summary="diagram-quadrant" class="mt-3 text-2xl font-semibold text-soft-white">Incomplete</p>
+              </div>
+              <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                <p class="text-[11px] uppercase tracking-[0.16em] text-cool-gray">Applicable Strategies</p>
+                <p data-space-summary="applicable" class="mt-3 text-sm leading-7 text-soft-white">Lengkapi semua dimensi untuk membaca strategi yang applicable.</p>
+              </div>
+            </div>
+
+            <div class="mt-6 overflow-x-auto rounded-2xl border border-border-blue bg-[linear-gradient(180deg,rgba(7,20,38,0.98),rgba(11,31,58,0.96))] shadow-glow">
+              <div class="relative min-w-[1380px] p-6 lg:p-8">
+                <div class="pointer-events-none absolute left-6 top-10 max-w-[230px] rounded-2xl border border-white/5 bg-navy-deep/50 px-4 py-3 backdrop-blur-sm">
+                  <p class="text-sm font-semibold text-emerald-200/90">Conservative</p>
+                  <p class="mt-3 text-xs font-medium uppercase tracking-[0.16em] text-emerald-300/65">Intensive</p>
+                  <p class="mt-1 text-xs leading-6 text-emerald-100/60">Market Penetration, Market Development, Product Development</p>
+                  <p class="mt-3 text-xs font-medium uppercase tracking-[0.16em] text-emerald-300/65">Diversification</p>
+                  <p class="mt-1 text-xs leading-6 text-emerald-100/60">Related Diversification</p>
+                </div>
+                <div class="pointer-events-none absolute right-6 top-10 max-w-[250px] rounded-2xl border border-white/5 bg-navy-deep/50 px-4 py-3 backdrop-blur-sm">
+                  <p class="text-sm font-semibold text-sky-200/90">Aggressive</p>
+                  <p class="mt-3 text-xs font-medium uppercase tracking-[0.16em] text-sky-300/65">Integration</p>
+                  <p class="mt-1 text-xs leading-6 text-sky-100/60">Backward, Forward, Horizontal Integration</p>
+                  <p class="mt-3 text-xs font-medium uppercase tracking-[0.16em] text-sky-300/65">Intensive</p>
+                  <p class="mt-1 text-xs leading-6 text-sky-100/60">Market Penetration, Market Development, Product Development</p>
+                  <p class="mt-3 text-xs font-medium uppercase tracking-[0.16em] text-sky-300/65">Diversification</p>
+                  <p class="mt-1 text-xs leading-6 text-sky-100/60">Related or Unrelated Diversification</p>
+                </div>
+                <div class="pointer-events-none absolute left-6 bottom-10 max-w-[230px] rounded-2xl border border-white/5 bg-navy-deep/50 px-4 py-3 backdrop-blur-sm">
+                  <p class="text-sm font-semibold text-rose-200/90">Defensive</p>
+                  <p class="mt-3 text-xs font-medium uppercase tracking-[0.16em] text-rose-300/65">Defensive</p>
+                  <p class="mt-1 text-xs leading-6 text-rose-100/60">Retrenchment, Divestiture, Liquidation</p>
+                </div>
+                <div class="pointer-events-none absolute right-6 bottom-10 max-w-[250px] rounded-2xl border border-white/5 bg-navy-deep/50 px-4 py-3 backdrop-blur-sm">
+                  <p class="text-sm font-semibold text-amber-200/90">Competitive</p>
+                  <p class="mt-3 text-xs font-medium uppercase tracking-[0.16em] text-amber-300/65">Integration</p>
+                  <p class="mt-1 text-xs leading-6 text-amber-100/60">Backward, Forward, Horizontal Integration</p>
+                  <p class="mt-3 text-xs font-medium uppercase tracking-[0.16em] text-amber-300/65">Intensive</p>
+                  <p class="mt-1 text-xs leading-6 text-amber-100/60">Market Penetration, Market Development, Product Development</p>
+                </div>
+                <div class="flex justify-center">
+                  <svg data-space-diagram viewBox="0 0 980 760" class="h-[760px] w-full max-w-[980px]"></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 rounded-2xl border border-info/30 bg-info/10 p-4">
+              <p class="text-sm font-semibold text-soft-white">Analisis SPACE Matrix</p>
+              <p data-space-summary="analysis" class="mt-2 text-sm leading-7 text-sky-50/90">
+                Lengkapi nilai pada FP, CP, SP, dan IP untuk menghitung koordinat X dan Y serta menentukan kuadran SPACE.
+              </p>
+            </div>
+
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-success/30 bg-success/10 p-4">
+              <div>
+                <p class="text-sm font-semibold text-soft-white">Lanjut ke phase berikutnya</p>
+                <p class="mt-1 text-sm text-emerald-50/85">Setelah membaca posisi strategis dari SPACE Matrix, lanjutkan ke `P6 BCG Matrix` untuk membaca posisi portofolio bisnis berdasarkan pangsa pasar dan pertumbuhan industri.</p>
+              </div>
+              <a href="phase-6-bcg.html" class="inline-flex items-center justify-center rounded-2xl border border-success/30 bg-navy-deep/50 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-navy-deep/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 focus-visible:ring-offset-navy-surface">Open P6 BCG Matrix</a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

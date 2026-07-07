@@ -175,6 +175,11 @@ Table requirements:
 - Invalid rows flagged with warning badge
 - Mobile horizontal scroll
 
+Phase 8 synthesis UI should use a three-part rhythm:
+- dense cross-tool strategy table for matching results
+- compact integration gate panel for approval/hold decisions
+- grouped umbrella strategy cards that are ready for QSPM preparation
+
 Matrix-specific UI:
 - EFE/IFE: factor bank berbentuk tabel, AQCD, weight, rating, weighted score
 - CPM: benchmark setup, CSF builder kategori unik, company dan competitor ratings, nilai, komentar detail
