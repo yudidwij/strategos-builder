@@ -4,8 +4,8 @@
 
 - Phase reference: F1 Frontend Information Architecture
 - Phase status: Completed
-- Execution status: Documentation only
-- Code status: Locked until later approved build phases
+- Execution status: Documentation baseline completed and later aligned with implemented frontend
+- Code status: Historical note only; implementation has progressed through approved later phases
 
 ## Purpose
 
@@ -60,7 +60,10 @@ SOT-Drive
 | `/login.html` | Login | User sign-in entry | Public |
 | `/register.html` | Register | User registration entry | Public |
 | `/dashboard.html` | Admin Dashboard Shell | Workspace container, project overview, tracker access | Requires auth UI state |
-| `/analysis.html` | Analysis Workspace | Main input workspace for phases 0-14 | Locked by phase approval |
+| `/analysis.html` | Analysis Workspace Hub | Main hub for phases 0-14, phase rail, and launch point for dedicated workspaces | Locked by phase approval |
+| `/phase-1-efe.html` | P1 Dedicated Workspace | EFE brainstorming, AQCD filtering, Key External Factor table | Requires Phase 1 access |
+| `/phase-2-ife.html` | P2 Dedicated Workspace | IFE brainstorming, AQCD filtering, Key Internal Factor table | Requires Phase 2 access |
+| `/phase-3-cpm.html` | P3 Dedicated Workspace | CPM benchmark setup, CSF builder, comparative matrix | Requires Phase 3 access |
 | `/results.html` | Results Dashboard | Summary, traceability, BSC, strategy map preview | Requires approved outputs |
 
 ## Page Structure
@@ -101,12 +104,13 @@ SOT-Drive
 - Strategic readiness placeholder
 - Phase tracker summary
 - Recent notes / assumptions
-- Export placeholder
+- Export action area
 
 ### 5. Analysis Workspace
 
 - Header with active project and phase status
 - Phase tracker rail
+- Analysis hub cards that open dedicated phase workspaces for matrix-heavy phases
 - Compliance checklist panel
 - Validation summary panel
 - Phase-specific form or matrix canvas
@@ -129,9 +133,9 @@ SOT-Drive
 | Phase | Name | Primary UI Module | Output Dependency |
 |---:|---|---|---|
 | 0 | Intake & Diagnosis | Company profile setup form | Project baseline |
-| 1 | EFE Matrix | External factor matrix with separate Opportunity and Threat banks sourced from PESTEL and Porter Five Forces | Required for TOWS, IE, QSPM |
-| 2 | IFE Matrix | Internal factor matrix | Required for TOWS, IE, QSPM |
-| 3 | CPM Matrix | Competitor comparison matrix | Standalone + results summary |
+| 1 | EFE Matrix | Dedicated external factor workspace with Opportunity and Threat brainstorming banks, AQCD filter, and Key External Factor table | Required for TOWS, IE, QSPM |
+| 2 | IFE Matrix | Dedicated internal factor workspace with Strength and Weakness brainstorming banks, 7S classification, and Key Internal Factor table | Required for TOWS, IE, QSPM |
+| 3 | CPM Matrix | Dedicated competitor comparison workspace with benchmark setup, CSF builder, and comparative matrix | Standalone + results summary |
 | 4 | SWOT & TOWS Matrix | Strategy generator | Uses approved EFE + IFE |
 | 5 | SPACE Matrix | Positioning calculator | Required for synthesis |
 | 6 | BCG Matrix | Portfolio calculator | Required for synthesis |
@@ -154,6 +158,7 @@ SOT-Drive
 | Auth Form | Login, register | Shows required, error, loading, success states |
 | Sidebar | Dashboard, analysis, results | Main workspace navigation |
 | Topbar | Dashboard, analysis, results | Project selector and phase context |
+| Dedicated Workspace Launcher | Analysis hub | Opens matrix-heavy phases in separate HTML pages |
 | Project Card | Dashboard | Project overview and readiness placeholder |
 | Phase Tracker | Dashboard, analysis | Represents all 15 listed phases including Phase 0 |
 | Phase Card | Tracker | Status, checklist, gate action |
@@ -161,10 +166,16 @@ SOT-Drive
 | Validation Summary | Analysis | Visible framework rule messaging |
 | Compliance Checklist | Analysis | FCR display per phase |
 | Matrix Table | EFE, IFE, CPM, QSPM | Scrollable on mobile |
-| PESTEL / Porter Factor Input Bank | EFE | Separate Opportunity and Threat input banks, each with max 10 entries, sourced from PESTEL and Porter Five Forces |
-| AQCD Quality Badge | EFE, IFE | High / Medium / Low quality marker |
+| PESTEL / Porter Factor Input Bank | EFE | Separate Opportunity and Threat brainstorming banks, each up to 20 rows, top 10 AQCD-qualified factors promoted to evaluation |
+| 7S Input Bank | IFE | Separate Strength and Weakness brainstorming banks using Strategy, Structure, Systems, Shared Values, Style, Staff, Skills |
+| AQCD Quality Badge | EFE, IFE | High / Medium / Low quality marker and qualification gate |
 | Weight Progress Indicator | EFE, IFE, CPM | Enforces total weight = 1.0 |
-| Pairwise Weighting Note | EFE | Explains pairwise comparison method for more auditable weight assignment |
+| Pairwise Weighting Note | EFE, IFE, CPM | Explains pairwise comparison method for more auditable weight assignment |
+| Save All Action | EFE, CPM | Batch save control for brainstorming rows |
+| Benchmark Setup Card | CPM | Shows user company label from Phase 0 plus editable competitor names |
+| Category Lock Hint | CPM | Prevents duplicate CSF category usage across rows |
+| Draft Persistence State | Analysis, dedicated pages | Browser-side save indicator using localStorage |
+| Export Action | Dedicated pages, results | Browser PDF and Excel-compatible export trigger |
 | Traceability Badge | Results, BSC, strategy map | Shows source lineage |
 | Strategy Card | TOWS, Intersection, QSPM, results | Strategic output container |
 | Score Card | Results | Weighted score and quadrant summary |
@@ -182,11 +193,14 @@ SOT-Drive
 | Low AQCD exclusion | AQCD badge plus rejected factor state in EFE/IFE views |
 | Weight total = 1.0 | Weight progress indicator in EFE/IFE/CPM |
 | EFE company-specific rating | Helper text and validation summary in EFE |
-| Opportunity/Threat source capture | EFE includes separate Opportunity and Threat banks with up to 10 inputs each, sourced from PESTEL and Porter Five Forces |
+| Opportunity/Threat source capture | EFE includes separate Opportunity and Threat brainstorming banks with up to 20 inputs each, sourced from PESTEL and Porter Five Forces, with top 10 promoted into evaluation |
 | AQCD quality framework | EFE exposes Actionable, Quantitative, Comparative, and Divisional screening before factor acceptance |
-| Pairwise comparison weighting | EFE includes method note and verification state for total weight = 1.0 |
+| Pairwise comparison weighting | EFE, IFE, and CPM include method note and verification state for total weight = 1.0 |
 | IFE strength 3-4 only | Rating control restriction in IFE |
 | IFE weakness 1-2 only | Rating control restriction in IFE |
+| IFE source classification | IFE uses McKinsey 7S source grouping for Strength and Weakness factors |
+| CPM unique CSF enforcement | CPM dropdown options lock after category selection to avoid duplicate CSF categories |
+| CPM user company label | CPM company label inherits Phase 0 company name |
 | TOWS from approved factors only | TOWS module depends on approved EFE/IFE inputs |
 | SPACE coordinate before quadrant | Score card layout lists FP/CP/SP/IP, then X/Y, then quadrant |
 | BCG RMSP and IGR before quadrant | BCG result card sequence enforced |
@@ -206,6 +220,7 @@ SOT-Drive
 | AQCD quality screening | Inline toggle cluster, quality badge, rejected-factor bucket |
 | Weight validation | Running total indicator, pairwise note, disabled approval control |
 | Rating validation | Restricted select inputs and helper copy |
+| CSF duplication control | Disabled duplicate category options plus warning hint in CPM builder |
 | QSPM special rule | Blank/not relevant option, no zero state, conditional TAS |
 | BSC traceability | Theme-linked source chip on each objective row |
 | Strategy Map linkage | Connected node references to BSC objectives |
@@ -240,9 +255,8 @@ SOT-Drive
         └── sample-data.js    # locked until coded workspace/results phase
 ```
 
-## Current Lock Status
+## Current Alignment Note
 
-- Locked now: all HTML, JS, and UI implementation beyond F1 documentation
-- Allowed now: review F1 output and approve next phase
-- Next phase requiring explicit approval:
-  `Approved Phase F2. Lanjutkan ke Design System Setup.`
+- Dokumen F1 ini sekarang berfungsi sebagai baseline arsitektur yang sudah diselaraskan dengan implementasi frontend terkini.
+- Phase-heavy matrix workspace telah berkembang dari satu halaman umum menjadi pola `analysis hub + dedicated phase page` untuk P1, P2, dan P3.
+- Approval history F1 tetap completed; perubahan di atas adalah sinkronisasi dokumentasi, bukan fase approval baru.

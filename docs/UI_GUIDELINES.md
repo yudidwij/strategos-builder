@@ -176,8 +176,8 @@ Table requirements:
 - Mobile horizontal scroll
 
 Matrix-specific UI:
-- EFE/IFE: factor, AQCD, weight, rating, weighted score
-- CPM: CSF, company, competitor ratings
+- EFE/IFE: factor bank berbentuk tabel, AQCD, weight, rating, weighted score
+- CPM: benchmark setup, CSF builder kategori unik, company dan competitor ratings, nilai, komentar detail
 - QSPM: AS/TAS grouped under umbrella strategies
 - BSC: perspective, objective, KPI, target, initiative
 
@@ -227,9 +227,9 @@ Faktor dengan AQCD rendah ditampilkan dalam tabel terpisah dan tidak boleh masuk
 
 | Matrix | Required Validation |
 |---|---|
-| EFE | Total weight = 1.0, rating 1–4, opportunities/threats dipisah |
-| IFE | Total weight = 1.0, strength rating 3–4, weakness rating 1–2 |
-| CPM | CSF spesifik industri, total weight = 1.0, rating relatif antar perusahaan |
+| EFE | Total weight = 1.0, rating 1–4, opportunities/threats dipisah, brainstorming bank max 20 per sisi, evaluasi max 10 per sisi |
+| IFE | Total weight = 1.0, strength rating 3–4, weakness rating 1–2, source 7S, evaluasi max 10 per sisi |
+| CPM | CSF spesifik industri, total weight = 1.0, rating relatif antar perusahaan, kategori CSF tidak boleh duplikat |
 | SPACE | FP/IP skala 1–7, CP/SP skala -7 sampai -1 |
 | BCG | RMSP dan IGR wajib ditampilkan sebelum kuadran |
 | IE | EFE dan IFE score harus berasal dari approved phase |
@@ -275,6 +275,23 @@ UI behavior:
 - Sum TAS tidak boleh menghitung blank sebagai 0 secara visual
 - Tooltip menjelaskan bahwa blank berarti faktor tidak mempengaruhi pilihan strategi
 
+## 12A. Dedicated Phase Workspace Pattern
+
+Untuk phase dengan beban input matrix yang tinggi, UI mengikuti pola:
+- `analysis.html` sebagai hub dan phase launcher
+- Dedicated workspace HTML untuk phase tertentu bila membutuhkan ruang kerja yang lebih fokus
+- Header phase tetap menunjukkan konteks project, status, draft state, dan tombol lanjut ke phase berikutnya
+
+Current implemented pattern:
+- `phase-1-efe.html`
+- `phase-2-ife.html`
+- `phase-3-cpm.html`
+
+Prinsip layout:
+- Part 1 untuk brainstorming / factor builder
+- Part 2 untuk matrix evaluasi / hasil komparatif
+- Export, autosave state, dan validation summary tetap terlihat di atas fold
+
 ## 13. Traceability Badge
 
 Setiap strategi, objective, atau insight di dashboard hasil harus punya badge sumber.
@@ -318,10 +335,15 @@ Suggested icon categories:
 - Roadmap
 - Risk
 - Export
-- Traceability
-- Validation
 
-## 16. Visual Motifs
+## 16. Implemented Interaction Notes
+
+- Browser-side draft persistence memakai `localStorage` dan harus diberi indikator status simpan yang mudah terlihat.
+- Export PDF menggunakan browser print flow dan export Excel menggunakan file `.xls` kompatibel browser tanpa library eksternal.
+- Pada CPM, label `Perusahaan User` mengikuti data `Company name` dari Phase 0 dan tidak diedit langsung di card benchmark setup.
+- Pada CPM, opsi kategori CSF yang sudah dipakai di satu baris harus terkunci di baris lain dan diberi hint visual di bawah dropdown.
+
+## 17. Visual Motifs
 
 Use subtle motifs:
 - Grid lines
@@ -339,7 +361,7 @@ Avoid:
 - Excessive animation
 - Generic SaaS pastel look
 
-## 17. Dashboard Visual Hierarchy
+## 18. Dashboard Visual Hierarchy
 
 Priority order:
 1. Current project status
@@ -351,7 +373,7 @@ Priority order:
 7. Supporting assumptions and notes
 8. Traceability detail
 
-## 18. Responsive Breakpoints
+## 19. Responsive Breakpoints
 
 Tailwind default:
 - sm: 640px
@@ -367,7 +389,7 @@ Design expectation:
 - Tables must support horizontal scroll
 - Phase tracker must convert to vertical timeline on mobile
 
-## 19. Accessibility Guidelines
+## 20. Accessibility Guidelines
 
 - Minimum contrast ratio should be readable on dark background.
 - Buttons must have visible focus states.
@@ -378,7 +400,7 @@ Design expectation:
 - CTA labels must be action-oriented.
 - Locked/disabled states must still be readable.
 
-## 20. Copywriting Tone
+## 21. Copywriting Tone
 
 Tone:
 - Strategic

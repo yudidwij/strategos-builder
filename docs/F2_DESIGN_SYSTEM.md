@@ -4,12 +4,14 @@
 
 - Phase reference: F2 Design System Setup
 - Phase status: Completed
-- Execution status: Documentation only
-- Code status: Locked until F3 or later approved UI build phases
+- Execution status: Documentation baseline completed and later aligned with implemented frontend
+- Code status: Historical note only; subsequent approved UI phases have been implemented
 
 ## Purpose
 
 Dokumen ini menetapkan sistem desain frontend SOT-Drive untuk fase implementasi berikutnya. Output difokuskan pada token visual, aturan tipografi, resep utilitas Tailwind Play CDN, dan pola komponen reusable yang tetap selaras dengan framework STRATEGOS.
+
+Dokumen ini tetap menjadi baseline desain, namun isinya kini dibaca bersama implementasi aktual seperti dedicated phase workspaces, browser-native export actions, dan draft persistence state.
 
 ## Design Principles
 

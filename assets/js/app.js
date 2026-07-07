@@ -4,6 +4,8 @@
   const EFE_SETTINGS_KEY = "sotdrive-efe-settings-v1";
   const IFE_STORAGE_KEY = "sotdrive-ife-items-v1";
   const IFE_SETTINGS_KEY = "sotdrive-ife-settings-v1";
+  const CPM_STORAGE_KEY = "sotdrive-cpm-items-v1";
+  const CPM_SETTINGS_KEY = "sotdrive-cpm-settings-v1";
   const EFE_SOURCE_OPTIONS = [
     {
       label: "PESTEL",
@@ -26,11 +28,22 @@
       values: ["Strategy", "Structure", "Systems", "Shared Values", "Style", "Staff", "Skills"],
     },
   ];
+  const CPM_CSF_OPTIONS = [
+    "Pemasaran",
+    "Ekspansi Jaringan",
+    "Kondisi Keuangan",
+    "Manajemen",
+    "Kualitas Produk",
+    "Loyalitas Pelanggan",
+    "Harga Bersaing",
+    "Pangsa Pasar",
+    "Unik Capabilities",
+  ];
   const PHASE_WORKSPACE_MAP = [
     { key: "p0", section: "phase-0", label: "P0 Intake & Diagnosis", description: "Company baseline, objective, scope, and data assumptions." },
     { key: "p1", section: "phase-1", label: "P1 EFE Matrix", description: "External factor identification and EFE workspace.", href: "phase-1-efe.html" },
     { key: "p2", section: "phase-2", label: "P2 IFE Matrix", description: "Internal factor evaluation and validation workspace.", href: "phase-2-ife.html" },
-    { key: "p3", section: "phase-3", label: "P3 CPM Matrix", description: "Competitive profile input and comparison workspace." },
+    { key: "p3", section: "phase-3", label: "P3 CPM Matrix", description: "Competitive profile input and comparison workspace.", href: "phase-3-cpm.html" },
     { key: "p4", section: "phase-4", label: "P4 SWOT & TOWS", description: "TOWS strategy drafting based on approved external and internal factors." },
     { key: "p5", section: "phase-5", label: "P5 SPACE Matrix", description: "Matching tools workspace for SPACE, BCG, IE, and Intersection Rule." },
     { key: "p6", section: "phase-5", label: "P6 BCG Matrix", description: "Sub-page focus routed into the matching tools workspace." },
@@ -184,6 +197,21 @@
     });
   }
 
+  function getPhase0CompanyName() {
+    const draft = safeReadDraft();
+    const fromDraft = draft["phase-0::company-name"];
+    if (typeof fromDraft === "string" && fromDraft.trim()) {
+      return fromDraft.trim();
+    }
+
+    const phase0Field = document.querySelector('[data-field-key="phase-0::company-name"]');
+    if (phase0Field && typeof phase0Field.value === "string" && phase0Field.value.trim()) {
+      return phase0Field.value.trim();
+    }
+
+    return "";
+  }
+
   function getEfeItems() {
     return safeReadJson(EFE_STORAGE_KEY, []);
   }
@@ -216,6 +244,31 @@
     return safeWriteJson(IFE_SETTINGS_KEY, settings);
   }
 
+  function getCpmItems() {
+    return safeReadJson(CPM_STORAGE_KEY, []);
+  }
+
+  function setCpmItems(items) {
+    return safeWriteJson(CPM_STORAGE_KEY, items);
+  }
+
+  function getCpmSettings() {
+    return safeReadJson(CPM_SETTINGS_KEY, {
+      weightingMode: "manual",
+      companyName: "Perusahaan User",
+      competitor1Name: "Competitor 1",
+      competitor2Name: "Competitor 2",
+      competitor3Name: "Competitor 3",
+    });
+  }
+
+  function setCpmSettings(settings) {
+    return safeWriteJson(CPM_SETTINGS_KEY, {
+      ...getCpmSettings(),
+      ...settings,
+    });
+  }
+
   function buildSourceOptions(selectedValue) {
     return EFE_SOURCE_OPTIONS.map((group) => {
       const options = group.values
@@ -231,6 +284,14 @@
         .map((value) => `<option value="${value}"${value === selectedValue ? " selected" : ""}>${value}</option>`)
         .join("");
       return `<optgroup label="${group.label}">${options}</optgroup>`;
+    }).join("");
+  }
+
+  function buildCpmCsfOptions(selectedValue, disabledValues = []) {
+    return CPM_CSF_OPTIONS.map((value) => {
+      const isSelected = value === selectedValue;
+      const isDisabled = disabledValues.includes(value) && !isSelected;
+      return `<option value="${value}"${isSelected ? " selected" : ""}${isDisabled ? " disabled" : ""}>${value}</option>`;
     }).join("");
   }
 
@@ -1531,6 +1592,789 @@
     });
   }
 
+  function getCpmInputRows() {
+    return Array.from(document.querySelectorAll("[data-cpm-input-body] tr[data-cpm-row-id]"));
+  }
+
+  function getCpmRowMeta(row) {
+    const slot = Number(row.dataset.cpmSlot || 0);
+    return {
+      slot,
+      id: `csf-${slot}`,
+    };
+  }
+
+  function getCpmRowFields(row) {
+    return {
+      csfInput: row.querySelector("[data-cpm-field='csf']"),
+      noteInput: row.querySelector("[data-cpm-field='note']"),
+      prioritySelect: row.querySelector("[data-cpm-field='priority']"),
+      status: row.querySelector("[data-cpm-row-status]"),
+    };
+  }
+
+  function getSelectedCpmCategories(excludedRowId = "") {
+    return getCpmInputRows()
+      .filter((row) => row.dataset.cpmRowId !== excludedRowId)
+      .map((row) => getCpmRowFields(row).csfInput?.value?.trim() || "")
+      .filter(Boolean);
+  }
+
+  function refreshCpmCategoryOptions() {
+    const categoryOwners = new Map();
+    getCpmInputRows().forEach((row) => {
+      const value = getCpmRowFields(row).csfInput?.value?.trim() || "";
+      if (!value || categoryOwners.has(value)) return;
+      categoryOwners.set(value, getCpmRowMeta(row).slot);
+    });
+
+    getCpmInputRows().forEach((row) => {
+      const fields = getCpmRowFields(row);
+      if (!fields.csfInput) return;
+      const currentValue = fields.csfInput.value || "";
+      const disabledValues = getSelectedCpmCategories(row.dataset.cpmRowId || "");
+      fields.csfInput.innerHTML = `
+        <option value="">Pilih kategori CSF</option>
+        ${buildCpmCsfOptions(currentValue, disabledValues)}
+      `;
+      fields.csfInput.value = currentValue;
+
+      const hint = row.querySelector("[data-cpm-category-hint]");
+      if (!hint) return;
+      if (!currentValue) {
+        hint.className = "mt-2 text-xs text-cool-gray";
+        hint.textContent = "Pilih satu kategori unik. Kategori yang sudah dipakai akan terkunci di baris lain.";
+        return;
+      }
+      const ownerSlot = categoryOwners.get(currentValue);
+      const currentSlot = getCpmRowMeta(row).slot;
+      if (ownerSlot === currentSlot) {
+        hint.className = "mt-2 text-xs text-emerald-200";
+        hint.textContent = `Kategori aktif untuk baris ${currentSlot}. Kategori ini tidak tersedia di baris lain.`;
+        return;
+      }
+      hint.className = "mt-2 text-xs text-amber-200";
+      hint.textContent = `Kategori ini sudah dipakai di baris ${ownerSlot}. Pilih kategori lain.`;
+    });
+  }
+
+  function createCpmInputRows() {
+    const tbody = document.querySelector("[data-cpm-input-body]");
+    if (!tbody || tbody.children.length) return;
+
+    for (let slot = 1; slot <= 10; slot += 1) {
+      const row = document.createElement("tr");
+      row.dataset.cpmRowId = `csf-${slot}`;
+      row.dataset.cpmSlot = String(slot);
+      row.className = slot % 2 === 0 ? "bg-navy-surface/40" : "bg-white/5";
+      row.innerHTML = `
+        <td class="px-3 py-3 font-mono text-soft-white">${slot}</td>
+        <td class="px-3 py-3">
+          <select
+            data-cpm-field="csf"
+            class="w-full rounded-2xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white placeholder:text-cool-gray"
+          >
+            <option value="">Pilih kategori CSF</option>
+            ${buildCpmCsfOptions("")}
+          </select>
+          <p data-cpm-category-hint class="mt-2 text-xs text-cool-gray">
+            Pilih satu kategori unik. Kategori yang sudah dipakai akan terkunci di baris lain.
+          </p>
+        </td>
+        <td class="px-3 py-3">
+          <textarea
+            data-cpm-field="note"
+            placeholder="Industry rationale / benchmark note"
+            class="min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white placeholder:text-cool-gray"
+          ></textarea>
+        </td>
+        <td class="px-3 py-3">
+          <select
+            data-cpm-field="priority"
+            class="w-full rounded-2xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white"
+          >
+            <option value="1">1 - Low</option>
+            <option value="2">2</option>
+            <option value="3" selected>3 - Medium</option>
+            <option value="4">4</option>
+            <option value="5">5 - High</option>
+          </select>
+        </td>
+        <td class="px-3 py-3">
+          <div class="flex min-w-[12rem] flex-col gap-2">
+            <div class="flex gap-2">
+              <button
+                type="button"
+                data-managed-action="true"
+                data-cpm-action="save-row"
+                data-cpm-id="csf-${slot}"
+                class="inline-flex flex-1 items-center justify-center rounded-xl border border-info/30 bg-info/10 px-3 py-2 text-xs font-medium text-soft-white transition hover:bg-info/20"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                data-managed-action="true"
+                data-cpm-action="clear-row"
+                data-cpm-id="csf-${slot}"
+                class="inline-flex flex-1 items-center justify-center rounded-xl border border-border-blue bg-white/5 px-3 py-2 text-xs font-medium text-cool-gray transition hover:text-soft-white"
+              >
+                Clear
+              </button>
+            </div>
+            <p data-cpm-row-status class="text-xs text-cool-gray">Belum terdaftar.</p>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(row);
+    }
+    refreshCpmCategoryOptions();
+  }
+
+  function setCpmRowStatus(row, message, tone = "default") {
+    const status = row.querySelector("[data-cpm-row-status]");
+    if (!status) return;
+    const tones = {
+      default: "text-cool-gray",
+      success: "text-emerald-200",
+      warning: "text-amber-200",
+    };
+    status.className = `text-xs ${tones[tone] || tones.default}`;
+    status.textContent = message;
+  }
+
+  function hydrateCpmRowsFromStore() {
+    const items = getCpmItems();
+    getCpmInputRows().forEach((row) => {
+      const meta = getCpmRowMeta(row);
+      const item = items.find((entry) => entry.id === meta.id);
+      const fields = getCpmRowFields(row);
+      if (item) {
+        if (fields.csfInput) fields.csfInput.value = item.csf;
+        if (fields.noteInput) fields.noteInput.value = item.note || "";
+        if (fields.prioritySelect) fields.prioritySelect.value = item.priority || "3";
+        setCpmRowStatus(row, "CSF sudah masuk ke tabel CPM.", "success");
+      } else {
+        setCpmRowStatus(row, "Belum terdaftar.", "default");
+      }
+    });
+    refreshCpmCategoryOptions();
+  }
+
+  function ensureCpmSettingsInDom() {
+    const phase0CompanyName = getPhase0CompanyName();
+    if (phase0CompanyName) {
+      setCpmSettings({ companyName: phase0CompanyName });
+    }
+    const settings = getCpmSettings();
+    document.querySelectorAll("[data-cpm-setting]").forEach((field) => {
+      const key = field.dataset.cpmSetting;
+      if (!key) return;
+      if (field.value !== settings[key]) {
+        field.value = settings[key] || "";
+      }
+    });
+    document.querySelectorAll("[data-cpm-company-label]").forEach((node) => {
+      const key = node.dataset.cpmCompanyLabel;
+      if (!key) return;
+      node.textContent = settings[key] || "";
+    });
+  }
+
+  function updateCpmCompanyLabels() {
+    const settings = getCpmSettings();
+    document.querySelectorAll("[data-cpm-company-label]").forEach((node) => {
+      const key = node.dataset.cpmCompanyLabel;
+      if (!key) return;
+      node.textContent = settings[key] || "";
+    });
+  }
+
+  function saveCpmRow(id, options = {}) {
+    const { silent = false } = options;
+    const row = getCpmInputRows().find((entry) => getCpmRowMeta(entry).id === id);
+    if (!row) return;
+    const { slot } = getCpmRowMeta(row);
+    const fields = getCpmRowFields(row);
+    const csf = fields.csfInput?.value?.trim() || "";
+    if (!csf) {
+      setCpmRowStatus(row, "CSF wajib diisi sebelum disimpan.", "warning");
+      if (!silent) showToast("CSF CPM belum diisi.", "warning");
+      return;
+    }
+    const duplicateRow = getCpmInputRows().find((entry) => {
+      if (entry.dataset.cpmRowId === row.dataset.cpmRowId) return false;
+      const otherValue = getCpmRowFields(entry).csfInput?.value?.trim() || "";
+      return otherValue === csf;
+    });
+    if (duplicateRow) {
+      const duplicateSlot = getCpmRowMeta(duplicateRow).slot;
+      setCpmRowStatus(row, `Kategori ini sudah dipakai di baris ${duplicateSlot}.`, "warning");
+      if (!silent) showToast(`Kategori CSF "${csf}" sudah dipakai di baris ${duplicateSlot}.`, "warning");
+      refreshCpmCategoryOptions();
+      return;
+    }
+    const items = getCpmItems().filter((item) => item.id !== id);
+    const existing = getCpmItems().find((item) => item.id === id);
+    items.push({
+      id,
+      slot,
+      csf,
+      note: fields.noteInput?.value?.trim() || "",
+      priority: fields.prioritySelect?.value || "3",
+      weight: existing?.weight || "",
+      ratings: existing?.ratings || {
+        company: "",
+        competitor1: "",
+        competitor2: "",
+        competitor3: "",
+      },
+      comments: existing?.comments || {
+        company: "",
+        competitor1: "",
+        competitor2: "",
+        competitor3: "",
+      },
+    });
+    setCpmItems(items.sort((a, b) => a.slot - b.slot));
+    setCpmRowStatus(row, "CSF sudah masuk ke tabel CPM.", "success");
+    renderCpmMatrix();
+    saveAllFields();
+    updateDraftIndicators();
+    refreshCpmCategoryOptions();
+    if (!silent) showToast(`CSF ${slot} berhasil disimpan.`, "success");
+  }
+
+  function saveAllCpmRows() {
+    let savedCount = 0;
+    let skippedEmpty = 0;
+    let duplicateCount = 0;
+    getCpmInputRows().forEach((row) => {
+      const meta = getCpmRowMeta(row);
+      const fields = getCpmRowFields(row);
+      const csf = fields.csfInput?.value?.trim() || "";
+      if (!csf) {
+        skippedEmpty += 1;
+        return;
+      }
+      const duplicateRow = getCpmInputRows().find((entry) => {
+        if (entry.dataset.cpmRowId === row.dataset.cpmRowId) return false;
+        const otherValue = getCpmRowFields(entry).csfInput?.value?.trim() || "";
+        return otherValue === csf;
+      });
+      if (duplicateRow) {
+        duplicateCount += 1;
+        const duplicateSlot = getCpmRowMeta(duplicateRow).slot;
+        setCpmRowStatus(row, `Kategori ini sama dengan baris ${duplicateSlot}.`, "warning");
+        return;
+      }
+      saveCpmRow(meta.id, { silent: true });
+      savedCount += 1;
+    });
+    refreshCpmCategoryOptions();
+    const tone = savedCount > 0 ? "success" : "warning";
+    showToast(`CSF: ${savedCount} tersimpan, ${skippedEmpty} kosong, ${duplicateCount} duplikat.`, tone);
+  }
+
+  function clearCpmRow(id, removeSaved = false) {
+    const row = getCpmInputRows().find((entry) => getCpmRowMeta(entry).id === id);
+    if (!row) return;
+    const fields = getCpmRowFields(row);
+    if (fields.csfInput) fields.csfInput.value = "";
+    if (fields.noteInput) fields.noteInput.value = "";
+    if (fields.prioritySelect) fields.prioritySelect.value = "3";
+    if (removeSaved) {
+      setCpmItems(getCpmItems().filter((item) => item.id !== id));
+      renderCpmMatrix();
+      setCpmRowStatus(row, "CSF dihapus dari tabel CPM.", "warning");
+      showToast("CSF CPM berhasil dihapus.", "success");
+    } else {
+      setCpmRowStatus(row, "Baris dibersihkan. Simpan lagi jika perlu.", "default");
+    }
+    saveAllFields();
+    updateDraftIndicators();
+    refreshCpmCategoryOptions();
+  }
+
+  function editCpmRow(id) {
+    const items = getCpmItems();
+    const item = items.find((entry) => entry.id === id);
+    const row = getCpmInputRows().find((entry) => getCpmRowMeta(entry).id === id);
+    if (!item || !row) return;
+    const fields = getCpmRowFields(row);
+    if (fields.csfInput) fields.csfInput.value = item.csf;
+    if (fields.noteInput) fields.noteInput.value = item.note || "";
+    if (fields.prioritySelect) fields.prioritySelect.value = item.priority || "3";
+    setCpmRowStatus(row, "Mode edit aktif. Ubah nilai lalu klik Save.", "success");
+    refreshCpmCategoryOptions();
+    row.scrollIntoView({ behavior: "smooth", block: "center" });
+    showToast(`Mode edit dibuka untuk CSF ${item.slot}.`, "info");
+  }
+
+  function calculateCpmValue(weight, rating) {
+    const weightNumber = Number.parseFloat(weight);
+    const ratingNumber = Number.parseFloat(rating);
+    if (Number.isNaN(weightNumber) || Number.isNaN(ratingNumber)) return "";
+    return (weightNumber * ratingNumber).toFixed(2);
+  }
+
+  function applyAutoCpmWeights() {
+    setCpmSettings({ weightingMode: "auto" });
+    const items = getCpmItems().map((item) => ({ ...item }));
+    if (!items.length) {
+      updateCpmSummary([]);
+      showToast("Belum ada CSF yang tersimpan untuk dihitung bobotnya.", "warning");
+      return;
+    }
+    if (items.length === 1) {
+      const nextItems = items.map((item) => ({ ...item, weight: "1.00" }));
+      setCpmItems(nextItems);
+      renderCpmMatrix();
+      showToast("Auto pairwise diterapkan untuk 1 CSF aktif.", "success");
+      return;
+    }
+
+    const weightsById = {};
+    let totalPairwise = 0;
+    items.forEach((leftItem, leftIndex) => {
+      let wins = 0;
+      items.forEach((rightItem, rightIndex) => {
+        if (leftIndex === rightIndex || leftIndex > rightIndex) return;
+        const leftScore = Number.parseFloat(leftItem.priority || "3");
+        const rightScore = Number.parseFloat(rightItem.priority || "3");
+        if (leftScore > rightScore) {
+          wins += 1;
+        } else if (leftScore < rightScore) {
+          weightsById[rightItem.id] = (weightsById[rightItem.id] || 0) + 1;
+        } else {
+          wins += 0.5;
+          weightsById[rightItem.id] = (weightsById[rightItem.id] || 0) + 0.5;
+        }
+        totalPairwise += 1;
+      });
+      weightsById[leftItem.id] = (weightsById[leftItem.id] || 0) + wins;
+    });
+
+    let assignedWeight = 0;
+    const formattedWeightsById = {};
+    items
+      .slice()
+      .sort((a, b) => a.slot - b.slot)
+      .forEach((item, index, list) => {
+        if (totalPairwise <= 0) {
+          formattedWeightsById[item.id] = "0.00";
+          return;
+        }
+        if (index === list.length - 1) {
+          formattedWeightsById[item.id] = Math.max(0, 1 - assignedWeight).toFixed(2);
+          return;
+        }
+        const weight = ((weightsById[item.id] || 0) / totalPairwise).toFixed(2);
+        formattedWeightsById[item.id] = weight;
+        assignedWeight += Number.parseFloat(weight);
+      });
+
+    const nextItems = items.map((item) => ({
+      ...item,
+      weight: formattedWeightsById[item.id] || "0.00",
+    }));
+    setCpmItems(nextItems);
+    renderCpmMatrix();
+    showToast("Auto Weight Pairwise CPM berhasil diterapkan.", "success");
+  }
+
+  function setManualCpmWeightingMode() {
+    setCpmSettings({ weightingMode: "manual" });
+    renderCpmMatrix();
+    showToast("Mode bobot manual CPM aktif. Pastikan total bobot = 1.00.", "info");
+  }
+
+  function updateCpmSettingsFromDom() {
+    const phase0CompanyName = getPhase0CompanyName();
+    const nextSettings = {};
+    document.querySelectorAll("[data-cpm-setting]").forEach((field) => {
+      const key = field.dataset.cpmSetting;
+      if (!key) return;
+      nextSettings[key] = field.value.trim() || getCpmSettings()[key];
+    });
+    if (phase0CompanyName) {
+      nextSettings.companyName = phase0CompanyName;
+    }
+    setCpmSettings(nextSettings);
+    updateCpmCompanyLabels();
+  }
+
+  function getCpmTotals(items) {
+    const entityKeys = ["company", "competitor1", "competitor2", "competitor3"];
+    const totals = {
+      weight: items.reduce((sum, item) => sum + Number(item.weight || 0), 0),
+      company: 0,
+      competitor1: 0,
+      competitor2: 0,
+      competitor3: 0,
+    };
+    items.forEach((item) => {
+      entityKeys.forEach((key) => {
+        totals[key] += Number(calculateCpmValue(item.weight, item.ratings?.[key]) || 0);
+      });
+    });
+    return totals;
+  }
+
+  function updateCpmSummary(items = getCpmItems().sort((a, b) => a.slot - b.slot)) {
+    const totals = getCpmTotals(items);
+    const balanced = Math.abs(totals.weight - 1) < 0.001 || items.length === 0;
+    const settings = getCpmSettings();
+    const nodes = {
+      "weight-total": totals.weight.toFixed(2),
+      "weight-total-inline": totals.weight.toFixed(2),
+      "company-total": totals.company.toFixed(2),
+      "competitor1-total": totals.competitor1.toFixed(2),
+      "competitor2-total": totals.competitor2.toFixed(2),
+      "competitor3-total": totals.competitor3.toFixed(2),
+      "mode": settings.weightingMode === "auto" ? "Auto Pairwise" : "Manual",
+      "company-name": settings.companyName,
+      "competitor1-name": settings.competitor1Name,
+      "competitor2-name": settings.competitor2Name,
+      "competitor3-name": settings.competitor3Name,
+    };
+    Object.entries(nodes).forEach(([key, value]) => {
+      document.querySelectorAll(`[data-cpm-summary='${key}']`).forEach((node) => {
+        node.textContent = value;
+      });
+    });
+
+    const grandWeightNode = document.querySelector("[data-cpm-summary='grand-weight-total']");
+    if (grandWeightNode) grandWeightNode.textContent = totals.weight.toFixed(2);
+    const grandCompanyNode = document.querySelector("[data-cpm-summary='grand-company-total']");
+    if (grandCompanyNode) grandCompanyNode.textContent = totals.company.toFixed(2);
+    const grandComp1Node = document.querySelector("[data-cpm-summary='grand-competitor1-total']");
+    if (grandComp1Node) grandComp1Node.textContent = totals.competitor1.toFixed(2);
+    const grandComp2Node = document.querySelector("[data-cpm-summary='grand-competitor2-total']");
+    if (grandComp2Node) grandComp2Node.textContent = totals.competitor2.toFixed(2);
+    const grandComp3Node = document.querySelector("[data-cpm-summary='grand-competitor3-total']");
+    if (grandComp3Node) grandComp3Node.textContent = totals.competitor3.toFixed(2);
+
+    const weightStatus = balanced ? "Total bobot sudah seimbang pada 1.00." : "Total bobot seluruh CSF harus tepat 1.00.";
+    const statusNode = document.querySelector("[data-cpm-summary='weight-status']");
+    const statusInlineNode = document.querySelector("[data-cpm-summary='weight-status-inline']");
+    const grandStatusNode = document.querySelector("[data-cpm-summary='grand-status']");
+    if (statusNode) {
+      statusNode.textContent = weightStatus;
+      statusNode.className = balanced ? "text-sm text-emerald-200" : "text-sm text-amber-200";
+    }
+    if (statusInlineNode) {
+      statusInlineNode.textContent = weightStatus;
+      statusInlineNode.className = balanced ? "mt-3 text-sm text-emerald-200" : "mt-3 text-sm text-amber-200";
+    }
+    if (grandStatusNode) {
+      grandStatusNode.textContent = balanced ? "Balanced at 1.00" : "Weight total must equal 1.00";
+      grandStatusNode.className = balanced ? "px-3 py-4 text-xs text-emerald-200" : "px-3 py-4 text-xs text-amber-200";
+    }
+
+    const analysisNode = document.querySelector("[data-cpm-summary='analysis']");
+    if (analysisNode) {
+      if (!items.length) {
+        analysisNode.textContent = "Belum ada CSF yang masuk ke CPM. Simpan Critical Success Factor terlebih dahulu.";
+      } else if (!balanced) {
+        analysisNode.textContent = "Analisis belum final karena total bobot CSF belum sama dengan 1.00.";
+      } else {
+        const entityScores = [
+          { key: "company", label: settings.companyName, score: totals.company },
+          { key: "competitor1", label: settings.competitor1Name, score: totals.competitor1 },
+          { key: "competitor2", label: settings.competitor2Name, score: totals.competitor2 },
+          { key: "competitor3", label: settings.competitor3Name, score: totals.competitor3 },
+        ].sort((a, b) => b.score - a.score);
+        const leader = entityScores[0];
+        const runnerUp = entityScores[1];
+        const companyRank = entityScores.findIndex((entry) => entry.key === "company") + 1;
+        const companyEntry = entityScores.find((entry) => entry.key === "company") || entityScores[0];
+        const scoreGapToLeader = Math.max(0, leader.score - companyEntry.score);
+        const scoreGapToAbove = companyRank > 1 ? Math.max(0, entityScores[companyRank - 2].score - companyEntry.score) : 0;
+
+        const companyFactorReads = items
+          .map((item) => {
+            const companyRating = Number(item.ratings?.company || 0);
+            const competitorRatings = [
+              Number(item.ratings?.competitor1 || 0),
+              Number(item.ratings?.competitor2 || 0),
+              Number(item.ratings?.competitor3 || 0),
+            ];
+            const bestCompetitorRating = Math.max(...competitorRatings);
+            const weightedValue = Number(calculateCpmValue(item.weight, item.ratings?.company) || 0);
+            return {
+              csf: item.csf,
+              companyRating,
+              bestCompetitorRating,
+              weightedValue,
+              advantage: companyRating - bestCompetitorRating,
+            };
+          })
+          .filter((entry) => entry.companyRating > 0);
+
+        const strongestFactor = companyFactorReads
+          .slice()
+          .sort((a, b) => {
+            if (b.advantage !== a.advantage) return b.advantage - a.advantage;
+            return b.weightedValue - a.weightedValue;
+          })[0];
+
+        const weakestFactor = companyFactorReads
+          .slice()
+          .sort((a, b) => {
+            if (a.advantage !== b.advantage) return a.advantage - b.advantage;
+            return a.weightedValue - b.weightedValue;
+          })[0];
+
+        const rankLabel = `${companyRank} dari ${entityScores.length}`;
+        let narrative = `${leader.label} berada pada posisi tertinggi CPM dengan total skor ${leader.score.toFixed(2)}, diikuti ${runnerUp.label} pada ${runnerUp.score.toFixed(2)}. `;
+
+        if (companyRank === 1) {
+          narrative += `${settings.companyName} menempati peringkat ${rankLabel}, yang menunjukkan posisi kompetitif paling kuat pada himpunan CSF yang dinilai. `;
+        } else {
+          narrative += `${settings.companyName} berada pada peringkat ${rankLabel} dengan total ${companyEntry.score.toFixed(2)}. Selisih terhadap pemimpin pasar saat ini adalah ${scoreGapToLeader.toFixed(2)}, dan jarak ke peringkat di atasnya adalah ${scoreGapToAbove.toFixed(2)}. `;
+        }
+
+        if (strongestFactor) {
+          if (strongestFactor.advantage > 0) {
+            narrative += `Keunggulan relatif perusahaan paling terlihat pada CSF ${strongestFactor.csf}, karena rating perusahaan lebih tinggi dibanding kompetitor terbaik pada faktor tersebut. `;
+          } else if (strongestFactor.advantage === 0) {
+            narrative += `Pada CSF ${strongestFactor.csf}, perusahaan masih mampu menyamai pemain terbaik sehingga faktor ini dapat dianggap sebagai area kompetitif yang relatif terjaga. `;
+          } else {
+            narrative += `Belum ada CSF yang benar-benar unggul secara rating relatif; faktor terbaik saat ini adalah ${strongestFactor.csf}, namun masih perlu diperkuat agar melampaui kompetitor. `;
+          }
+        }
+
+        if (weakestFactor) {
+          if (weakestFactor.advantage < 0) {
+            narrative += `Area yang paling perlu diprioritaskan untuk perbaikan adalah CSF ${weakestFactor.csf}, karena di faktor ini perusahaan tertinggal paling jauh dibanding kompetitor terbaik.`;
+          } else {
+            narrative += `Secara umum tidak terlihat ketertinggalan ekstrem pada satu CSF tertentu, sehingga fokus berikutnya dapat diarahkan pada penguatan diferensiasi agar jarak skor total makin melebar.`;
+          }
+        }
+
+        analysisNode.textContent = narrative;
+      }
+    }
+  }
+
+  function updateCpmMatrixField(id, field, value) {
+    const items = getCpmItems();
+    const [group, key] = field.split(":");
+    const nextItems = items.map((item) => {
+      if (item.id !== id) return item;
+      if (field === "weight") {
+        return { ...item, weight: normalizeWeightValue(value) };
+      }
+      if (group === "rating") {
+        const numeric = value && ["1", "2", "3", "4"].includes(value) ? value : "";
+        return {
+          ...item,
+          ratings: {
+            ...item.ratings,
+            [key]: numeric,
+          },
+        };
+      }
+      if (group === "comment") {
+        return {
+          ...item,
+          comments: {
+            ...item.comments,
+            [key]: value,
+          },
+        };
+      }
+      return item;
+    });
+    setCpmItems(nextItems);
+    renderCpmMatrix();
+  }
+
+  function renderCpmMatrix() {
+    const tbody = document.querySelector("[data-cpm-matrix-body]");
+    if (!tbody) return;
+    const items = getCpmItems().slice().sort((a, b) => a.slot - b.slot);
+    const settings = getCpmSettings();
+    const isManual = settings.weightingMode !== "auto";
+
+    if (!items.length) {
+      tbody.innerHTML = `
+        <tr class="bg-white/5">
+          <td colspan="10" class="px-3 py-4 text-sm text-cool-gray">Belum ada CSF yang tersimpan ke tabel CPM.</td>
+        </tr>
+      `;
+      updateCpmSummary([]);
+      hydrateCpmRowsFromStore();
+      ensureCpmSettingsInDom();
+      return;
+    }
+
+    tbody.innerHTML = items
+      .map((item, index) => {
+        const rowTone = index % 2 === 0 ? "bg-white/5" : "bg-navy-surface/40";
+        const companyValue = calculateCpmValue(item.weight, item.ratings?.company);
+        const comp1Value = calculateCpmValue(item.weight, item.ratings?.competitor1);
+        const comp2Value = calculateCpmValue(item.weight, item.ratings?.competitor2);
+        const comp3Value = calculateCpmValue(item.weight, item.ratings?.competitor3);
+        return `
+          <tr class="${rowTone}">
+            <td class="px-3 py-3 text-soft-white">${item.csf}</td>
+            <td class="px-3 py-3">
+              <input
+                type="number"
+                min="0"
+                max="1"
+                step="0.01"
+                ${isManual ? "" : "disabled"}
+                value="${item.weight || ""}"
+                data-managed-action="true"
+                data-cpm-table-field="weight"
+                data-cpm-id="${item.id}"
+                class="w-24 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white disabled:cursor-not-allowed disabled:opacity-60"
+              />
+            </td>
+            <td class="px-3 py-3">
+              <select data-managed-action="true" data-cpm-table-field="rating:company" data-cpm-id="${item.id}" class="w-20 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white">
+                <option value=""${item.ratings?.company ? "" : " selected"}>Select</option>
+                <option value="1"${item.ratings?.company === "1" ? " selected" : ""}>1</option>
+                <option value="2"${item.ratings?.company === "2" ? " selected" : ""}>2</option>
+                <option value="3"${item.ratings?.company === "3" ? " selected" : ""}>3</option>
+                <option value="4"${item.ratings?.company === "4" ? " selected" : ""}>4</option>
+              </select>
+            </td>
+            <td class="px-3 py-3 font-mono text-soft-white">${companyValue || "-"}</td>
+            <td class="px-3 py-3">
+              <select data-managed-action="true" data-cpm-table-field="rating:competitor1" data-cpm-id="${item.id}" class="w-20 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white">
+                <option value=""${item.ratings?.competitor1 ? "" : " selected"}>Select</option>
+                <option value="1"${item.ratings?.competitor1 === "1" ? " selected" : ""}>1</option>
+                <option value="2"${item.ratings?.competitor1 === "2" ? " selected" : ""}>2</option>
+                <option value="3"${item.ratings?.competitor1 === "3" ? " selected" : ""}>3</option>
+                <option value="4"${item.ratings?.competitor1 === "4" ? " selected" : ""}>4</option>
+              </select>
+            </td>
+            <td class="px-3 py-3 font-mono text-soft-white">${comp1Value || "-"}</td>
+            <td class="px-3 py-3">
+              <select data-managed-action="true" data-cpm-table-field="rating:competitor2" data-cpm-id="${item.id}" class="w-20 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white">
+                <option value=""${item.ratings?.competitor2 ? "" : " selected"}>Select</option>
+                <option value="1"${item.ratings?.competitor2 === "1" ? " selected" : ""}>1</option>
+                <option value="2"${item.ratings?.competitor2 === "2" ? " selected" : ""}>2</option>
+                <option value="3"${item.ratings?.competitor2 === "3" ? " selected" : ""}>3</option>
+                <option value="4"${item.ratings?.competitor2 === "4" ? " selected" : ""}>4</option>
+              </select>
+            </td>
+            <td class="px-3 py-3 font-mono text-soft-white">${comp2Value || "-"}</td>
+            <td class="px-3 py-3">
+              <select data-managed-action="true" data-cpm-table-field="rating:competitor3" data-cpm-id="${item.id}" class="w-20 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white">
+                <option value=""${item.ratings?.competitor3 ? "" : " selected"}>Select</option>
+                <option value="1"${item.ratings?.competitor3 === "1" ? " selected" : ""}>1</option>
+                <option value="2"${item.ratings?.competitor3 === "2" ? " selected" : ""}>2</option>
+                <option value="3"${item.ratings?.competitor3 === "3" ? " selected" : ""}>3</option>
+                <option value="4"${item.ratings?.competitor3 === "4" ? " selected" : ""}>4</option>
+              </select>
+            </td>
+            <td class="px-3 py-3 font-mono text-soft-white">${comp3Value || "-"}</td>
+          </tr>
+          <tr class="border-t border-border-blue/40 bg-black/10">
+            <td colspan="10" class="px-3 py-4">
+              <div class="grid gap-3 xl:grid-cols-4">
+                <label class="text-xs text-cool-gray">Komentar <span class="text-soft-white">${settings.companyName}</span>
+                  <textarea data-managed-action="true" data-cpm-table-field="comment:company" data-cpm-id="${item.id}" class="mt-2 min-h-24 w-full rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white">${item.comments?.company || ""}</textarea>
+                </label>
+                <label class="text-xs text-cool-gray">Komentar <span class="text-soft-white">${settings.competitor1Name}</span>
+                  <textarea data-managed-action="true" data-cpm-table-field="comment:competitor1" data-cpm-id="${item.id}" class="mt-2 min-h-24 w-full rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white">${item.comments?.competitor1 || ""}</textarea>
+                </label>
+                <label class="text-xs text-cool-gray">Komentar <span class="text-soft-white">${settings.competitor2Name}</span>
+                  <textarea data-managed-action="true" data-cpm-table-field="comment:competitor2" data-cpm-id="${item.id}" class="mt-2 min-h-24 w-full rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white">${item.comments?.competitor2 || ""}</textarea>
+                </label>
+                <label class="text-xs text-cool-gray">Komentar <span class="text-soft-white">${settings.competitor3Name}</span>
+                  <textarea data-managed-action="true" data-cpm-table-field="comment:competitor3" data-cpm-id="${item.id}" class="mt-2 min-h-24 w-full rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white">${item.comments?.competitor3 || ""}</textarea>
+                </label>
+              </div>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <button type="button" data-managed-action="true" data-cpm-table-action="edit" data-cpm-id="${item.id}" class="inline-flex items-center justify-center rounded-xl border border-info/30 bg-info/10 px-3 py-2 text-xs font-medium text-soft-white transition hover:bg-info/20">Edit CSF</button>
+                <button type="button" data-managed-action="true" data-cpm-table-action="delete" data-cpm-id="${item.id}" class="inline-flex items-center justify-center rounded-xl border border-warning/30 bg-warning/10 px-3 py-2 text-xs font-medium text-soft-white transition hover:bg-warning/20">Delete CSF</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      })
+      .join("");
+
+    updateCpmSummary(items);
+    hydrateCpmRowsFromStore();
+    ensureCpmSettingsInDom();
+  }
+
+  function attachCpmInteractions() {
+    if (!document.querySelector("[data-cpm-input-body]")) return;
+    createCpmInputRows();
+    ensureCpmSettingsInDom();
+    hydrateCpmRowsFromStore();
+    renderCpmMatrix();
+
+    document.addEventListener("click", (event) => {
+      const saveButton = event.target.closest("[data-cpm-action='save-row']");
+      if (saveButton) {
+        saveCpmRow(saveButton.dataset.cpmId);
+        return;
+      }
+      const clearButton = event.target.closest("[data-cpm-action='clear-row']");
+      if (clearButton) {
+        clearCpmRow(clearButton.dataset.cpmId, false);
+        return;
+      }
+      const saveAllButton = event.target.closest("[data-cpm-action='save-all']");
+      if (saveAllButton) {
+        saveAllCpmRows();
+        return;
+      }
+      const autoWeightButton = event.target.closest("[data-cpm-weight-mode='auto']");
+      if (autoWeightButton) {
+        applyAutoCpmWeights();
+        return;
+      }
+      const manualWeightButton = event.target.closest("[data-cpm-weight-mode='manual']");
+      if (manualWeightButton) {
+        setManualCpmWeightingMode();
+        return;
+      }
+      const editButton = event.target.closest("[data-cpm-table-action='edit']");
+      if (editButton) {
+        editCpmRow(editButton.dataset.cpmId);
+        return;
+      }
+      const deleteButton = event.target.closest("[data-cpm-table-action='delete']");
+      if (deleteButton) {
+        clearCpmRow(deleteButton.dataset.cpmId, true);
+      }
+    });
+
+    document.addEventListener("change", (event) => {
+      const cpmField = event.target.closest("[data-cpm-field='csf']");
+      if (cpmField) {
+        refreshCpmCategoryOptions();
+      }
+      const tableField = event.target.closest("[data-cpm-table-field]");
+      if (tableField) {
+        updateCpmMatrixField(tableField.dataset.cpmId, tableField.dataset.cpmTableField, tableField.value);
+        return;
+      }
+      const settingsField = event.target.closest("[data-cpm-setting]");
+      if (settingsField) {
+        updateCpmSettingsFromDom();
+        renderCpmMatrix();
+      }
+    });
+
+    document.addEventListener("input", (event) => {
+      const settingsField = event.target.closest("[data-cpm-setting]");
+      if (settingsField) {
+        updateCpmSettingsFromDom();
+      }
+    });
+  }
+
   function getActivePhaseConfig() {
     const params = new URLSearchParams(window.location.search);
     const phaseKey = params.get("phase") || "p0";
@@ -1709,10 +2553,13 @@
   function init() {
     attachExportActions();
 
-    if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-efe" || document.body.dataset.page === "phase-ife") {
+    if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-efe" || document.body.dataset.page === "phase-ife" || document.body.dataset.page === "phase-cpm") {
       attachDraftPersistence();
       if (document.body.dataset.page === "phase-ife") {
         attachIfeInteractions();
+      }
+      if (document.body.dataset.page === "phase-cpm") {
+        attachCpmInteractions();
       }
       if (document.body.dataset.page === "analysis") {
         updatePhaseWorkspaceRouting();

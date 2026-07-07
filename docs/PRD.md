@@ -6,7 +6,7 @@
 **Tipe produk:** Responsive frontend web application  
 **Fokus MVP:** Landing page/company profile, login/register UI, admin dashboard input analisis, dan dashboard hasil analisis.  
 **Teknologi frontend:** HTML native, Tailwind CSS Play CDN, dan JavaScript native bila diperlukan.  
-**Status:** Draft terintegrasi — menunggu approval user sebelum eksekusi kode.
+**Status:** Living product document — diselaraskan dengan frontend MVP yang sudah diimplementasikan.
 
 SOT-Drive adalah platform frontend untuk membantu perusahaan menjalankan analisis dan formulasi strategi secara bertahap menggunakan framework STRATEGOS. Produk ini dirancang sebagai **phase-gated strategic analysis workspace**, bukan sekadar form input biasa.
 
@@ -61,9 +61,10 @@ SOT-Drive bertujuan mengubah proses tersebut menjadi pengalaman digital yang leb
 5. Admin membuat project analisis perusahaan.
 6. Admin mengisi data phase demi phase.
 7. Sistem menampilkan status phase: Draft, Need Review, Approved, In Progress, Completed, Revision Required, atau Locked.
-8. Setelah phase valid dan approved, user dapat lanjut ke phase berikutnya.
-9. Dashboard hasil menampilkan output matrix, skor, ranking strategi, BSC, dan Strategy Map.
-10. Executive summary hanya mengambil kesimpulan dari phase yang sudah approved.
+8. Untuk phase matrix yang kompleks, user masuk melalui analysis hub lalu membuka dedicated workspace per phase.
+9. Setelah phase valid dan approved, user dapat lanjut ke phase berikutnya.
+10. Dashboard hasil menampilkan output matrix, skor, ranking strategi, BSC, dan Strategy Map.
+11. Executive summary hanya mengambil kesimpulan dari phase yang sudah approved.
 
 ## 7. Page Requirements
 
@@ -127,7 +128,7 @@ Main modules:
 - Matrix builder
 - Approval status
 - Notes and assumptions
-- Export placeholder
+- Export action
 
 Dashboard cards:
 - Total projects
@@ -143,9 +144,9 @@ Input workspace mengikuti 14 phase:
 | Phase | Nama | Frontend Input Utama |
 |---:|---|---|
 | 0 | Intake & Diagnosis | Nama perusahaan, industri, produk, skala, tujuan, kompetitor, data tersedia |
-| 1 | EFE Matrix | Opportunities, threats, AQCD, weight, rating, weighted score |
-| 2 | IFE Matrix | Strengths, weaknesses, AQCD, weight, rating, weighted score |
-| 3 | CPM Matrix | CSF, weight, rating perusahaan dan kompetitor |
+| 1 | EFE Matrix | Dedicated page dengan brainstorming Opportunity/Threat hingga 20 per sisi, klasifikasi PESTEL/Porter, AQCD, save-all, top 10 key external factors, weight, rating, weighted score |
+| 2 | IFE Matrix | Dedicated page dengan brainstorming Strength/Weakness hingga 20 per sisi, klasifikasi 7S, AQCD, top 10 key internal factors, weight, rating, weighted score |
+| 3 | CPM Matrix | Dedicated page dengan benchmark setup, CSF builder kategori unik, weight manual/auto pairwise, rating perusahaan dan kompetitor, nilai, komentar penilaian |
 | 4 | SWOT & TOWS | Strategi SO, WO, ST, WT |
 | 5 | SPACE Matrix | FP, CP, SP, IP, koordinat, kuadran |
 | 6 | BCG Matrix | RMSP, IGR, kuadran |
@@ -180,9 +181,9 @@ Komponen utama:
 | Framework Area | Modul Sistem | Kapasitas Minimum |
 |---|---|---|
 | Intake & Diagnosis | Company setup form | Menyimpan profil perusahaan, industri, produk, skala, tujuan, kompetitor, dan data tersedia |
-| EFE Matrix | External factor builder | Input opportunities, threats, AQCD, weight, rating, weighted score |
-| IFE Matrix | Internal factor builder | Input strengths, weaknesses, AQCD, weight, rating, weighted score |
-| CPM Matrix | Competitor comparison | Input CSF, weight, rating perusahaan, rating kompetitor, weighted score |
+| EFE Matrix | External factor builder | Input opportunities dan threats berbasis PESTEL/Porter, AQCD, top 10 key factors, weight, rating, weighted score |
+| IFE Matrix | Internal factor builder | Input strengths dan weaknesses berbasis 7S, AQCD, top 10 key factors, weight, rating, weighted score |
+| CPM Matrix | Competitor comparison | Input CSF kategori unik, benchmark setup, weight, rating perusahaan, rating kompetitor, weighted score, komentar per rating |
 | SWOT/TOWS | Strategy generator | Membuat strategi SO, WO, ST, WT hanya dari EFE dan IFE approved |
 | SPACE Matrix | Positioning calculator | Input FP, CP, SP, IP, hitung X/Y, tampilkan kuadran |
 | BCG Matrix | Portfolio calculator | Input RMSP, IGR, tampilkan kuadran |
@@ -247,9 +248,11 @@ Setiap output strategis harus memiliki jejak asal data.
 | FR-11 | Dark futuristic visual system | Must Have |
 | FR-12 | Framework compliance matrix | Must Have |
 | FR-13 | Traceability badge | Must Have |
-| FR-14 | Export PDF/PPT placeholder | Nice to Have |
+| FR-14 | Browser-native export PDF dan Excel-compatible | Should Have |
 | FR-15 | User role simulation | Nice to Have |
 | FR-16 | Local dummy data preview | Nice to Have |
+| FR-17 | Browser-side draft persistence via localStorage | Should Have |
+| FR-18 | Dedicated phase page routing for matrix-heavy phases | Should Have |
 
 ## 12. Validation Logic for UI
 
@@ -260,7 +263,7 @@ Setiap output strategis harus memiliki jejak asal data.
 | IFE strength rating | Hanya 3 atau 4 |
 | IFE weakness rating | Hanya 1 atau 2 |
 | AQCD | Faktor rendah ditandai dan tidak masuk key factor |
-| CPM | Minimal 2 kompetitor bila tersedia |
+| CPM | Minimal 2 kompetitor bila tersedia, kategori CSF tidak boleh duplikat, nama perusahaan user mengikuti Phase 0 |
 | SPACE | FP/IP skala 1–7, CP/SP skala -7 sampai -1 |
 | BCG | RMSP maksimal 1.0 kecuali market leader |
 | QSPM | AS blank bila tidak relevan, tidak boleh 0 |
@@ -300,7 +303,7 @@ Excluded dari MVP frontend awal:
 - Backend authentication
 - Database
 - API integration
-- Real export PDF/PPT
+- Server-side export PDF/XLSX yang lebih presisi
 - Multi-tenant production auth
 - Payment system
 - Advanced chart library

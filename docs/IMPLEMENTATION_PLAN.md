@@ -23,9 +23,9 @@ Setiap fase implementasi memiliki status. Setelah user approve, status akan dipe
 
 | Area | Status Saat Ini |
 |---|---|
-| PRD | Drafted + Framework Compliance Matrix Added |
-| UI Guidelines | Drafted + Validation Rule Engine Added |
-| Implementation Plan | Drafted + Readiness Index Added |
+| PRD | Aligned with implemented MVP + Framework Compliance Matrix Added |
+| UI Guidelines | Aligned with implemented MVP + Validation Rule Engine Added |
+| Implementation Plan | Current + Readiness Index Added |
 | Frontend code execution | Completed — frontend MVP pages delivered within approved scope |
 | Landing page | Completed |
 | Login/register page | Completed |
@@ -37,6 +37,9 @@ Setiap fase implementasi memiliki status. Setelah user approve, status akan dipe
 | Approval gate logic | Strengthened |
 | QSPM special rule | Strengthened |
 | Strategy Map guardrail | Strengthened |
+| Dedicated phase workspaces (P1-P3) | Added |
+| Browser draft persistence | Added |
+| Browser export actions | Added |
 
 ## 4. Frontend Implementation Phases
 
@@ -85,6 +88,8 @@ Landing and auth pages establish the public experience first. Dashboard shell co
 | Phase card | Phase tracker | Completed |
 | Status badge | Dashboard/input/results | Completed for phase tracker |
 | Matrix table | EFE, IFE, CPM, QSPM | Completed for analysis workspace |
+| Dedicated phase launcher | Analysis workspace | Completed for analysis hub |
+| Export action | Dedicated phase pages, results | Completed with browser-native flow |
 | Strategy card | TOWS, Intersection, Results | Completed for analysis workspace |
 | BSC table | BSC phases | Completed for analysis workspace |
 | Strategy map block | Phase 14 results | Completed for results dashboard |
@@ -200,7 +205,7 @@ Setelah command tersebut, status akan diperbarui menjadi:
 | Matrix terlalu kompleks di mobile | UX sulit | Gunakan horizontal scroll dan card view |
 | Validasi strategi butuh data backend | Frontend terbatas | Gunakan dummy state dan placeholder |
 | User belum punya data perusahaan | Analisis tidak bisa realistis | Sediakan template dan sample data |
-| Export belum tersedia | Hasil belum bisa diunduh | Placeholder export untuk fase berikutnya |
+| Export browser berbeda antar device | Hasil unduhan bisa sedikit berbeda format | Gunakan browser print untuk PDF dan `.xls` HTML export tanpa dependency |
 | Framework compliance tidak konsisten | Sistem tidak sesuai Knowledge Base | Gunakan readiness index dan validation checklist |
 | Rekomendasi tidak traceable | Output strategi tidak kredibel | Terapkan traceability badge di setiap output penting |
 
@@ -220,3 +225,5 @@ MVP frontend selesai bila:
 11. QSPM special rule diterapkan.
 12. Strategy Map guardrail tersedia.
 13. File HTML/Tailwind siap direview dan dikembangkan ke backend di fase berikutnya.
+14. Dedicated phase workspace untuk P1 EFE, P2 IFE, dan P3 CPM tersedia dari analysis hub.
+15. Browser-side draft persistence dan export dasar PDF/Excel tersedia tanpa dependency tambahan.
