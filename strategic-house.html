@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Strategic House | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Dedicated Strategic House page bridging QSPM strategic themes into Balanced Scorecard execution."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+              locked: "#475569",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body data-page="phase-strategic-house" class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.18),transparent_36%)]"></div>
+    <div class="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-info/10 blur-3xl"></div>
+
+    <div class="min-h-screen lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
+      <aside class="border-b border-white/5 bg-navy-core/90 backdrop-blur-xl lg:min-h-screen lg:border-b-0 lg:border-r lg:border-white/5">
+        <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-6">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold text-soft-white">SD</div>
+            <div>
+              <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+              <p class="text-xs text-cool-gray">Strategic House</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="px-4 pb-6 sm:px-6 lg:px-6">
+          <div class="rounded-[1.75rem] border border-border-blue bg-navy-surface/70 p-4 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Bridge Page</p>
+            <h2 class="mt-3 text-base font-semibold text-soft-white">Strategic House</h2>
+            <p class="mt-2 text-sm leading-6 text-cool-gray">
+              Halaman transisi yang menyusun purpose perusahaan, strategic themes hasil QSPM, dan enabler sebelum masuk ke Balanced Scorecard.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">Dedicated Page</span>
+              <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">Pre-BSC Bridge</span>
+            </div>
+          </div>
+
+          <nav class="mt-6 space-y-2">
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="dashboard.html"><span>Overview</span><span class="text-xs text-cool-gray">F5</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm text-soft-white" href="analysis.html"><span>Analysis Hub</span><span class="text-xs text-sky-100">Back</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-soft-white" href="phase-9-qspm.html"><span>P9 QSPM Matrix</span><span class="text-xs text-cool-gray">Prev</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white" href="strategic-house.html"><span>Strategic House</span><span class="text-xs text-sky-100">Live</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="phase-10-bsc.html"><span>P10-P13 BSC</span><span class="text-xs text-cool-gray">Next</span></a>
+          </nav>
+
+          <div class="mt-6 rounded-[1.75rem] border border-border-blue bg-white/5 p-4 backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">House Rules</p>
+            <ul class="mt-4 space-y-3 text-sm text-cool-gray">
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-success"></span>Atap harus menarik purpose perusahaan dari `Vision`, `Mission`, dan `Company Target` di intake.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-warning"></span>Pilar maksimum `3`, diambil dari strategic themes teratas hasil ranking QSPM.</li>
+              <li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-info"></span>Enabler text menjadi fondasi sebelum objective diturunkan ke Balanced Scorecard.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <div class="flex min-h-screen flex-col">
+        <header class="border-b border-white/5 bg-navy-deep/80 backdrop-blur-xl">
+          <div class="flex flex-col gap-4 px-4 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Dedicated Strategic House Workspace</p>
+              <h1 class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-soft-white sm:text-3xl">Strategic House before Balanced Scorecard</h1>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="phase-9-qspm.html" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Back to P9 QSPM</a>
+              <a href="phase-10-bsc.html" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Next: Balanced Scorecard</a>
+            </div>
+          </div>
+        </header>
+
+        <main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <section class="rounded-[1.75rem] border border-maroon-glow/30 bg-maroon-glow/10 p-6 shadow-glow backdrop-blur-xl">
+            <div class="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+              <div>
+                <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-200">Bridge Workspace</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Satu rumah strategi untuk menyatukan purpose, themes, dan enabler</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-rose-50/85">
+                  Halaman ini menjadi jembatan sesudah QSPM dan sebelum Balanced Scorecard. Atap memuat purpose
+                  perusahaan dari intake, pilar memuat strategic themes hasil ranking QSPM, dan fondasi memuat enabler
+                  text untuk memastikan eksekusi tetap traceable.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Strategic House menjaga narasi strategi tetap utuh sebelum objective BSC dibagi ke Financial, Customer, Internal Process, dan Learning & Growth.
+              </div>
+            </div>
+            <div class="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <p data-draft-indicator class="text-sm text-rose-50/80">Draft autosave belum berisi data</p>
+              <div class="flex flex-wrap gap-3">
+                <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">Source: Intake P0</span>
+                <span class="rounded-full border border-maroon-glow/30 bg-maroon-glow/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-rose-100">Source: QSPM P9</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-maroon-glow/30 bg-navy-core/80 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Strategic House</p>
+                <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-soft-white">Purpose roof, strategic pillars, and enabler base</h2>
+                <p class="mt-3 max-w-4xl text-sm leading-7 text-cool-gray">
+                  Rumah strategi ini menyusun tujuan perusahaan di atap, tiga tema strategi utama sebagai pilar, dan
+                  fondasi enabler untuk kesiapan eksekusi sebelum Balanced Scorecard dirinci lebih lanjut.
+                </p>
+              </div>
+              <div class="rounded-2xl border border-info/30 bg-info/10 p-4 text-sm text-sky-50/90">
+                Maksimal `3` pilar ditarik dari strategic themes dengan `Sum TAS` tertinggi pada QSPM.
+              </div>
+            </div>
+
+            <div class="mt-6 rounded-[1.75rem] border border-border-blue bg-[linear-gradient(180deg,rgba(16,43,78,0.86),rgba(7,20,38,0.94))] p-5 shadow-glow">
+              <div class="mx-auto max-w-6xl">
+                <div data-strategic-house-purpose class="mx-auto max-w-5xl rounded-[1.75rem] border border-maroon-glow/40 bg-maroon-glow/12 px-6 py-5 text-center">
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-rose-200">Purpose Roof</p>
+                  <p data-strategic-house-purpose-summary class="mt-3 text-lg font-semibold leading-8 text-soft-white">Lengkapi Vision, Mission, dan Company Target pada phase intake.</p>
+                </div>
+                <div class="mx-auto h-6 w-1 rounded-full bg-border-blue"></div>
+                <div data-strategic-house-pillars class="grid gap-4 lg:grid-cols-3"></div>
+                <div class="mx-auto h-6 w-1 rounded-full bg-border-blue"></div>
+                <div data-strategic-house-enabler class="rounded-[1.75rem] border border-info/30 bg-info/10 px-6 py-5">
+                  <p class="text-[11px] uppercase tracking-[0.18em] text-info">Enabler Base</p>
+                  <p data-strategic-house-enabler-summary class="mt-3 text-sm leading-7 text-sky-50/90">Tambahkan enabler text untuk memperjelas kesiapan eksekusi sebelum masuk ke Balanced Scorecard.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+              <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                <p class="text-sm font-semibold text-soft-white">Strategic House Summary</p>
+                <p data-strategic-house-summary class="mt-2 text-sm leading-7 text-cool-gray">
+                  Strategic House akan aktif setelah purpose intake dan ranking top strategic themes QSPM tersedia.
+                </p>
+                <label class="mt-4 block text-sm text-slate-100">
+                  Revise purpose source
+                  <a
+                    href="analysis.html?phase=p0"
+                    class="mt-2 flex w-full items-center justify-between rounded-2xl border border-warning/30 bg-warning/10 px-4 py-3 text-sm text-soft-white transition hover:bg-warning/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-core"
+                  >
+                    <span>Revise Vision, Mission, and Company Target</span>
+                    <span class="text-xs uppercase tracking-[0.16em] text-amber-100">Open Intake</span>
+                  </a>
+                </label>
+              </div>
+              <label class="text-sm text-slate-100">Enabler text<textarea data-strategic-house-input="enabler" class="mt-2 min-h-28 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Cross-functional governance, execution cadence, channel capability, and management visibility must support the chosen strategic themes.</textarea></label>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-info/30 bg-info/10 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p class="text-sm font-semibold text-soft-white">Lanjut ke Balanced Scorecard</p>
+                <p class="mt-1 text-sm text-sky-50/85">Setelah Strategic House siap, objective Financial, Customer, Internal Process, dan Learning & Growth bisa diturunkan dengan sumber yang lebih jelas.</p>
+              </div>
+              <a href="phase-10-bsc.html" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-navy-surface/70 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-navy-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-info">Open Balanced Scorecard</a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

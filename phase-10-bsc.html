@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P10-P13 Balanced Scorecard | SOT-Drive</title>
+    <meta
+      name="description"
+      content="Dedicated Balanced Scorecard page translating strategic themes into financial, customer, internal process, and learning and growth perspectives."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "navy-deep": "#071426",
+              "navy-core": "#0B1F3A",
+              "navy-surface": "#102B4E",
+              "navy-elevated": "#16365F",
+              "maroon-dark": "#5B1020",
+              "maroon-glow": "#8A1F35",
+              "soft-white": "#F8FAFC",
+              "cool-gray": "#94A3B8",
+              "border-blue": "#1E3A5F",
+              success: "#22C55E",
+              warning: "#F59E0B",
+              error: "#EF4444",
+              info: "#38BDF8",
+              locked: "#475569",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+            },
+            boxShadow: {
+              panel: "0 20px 60px rgba(0, 0, 0, 0.32)",
+              glow: "0 0 0 1px rgba(56, 189, 248, 0.08), 0 24px 60px rgba(0, 0, 0, 0.38)",
+            },
+            backgroundImage: {
+              "shell-glow":
+                "radial-gradient(circle at top, rgba(138,31,53,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(56,189,248,0.12), transparent 28%)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .skip-link {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        transform: translateY(-200%);
+        z-index: 50;
+      }
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body data-page="phase-bsc" class="min-h-screen bg-navy-deep bg-shell-glow font-sans text-soft-white antialiased">
+    <a href="#main-content" class="skip-link rounded-2xl bg-soft-white px-4 py-2 text-sm font-semibold text-navy-deep">Skip to content</a>
+    <div class="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(circle_at_top,rgba(138,31,53,0.18),transparent_36%)]"></div>
+    <div class="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-info/10 blur-3xl"></div>
+
+    <div class="min-h-screen lg:grid lg:grid-cols-[18rem_minmax(0,1fr)]">
+      <aside class="border-b border-white/5 bg-navy-core/90 backdrop-blur-xl lg:min-h-screen lg:border-b-0 lg:border-r lg:border-white/5">
+        <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-6">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-maroon-glow/40 bg-maroon-glow/10 text-sm font-semibold text-soft-white">SD</div>
+            <div>
+              <p class="text-sm font-semibold tracking-[0.18em] text-soft-white">SOT-DRIVE</p>
+              <p class="text-xs text-cool-gray">BSC Workspace</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="px-4 pb-6 sm:px-6 lg:px-6">
+          <div class="rounded-[1.75rem] border border-border-blue bg-navy-surface/70 p-4 shadow-panel backdrop-blur-xl">
+            <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-cool-gray">Active Phase</p>
+            <h2 class="mt-3 text-base font-semibold text-soft-white">P10-P13 Balanced Scorecard</h2>
+            <p class="mt-2 text-sm leading-6 text-cool-gray">
+              Halaman dedicated untuk menerjemahkan strategic themes menjadi objective, KPI, target, owner, dan cadence di seluruh perspektif BSC.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="rounded-full border border-success/30 bg-success/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-success">Dedicated Page</span>
+              <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">Theme-linked</span>
+            </div>
+          </div>
+
+          <nav class="mt-6 space-y-2">
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="dashboard.html"><span>Overview</span><span class="text-xs text-cool-gray">F5</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm text-soft-white" href="analysis.html"><span>Analysis Hub</span><span class="text-xs text-sky-100">Back</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-soft-white" href="strategic-house.html"><span>Strategic House</span><span class="text-xs text-cool-gray">Prev</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white" href="phase-10-bsc.html"><span>P10-P13 BSC</span><span class="text-xs text-sky-100">Live</span></a>
+            <a class="flex items-center justify-between rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-cool-gray" href="results.html"><span>Results Dashboard</span><span class="text-xs text-cool-gray">Next</span></a>
+          </nav>
+        </div>
+      </aside>
+
+      <div class="flex min-h-screen flex-col">
+        <header class="border-b border-white/5 bg-navy-deep/80 backdrop-blur-xl">
+          <div class="flex flex-col gap-4 px-4 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-info">Phase 10-13 Dedicated Workspace</p>
+              <h1 class="mt-2 text-2xl font-semibold tracking-[-0.03em] text-soft-white sm:text-3xl">Balanced Scorecard execution by perspective</h1>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="strategic-house.html" class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Back to Strategic House</a>
+              <a href="results.html" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep">Next: Results Dashboard</a>
+            </div>
+          </div>
+        </header>
+
+        <main id="main-content" class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <section class="rounded-[1.75rem] border border-info/30 bg-info/10 p-6 shadow-panel backdrop-blur-xl">
+            <p class="text-sm font-semibold text-soft-white">Strategic Themes Translation</p>
+            <p class="mt-2 text-sm leading-7 text-sky-50/90">
+              Balanced Scorecard ini menerjemahkan tiga strategic themes utama: `Portfolio Focus and Margin Protection`,
+              `Channel Acceleration in Growth Segments`, dan `Sales Insight and Execution Governance` ke seluruh perspektif
+              Financial, Customer, Internal Process, dan Learning &amp; Growth.
+            </p>
+            <div class="mt-5 grid gap-4 xl:grid-cols-3">
+              <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                <p class="text-[11px] uppercase tracking-[0.16em] text-maroon-glow">Theme 1</p>
+                <p class="mt-2 text-sm font-semibold text-soft-white">Portfolio Focus and Margin Protection</p>
+              </div>
+              <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                <p class="text-[11px] uppercase tracking-[0.16em] text-maroon-glow">Theme 2</p>
+                <p class="mt-2 text-sm font-semibold text-soft-white">Channel Acceleration in Growth Segments</p>
+              </div>
+              <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                <p class="text-[11px] uppercase tracking-[0.16em] text-maroon-glow">Theme 3</p>
+                <p class="mt-2 text-sm font-semibold text-soft-white">Sales Insight and Execution Governance</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-2xl border border-border-blue bg-white/5 p-4">
+            <p class="text-sm font-semibold text-soft-white">Financial Perspective 2026</p>
+            <p class="mt-2 text-sm leading-7 text-cool-gray">Menjawab seperti apa sukses di mata pemegang saham untuk mencapai long-term shareholder value melalui `Productivity Strategy` dan `Growth Strategy`.</p>
+            <div class="mt-4 overflow-x-auto rounded-2xl border border-border-blue">
+              <table class="min-w-[1900px] text-left text-sm">
+                <caption class="sr-only">Balanced Scorecard financial perspective 2026</caption>
+                <thead class="bg-navy-elevated text-slate-100"><tr><th class="px-4 py-3">Code</th><th class="px-4 py-3">Strategi Besar</th><th class="px-4 py-3">Sub Strategi</th><th class="px-4 py-3">Strategic Objective</th><th class="px-4 py-3">KPI</th><th class="px-4 py-3">Definisi Singkat KPI</th><th class="px-4 py-3">Target 2026</th><th class="px-4 py-3">Key Initiative</th><th class="px-4 py-3">Main Owner</th><th class="px-4 py-3">Contributing Owner</th><th class="px-4 py-3">Cadence</th></tr></thead>
+                <tbody class="divide-y divide-border-blue/50">
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">F1</td><td class="px-4 py-3">Productivity Strategy</td><td class="px-4 py-3">Improve Cost Structure</td><td class="px-4 py-3">Menurunkan kompleksitas SKU dan cost-to-serve pada portofolio non-priority.</td><td class="px-4 py-3">Cost-to-Serve %</td><td class="px-4 py-3">Persentase biaya layanan terhadap net sales.</td><td class="px-4 py-3">Turun 2.0 pts</td><td class="px-4 py-3">SKU rationalization wave 1</td><td class="px-4 py-3">Finance Director</td><td class="px-4 py-3">Sales, Supply Chain, Marketing</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">F2</td><td class="px-4 py-3">Productivity Strategy</td><td class="px-4 py-3">Improve Cost Structure</td><td class="px-4 py-3">Meningkatkan contribution margin melalui mix portofolio yang lebih sehat.</td><td class="px-4 py-3">Contribution Margin %</td><td class="px-4 py-3">Margin kontribusi setelah biaya variabel.</td><td class="px-4 py-3">31%</td><td class="px-4 py-3">Margin protection program</td><td class="px-4 py-3">Commercial Director</td><td class="px-4 py-3">Finance, Marketing</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">F3</td><td class="px-4 py-3">Productivity Strategy</td><td class="px-4 py-3">Asset Utilization</td><td class="px-4 py-3">Meningkatkan utilisasi aset produksi untuk SKU prioritas.</td><td class="px-4 py-3">Capacity Utilization %</td><td class="px-4 py-3">Persentase utilisasi lini produksi utama.</td><td class="px-4 py-3">85%</td><td class="px-4 py-3">Production load balancing</td><td class="px-4 py-3">Operations Director</td><td class="px-4 py-3">Supply Chain, Planning</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">F4</td><td class="px-4 py-3">Productivity Strategy</td><td class="px-4 py-3">Asset Utilization</td><td class="px-4 py-3">Mempercepat perputaran inventory pada kategori inti.</td><td class="px-4 py-3">Inventory Days</td><td class="px-4 py-3">Rata-rata hari persediaan tersimpan.</td><td class="px-4 py-3">Turun 15 hari</td><td class="px-4 py-3">Inventory health sprint</td><td class="px-4 py-3">Supply Chain Director</td><td class="px-4 py-3">Finance, Sales Ops</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">F5</td><td class="px-4 py-3">Growth Strategy</td><td class="px-4 py-3">Expand Revenue Opportunities</td><td class="px-4 py-3">Mendorong pertumbuhan revenue dari channel prioritas.</td><td class="px-4 py-3">Net Revenue Growth %</td><td class="px-4 py-3">Pertumbuhan pendapatan bersih vs tahun sebelumnya.</td><td class="px-4 py-3">12%</td><td class="px-4 py-3">Priority channel expansion</td><td class="px-4 py-3">Sales Director</td><td class="px-4 py-3">Marketing, Key Account</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">F6</td><td class="px-4 py-3">Growth Strategy</td><td class="px-4 py-3">Expand Revenue Opportunities</td><td class="px-4 py-3">Meningkatkan kontribusi growth segment terhadap total sales.</td><td class="px-4 py-3">Growth Segment Sales Mix %</td><td class="px-4 py-3">Porsi penjualan dari segmen atau channel growth.</td><td class="px-4 py-3">38%</td><td class="px-4 py-3">Growth segment penetration program</td><td class="px-4 py-3">Channel Director</td><td class="px-4 py-3">Sales, Trade Marketing</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">F7</td><td class="px-4 py-3">Growth Strategy</td><td class="px-4 py-3">Enhance Customer Value</td><td class="px-4 py-3">Meningkatkan average revenue per key account.</td><td class="px-4 py-3">Revenue per Key Account</td><td class="px-4 py-3">Pendapatan rata-rata per akun prioritas.</td><td class="px-4 py-3">Naik 10%</td><td class="px-4 py-3">Key account development plan</td><td class="px-4 py-3">Key Account Head</td><td class="px-4 py-3">Sales, Category</td><td class="px-4 py-3">Quarterly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">F8</td><td class="px-4 py-3">Growth Strategy</td><td class="px-4 py-3">Enhance Customer Value</td><td class="px-4 py-3">Meningkatkan profitability pelanggan prioritas.</td><td class="px-4 py-3">Customer Profitability %</td><td class="px-4 py-3">Margin profit pelanggan prioritas.</td><td class="px-4 py-3">Naik 3 pts</td><td class="px-4 py-3">Price-pack architecture reset</td><td class="px-4 py-3">Commercial Finance</td><td class="px-4 py-3">Sales, Marketing</td><td class="px-4 py-3">Quarterly</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-2xl border border-border-blue bg-white/5 p-4">
+            <p class="text-sm font-semibold text-soft-white">Customer Perspective 2026</p>
+            <p class="mt-2 text-sm leading-7 text-cool-gray">Menjawab bagaimana perusahaan harus memperlakukan pelanggan agar tercapai market share, account share, customer satisfaction, dan customer lifetime value.</p>
+            <div class="mt-4 overflow-x-auto rounded-2xl border border-border-blue">
+              <table class="min-w-[1900px] text-left text-sm">
+                <caption class="sr-only">Balanced Scorecard customer perspective 2026</caption>
+                <thead class="bg-navy-elevated text-slate-100"><tr><th class="px-4 py-3">Code</th><th class="px-4 py-3">Strategi Besar</th><th class="px-4 py-3">Sub Strategi</th><th class="px-4 py-3">Strategic Objective</th><th class="px-4 py-3">KPI</th><th class="px-4 py-3">Definisi Singkat KPI</th><th class="px-4 py-3">Target 2026</th><th class="px-4 py-3">Key Initiative</th><th class="px-4 py-3">Main Owner</th><th class="px-4 py-3">Contributing Owner</th><th class="px-4 py-3">Cadence</th></tr></thead>
+                <tbody class="divide-y divide-border-blue/50">
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">C1</td><td class="px-4 py-3">Product/Services Attributes</td><td class="px-4 py-3">Price &amp; Quality</td><td class="px-4 py-3">Menawarkan price-value pack yang lebih kompetitif di segmen prioritas.</td><td class="px-4 py-3">Value Pack Conversion %</td><td class="px-4 py-3">Porsi outlet yang mengadopsi pack prioritas.</td><td class="px-4 py-3">60%</td><td class="px-4 py-3">Price-pack redesign</td><td class="px-4 py-3">Marketing Director</td><td class="px-4 py-3">Sales, Finance</td><td class="px-4 py-3">Quarterly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">C2</td><td class="px-4 py-3">Product/Services Attributes</td><td class="px-4 py-3">Availability &amp; Selection</td><td class="px-4 py-3">Meningkatkan ketersediaan SKU inti di outlet prioritas.</td><td class="px-4 py-3">On-Shelf Availability %</td><td class="px-4 py-3">Persentase SKU inti tersedia di outlet target.</td><td class="px-4 py-3">95%</td><td class="px-4 py-3">Perfect store deployment</td><td class="px-4 py-3">Sales Ops Head</td><td class="px-4 py-3">Supply Chain, Key Account</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">C3</td><td class="px-4 py-3">Product/Services Attributes</td><td class="px-4 py-3">Functionality</td><td class="px-4 py-3">Memperkuat relevansi portofolio terhadap kebutuhan segmen growth.</td><td class="px-4 py-3">Repeat Purchase Rate</td><td class="px-4 py-3">Persentase pembelian ulang produk prioritas.</td><td class="px-4 py-3">68%</td><td class="px-4 py-3">Core portfolio relaunch</td><td class="px-4 py-3">Category Manager</td><td class="px-4 py-3">Marketing, R&amp;D</td><td class="px-4 py-3">Quarterly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">C4</td><td class="px-4 py-3">Relationship</td><td class="px-4 py-3">Service &amp; Partnership</td><td class="px-4 py-3">Meningkatkan kualitas eksekusi pelayanan ke key account dan distributor.</td><td class="px-4 py-3">OTIF Delivery %</td><td class="px-4 py-3">On-time in-full delivery ke pelanggan.</td><td class="px-4 py-3">97%</td><td class="px-4 py-3">Service excellence control tower</td><td class="px-4 py-3">Supply Chain Director</td><td class="px-4 py-3">Sales, Customer Service</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">C5</td><td class="px-4 py-3">Relationship</td><td class="px-4 py-3">Acquisition &amp; Growth</td><td class="px-4 py-3">Menambah account share di pelanggan modern trade prioritas.</td><td class="px-4 py-3">Account Share %</td><td class="px-4 py-3">Porsi kategori yang dikuasai di akun target.</td><td class="px-4 py-3">Naik 4 pts</td><td class="px-4 py-3">Joint business planning</td><td class="px-4 py-3">Key Account Head</td><td class="px-4 py-3">Trade Marketing, Finance</td><td class="px-4 py-3">Quarterly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">C6</td><td class="px-4 py-3">Brand Image</td><td class="px-4 py-3">Brand Trust &amp; Lifetime Value</td><td class="px-4 py-3">Memperkuat brand image agar customer lifetime value meningkat.</td><td class="px-4 py-3">Customer Lifetime Value Index</td><td class="px-4 py-3">Indeks nilai pelanggan jangka panjang.</td><td class="px-4 py-3">Naik 12%</td><td class="px-4 py-3">Brand image reinforcement campaign</td><td class="px-4 py-3">Marketing Director</td><td class="px-4 py-3">Sales, Digital, Customer Insight</td><td class="px-4 py-3">Quarterly</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-2xl border border-border-blue bg-white/5 p-4">
+            <p class="text-sm font-semibold text-soft-white">Internal Process Perspective 2026</p>
+            <p class="mt-2 text-sm leading-7 text-cool-gray">Menjawab proses bisnis mana yang harus dikuasai agar customer perspective dan financial perspective dapat tercapai secara konsisten.</p>
+            <div class="mt-4 overflow-x-auto rounded-2xl border border-border-blue">
+              <table class="min-w-[1900px] text-left text-sm">
+                <caption class="sr-only">Balanced Scorecard internal process perspective 2026</caption>
+                <thead class="bg-navy-elevated text-slate-100"><tr><th class="px-4 py-3">Code</th><th class="px-4 py-3">Strategi Besar</th><th class="px-4 py-3">Sub Strategi</th><th class="px-4 py-3">Strategic Objective</th><th class="px-4 py-3">KPI</th><th class="px-4 py-3">Definisi Singkat KPI</th><th class="px-4 py-3">Target 2026</th><th class="px-4 py-3">Key Initiative</th><th class="px-4 py-3">Main Owner</th><th class="px-4 py-3">Contributing Owner</th><th class="px-4 py-3">Cadence</th></tr></thead>
+                <tbody class="divide-y divide-border-blue/50">
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">I1</td><td class="px-4 py-3">Operation Management Process</td><td class="px-4 py-3">Supply &amp; Production</td><td class="px-4 py-3">Menjamin efisiensi supply untuk portofolio prioritas.</td><td class="px-4 py-3">Plan Adherence %</td><td class="px-4 py-3">Kesesuaian realisasi vs production atau supply plan.</td><td class="px-4 py-3">95%</td><td class="px-4 py-3">S&amp;OP discipline reset</td><td class="px-4 py-3">Supply Chain Director</td><td class="px-4 py-3">Production, Planning</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">I2</td><td class="px-4 py-3">Operation Management Process</td><td class="px-4 py-3">R&amp;D &amp; Risk Management</td><td class="px-4 py-3">Mempercepat simplifikasi portofolio dan mitigasi risiko SKU lambat.</td><td class="px-4 py-3">SKU Rationalization Completion %</td><td class="px-4 py-3">Persentase SKU low-value yang ditindak.</td><td class="px-4 py-3">100% wave 1</td><td class="px-4 py-3">Portfolio simplification PMO</td><td class="px-4 py-3">Marketing Director</td><td class="px-4 py-3">Finance, Operations</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">I3</td><td class="px-4 py-3">Customer Management Process</td><td class="px-4 py-3">Selection &amp; Acquisition</td><td class="px-4 py-3">Memfokuskan resource pada pelanggan dan channel dengan potensi tertinggi.</td><td class="px-4 py-3">Priority Account Coverage %</td><td class="px-4 py-3">Persentase akun prioritas yang aktif dikelola.</td><td class="px-4 py-3">100%</td><td class="px-4 py-3">Priority account coverage model</td><td class="px-4 py-3">Sales Director</td><td class="px-4 py-3">Key Account, Trade Marketing</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">I4</td><td class="px-4 py-3">Customer Management Process</td><td class="px-4 py-3">Retention &amp; Growth</td><td class="px-4 py-3">Meningkatkan retensi pelanggan prioritas dan growth basket.</td><td class="px-4 py-3">Retention Rate %</td><td class="px-4 py-3">Persentase pelanggan prioritas yang tetap aktif.</td><td class="px-4 py-3">92%</td><td class="px-4 py-3">Key account retention playbook</td><td class="px-4 py-3">Key Account Head</td><td class="px-4 py-3">Customer Service, Sales Ops</td><td class="px-4 py-3">Quarterly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">I5</td><td class="px-4 py-3">Innovation Management Process</td><td class="px-4 py-3">Opportunity Identification</td><td class="px-4 py-3">Mengidentifikasi peluang produk atau channel baru yang paling feasible.</td><td class="px-4 py-3">Qualified Opportunity Count</td><td class="px-4 py-3">Jumlah peluang tervalidasi untuk di-scale.</td><td class="px-4 py-3">8 peluang</td><td class="px-4 py-3">Growth opportunity review forum</td><td class="px-4 py-3">Strategy Head</td><td class="px-4 py-3">Marketing, Sales, R&amp;D</td><td class="px-4 py-3">Quarterly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">I6</td><td class="px-4 py-3">Innovation Management Process</td><td class="px-4 py-3">Design/Develop &amp; Launch</td><td class="px-4 py-3">Mempercepat peluncuran inisiatif komersial prioritas ke market.</td><td class="px-4 py-3">Launch On-Time %</td><td class="px-4 py-3">Persentase launch sesuai timeline.</td><td class="px-4 py-3">90%</td><td class="px-4 py-3">Fast-track launch governance</td><td class="px-4 py-3">Innovation Lead</td><td class="px-4 py-3">Marketing, Sales, Supply Chain</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">I7</td><td class="px-4 py-3">Regulatory &amp; Social Management Process</td><td class="px-4 py-3">Compliance &amp; Reputation</td><td class="px-4 py-3">Menjaga kepatuhan dan reputasi perusahaan di pasar.</td><td class="px-4 py-3">Compliance Incident Count</td><td class="px-4 py-3">Jumlah insiden compliance material.</td><td class="px-4 py-3">0 major incident</td><td class="px-4 py-3">Compliance control review</td><td class="px-4 py-3">Corporate Affairs Head</td><td class="px-4 py-3">QA, Legal, Operations</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">I8</td><td class="px-4 py-3">Regulatory &amp; Social Management Process</td><td class="px-4 py-3">Stakeholder Trust</td><td class="px-4 py-3">Meningkatkan citra perusahaan di stakeholder utama.</td><td class="px-4 py-3">Stakeholder Trust Score</td><td class="px-4 py-3">Skor persepsi stakeholder utama.</td><td class="px-4 py-3">Naik 10%</td><td class="px-4 py-3">Reputation and sustainability program</td><td class="px-4 py-3">Corporate Affairs Head</td><td class="px-4 py-3">Marketing, HR</td><td class="px-4 py-3">Semiannual</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-2xl border border-border-blue bg-white/5 p-4">
+            <p class="text-sm font-semibold text-soft-white">Learning &amp; Growth Perspective 2026</p>
+            <p class="mt-2 text-sm leading-7 text-cool-gray">Menjawab bagaimana perusahaan harus belajar dan berkembang agar mampu menguasai proses internal, memuaskan pelanggan, dan mencapai target finansial.</p>
+            <div class="mt-4 overflow-x-auto rounded-2xl border border-border-blue">
+              <table class="min-w-[1900px] text-left text-sm">
+                <caption class="sr-only">Balanced Scorecard learning and growth perspective 2026</caption>
+                <thead class="bg-navy-elevated text-slate-100"><tr><th class="px-4 py-3">Code</th><th class="px-4 py-3">Strategi Besar</th><th class="px-4 py-3">Sub Strategi</th><th class="px-4 py-3">Strategic Objective</th><th class="px-4 py-3">KPI</th><th class="px-4 py-3">Definisi Singkat KPI</th><th class="px-4 py-3">Target 2026</th><th class="px-4 py-3">Key Initiative</th><th class="px-4 py-3">Main Owner</th><th class="px-4 py-3">Contributing Owner</th><th class="px-4 py-3">Cadence</th></tr></thead>
+                <tbody class="divide-y divide-border-blue/50">
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">L1</td><td class="px-4 py-3">Human Capital Strategy</td><td class="px-4 py-3">Skill &amp; Knowledge</td><td class="px-4 py-3">Meningkatkan kapabilitas tim sales dalam category selling dan channel development.</td><td class="px-4 py-3">Sales Capability Index</td><td class="px-4 py-3">Indeks kompetensi tim sales prioritas.</td><td class="px-4 py-3">Naik 15%</td><td class="px-4 py-3">Sales academy 2026</td><td class="px-4 py-3">HR Director</td><td class="px-4 py-3">Sales Director</td><td class="px-4 py-3">Quarterly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">L2</td><td class="px-4 py-3">Human Capital Strategy</td><td class="px-4 py-3">Attitude &amp; Discipline</td><td class="px-4 py-3">Membangun disiplin eksekusi komersial lintas fungsi.</td><td class="px-4 py-3">Execution Compliance %</td><td class="px-4 py-3">Kepatuhan terhadap ritme review dan action closure.</td><td class="px-4 py-3">95%</td><td class="px-4 py-3">Commercial governance routine</td><td class="px-4 py-3">Commercial Director</td><td class="px-4 py-3">HR, Sales Ops</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">L3</td><td class="px-4 py-3">Organization Capital Strategy</td><td class="px-4 py-3">Culture &amp; Leadership</td><td class="px-4 py-3">Memperkuat alignment leadership terhadap 3 strategic themes.</td><td class="px-4 py-3">Leadership Alignment Score</td><td class="px-4 py-3">Skor keselarasan keputusan pimpinan.</td><td class="px-4 py-3">90%</td><td class="px-4 py-3">Leadership strategy cascade</td><td class="px-4 py-3">CEO Office</td><td class="px-4 py-3">HR, Strategy</td><td class="px-4 py-3">Quarterly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">L4</td><td class="px-4 py-3">Organization Capital Strategy</td><td class="px-4 py-3">Resource Alignment &amp; Teamwork</td><td class="px-4 py-3">Menyelaraskan people, budget, dan process untuk prioritas strategi.</td><td class="px-4 py-3">Strategic Initiative On-Track %</td><td class="px-4 py-3">Porsi inisiatif strategis sesuai milestone.</td><td class="px-4 py-3">85%</td><td class="px-4 py-3">Enterprise initiative PMO</td><td class="px-4 py-3">Strategy Head</td><td class="px-4 py-3">Finance, HR, All Functions</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-white/5"><td class="px-4 py-3 font-mono">L5</td><td class="px-4 py-3">Information Capital</td><td class="px-4 py-3">Infrastructure &amp; Network</td><td class="px-4 py-3">Meningkatkan visibilitas data penjualan dan distribusi.</td><td class="px-4 py-3">Dashboard Usage Rate %</td><td class="px-4 py-3">Persentase user aktif memakai dashboard.</td><td class="px-4 py-3">80%</td><td class="px-4 py-3">Sales visibility dashboard</td><td class="px-4 py-3">IT Head</td><td class="px-4 py-3">Sales Ops, Finance</td><td class="px-4 py-3">Monthly</td></tr>
+                  <tr class="bg-black/10"><td class="px-4 py-3 font-mono">L6</td><td class="px-4 py-3">Information Capital</td><td class="px-4 py-3">Digitalization &amp; Automation</td><td class="px-4 py-3">Mengotomatisasi reporting dan review kinerja utama.</td><td class="px-4 py-3">Automated Report Coverage %</td><td class="px-4 py-3">Porsi laporan rutin yang terotomatisasi.</td><td class="px-4 py-3">75%</td><td class="px-4 py-3">Commercial digitalization sprint</td><td class="px-4 py-3">IT Head</td><td class="px-4 py-3">Finance, Sales Ops, Strategy</td><td class="px-4 py-3">Monthly</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="mt-6 rounded-[2rem] border border-info/30 bg-info/10 p-6 shadow-panel backdrop-blur-xl">
+            <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p class="text-sm font-semibold text-soft-white">Lanjut ke Results Dashboard</p>
+                <p class="mt-1 text-sm text-sky-50/85">Setelah objective, KPI, target, owner, dan cadence siap, hasilnya bisa dibawa ke strategy map dan executive summary.</p>
+              </div>
+              <a href="results.html" class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-navy-surface/70 px-5 py-3 text-sm font-medium text-soft-white transition hover:bg-navy-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-info">Open Results Dashboard</a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

@@ -130,10 +130,10 @@
     { key: "p7", section: "phase-7", label: "P7 IE Matrix", description: "Dedicated IE Matrix workspace based on approved total EFE and IFE scores.", href: "phase-7-ie.html" },
     { key: "p8", section: "phase-8", label: "P8 Intersection Rule", description: "Dedicated synthesis workspace for cross-tool strategy intersection and umbrella strategy preparation.", href: "phase-8-intersection.html" },
     { key: "p9", section: "phase-9", label: "P9 QSPM Matrix", description: "Prioritization and strategic theme ranking workspace.", href: "phase-9-qspm.html" },
-    { key: "p10", section: "phase-10", label: "P10 BSC Financial", description: "Balanced Scorecard sub-page for financial perspective and downstream execution views." },
-    { key: "p11", section: "phase-10", label: "P11 BSC Customer", description: "Balanced Scorecard sub-page for customer perspective within the shared BSC workspace." },
-    { key: "p12", section: "phase-10", label: "P12 BSC Internal Process", description: "Balanced Scorecard sub-page for internal process perspective within the shared BSC workspace." },
-    { key: "p13", section: "phase-10", label: "P13 BSC Learning & Growth", description: "Balanced Scorecard sub-page for learning and growth perspective within the shared BSC workspace." },
+    { key: "p10", section: "phase-10", label: "P10 BSC Financial", description: "Balanced Scorecard dedicated page covering financial perspective and linked execution views.", href: "phase-10-bsc.html" },
+    { key: "p11", section: "phase-10", label: "P11 BSC Customer", description: "Balanced Scorecard dedicated page covering customer perspective within the shared BSC workspace.", href: "phase-10-bsc.html" },
+    { key: "p12", section: "phase-10", label: "P12 BSC Internal Process", description: "Balanced Scorecard dedicated page covering internal process perspective within the shared BSC workspace.", href: "phase-10-bsc.html" },
+    { key: "p13", section: "phase-10", label: "P13 BSC Learning & Growth", description: "Balanced Scorecard dedicated page covering learning and growth perspective within the shared BSC workspace.", href: "phase-10-bsc.html" },
     { key: "p14", section: "phase-14", label: "P14 Strategy Map & Executive Summary", description: "Final strategy map and executive summary input workspace." },
   ];
 
@@ -290,6 +290,28 @@
     }
 
     return "";
+  }
+
+  function getDraftOrFieldValue(key) {
+    const draft = safeReadDraft();
+    const fromDraft = draft[key];
+    if (typeof fromDraft === "string" && fromDraft.trim()) {
+      return fromDraft.trim();
+    }
+    const field = document.querySelector(`[data-field-key="${CSS.escape(key)}"]`);
+    if (field && typeof field.value === "string" && field.value.trim()) {
+      return field.value.trim();
+    }
+    return "";
+  }
+
+  function getPhase0PurposeData() {
+    return {
+      companyName: getDraftOrFieldValue("phase-0::company-name"),
+      vision: getDraftOrFieldValue("phase-0::vision"),
+      mission: getDraftOrFieldValue("phase-0::mission"),
+      target: getDraftOrFieldValue("phase-0::company-target"),
+    };
   }
 
   function getEfeItems() {
@@ -4404,6 +4426,8 @@
     return safeReadJson(QSPM_STORAGE_KEY, {
       scores: {},
       priorityNote: "Top strategies should become the basis for Strategic Themes and flow into BSC objectives.",
+      enablerText:
+        "Cross-functional governance, execution cadence, channel capability, and management visibility must support the chosen strategic themes.",
     });
   }
 
@@ -4411,6 +4435,8 @@
     return safeWriteJson(QSPM_STORAGE_KEY, {
       scores: {},
       priorityNote: "Top strategies should become the basis for Strategic Themes and flow into BSC objectives.",
+      enablerText:
+        "Cross-functional governance, execution cadence, channel capability, and management visibility must support the chosen strategic themes.",
       ...state,
     });
   }
@@ -4632,6 +4658,77 @@
       .join("");
   }
 
+  function getTopStrategicThemes(umbrellas, factorGroups, state = getQspmState()) {
+    return calculateQspmStrategyTotals(umbrellas, factorGroups, state)
+      .sort((left, right) => right.totalTas - left.totalTas || right.totalToolSupport - left.totalToolSupport)
+      .slice(0, 3);
+  }
+
+  function buildQspmContext() {
+    return {
+      umbrellas: getSelectedQspmUmbrellas(),
+      factorGroups: buildQspmFactorGroups(),
+      state: getQspmState(),
+    };
+  }
+
+  function renderStrategicHouse(umbrellas, factorGroups, state = getQspmState()) {
+    const pillarHost = document.querySelector("[data-strategic-house-pillars]");
+    if (!pillarHost) return;
+
+    const purpose = getPhase0PurposeData();
+    const topThemes = getTopStrategicThemes(umbrellas, factorGroups, state);
+    const purposeSummaryNode = document.querySelector("[data-strategic-house-purpose-summary]");
+    if (purposeSummaryNode) {
+      const parts = [purpose.vision, purpose.mission, purpose.target].filter(Boolean);
+      purposeSummaryNode.textContent = parts.length
+        ? parts.join(" | ")
+        : "Lengkapi Vision, Mission, dan Company Target pada phase intake.";
+    }
+
+    if (!topThemes.length) {
+      pillarHost.innerHTML = `<article class="rounded-[1.5rem] border border-border-blue bg-white/5 p-5 text-sm leading-7 text-cool-gray lg:col-span-3">Belum ada strategic themes yang bisa dipakai sebagai pilar. Lengkapi penilaian AS/TAS pada QSPM agar top 3 strategic themes bisa dibentuk.</article>`;
+    } else {
+      pillarHost.innerHTML = topThemes
+        .map(
+          (theme, index) => `
+            <article class="rounded-[1.5rem] border border-border-blue bg-white/5 p-5">
+              <p class="text-[11px] uppercase tracking-[0.18em] text-info">Pillar ${index + 1}</p>
+              <p class="mt-3 text-lg font-semibold text-soft-white">${theme.title}</p>
+              <p class="mt-3 text-sm leading-7 text-cool-gray">Strategic theme ini berasal dari ranking QSPM dan menjadi pilar utama sebelum objective diturunkan ke Balanced Scorecard.</p>
+              <div class="mt-4 flex items-center justify-between gap-3">
+                <span class="inline-flex rounded-full border border-maroon-glow/30 bg-maroon-glow/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-rose-100">${theme.items.length} Strategy Items</span>
+                <span class="font-mono text-base font-semibold text-soft-white">${theme.totalTas.toFixed(2)}</span>
+              </div>
+            </article>
+          `
+        )
+        .join("");
+    }
+
+    const enablerField = document.querySelector('[data-strategic-house-input="enabler"]');
+    if (enablerField && typeof enablerField.value === "string" && !enablerField.value.trim()) {
+      enablerField.value = state.enablerText || "";
+    }
+    const enablerText = (enablerField?.value || state.enablerText || "").trim();
+    const enablerSummaryNode = document.querySelector("[data-strategic-house-enabler-summary]");
+    if (enablerSummaryNode) {
+      enablerSummaryNode.textContent =
+        enablerText || "Tambahkan enabler text untuk memperjelas kesiapan eksekusi sebelum masuk ke Balanced Scorecard.";
+    }
+
+    const summaryNode = document.querySelector("[data-strategic-house-summary]");
+    if (summaryNode) {
+      const hasPurpose = [purpose.vision, purpose.mission, purpose.target].some(Boolean);
+      if (!hasPurpose && !topThemes.length) {
+        summaryNode.textContent = "Strategic House akan aktif setelah purpose intake dan ranking top strategic themes QSPM tersedia.";
+      } else {
+        const purposeLabel = purpose.companyName || "Perusahaan";
+        summaryNode.textContent = `${purposeLabel} kini memiliki atap purpose dari intake, ${topThemes.length} pilar strategic themes dari QSPM, dan enabler text sebagai fondasi sebelum objective BSC diturunkan.`;
+      }
+    }
+  }
+
   function updateQspmSummary(umbrellas, factorGroups, state = getQspmState()) {
     const allUmbrellas = getIntersectionReadyUmbrellas();
     const strategyRuleNode = document.querySelector('[data-qspm-summary="strategy-rule"]');
@@ -4662,16 +4759,25 @@
     return document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-qspm";
   }
 
+  function isStrategicHousePage() {
+    return document.body.dataset.page === "phase-strategic-house";
+  }
+
   function renderQspmSection() {
     if (!isQspmPage()) return;
     if (!document.querySelector("[data-qspm-body]")) return;
-    const umbrellas = getSelectedQspmUmbrellas();
-    const factorGroups = buildQspmFactorGroups();
-    const state = getQspmState();
+    const { umbrellas, factorGroups, state } = buildQspmContext();
     renderQspmStrategyCards(umbrellas);
     renderQspmTable(umbrellas, factorGroups, state);
     renderQspmRanking(umbrellas, factorGroups, state);
     updateQspmSummary(umbrellas, factorGroups, state);
+  }
+
+  function renderStrategicHousePage() {
+    if (!isStrategicHousePage()) return;
+    if (!document.querySelector("[data-strategic-house-pillars]")) return;
+    const { umbrellas, factorGroups, state } = buildQspmContext();
+    renderStrategicHouse(umbrellas, factorGroups, state);
   }
 
   function attachQspmInteractions() {
@@ -4700,6 +4806,17 @@
         const state = getQspmState();
         state.priorityNote = noteField.value || "";
         setQspmState(state);
+        return;
+      }
+
+      const enablerField = event.target.closest('[data-strategic-house-input="enabler"]');
+      if (enablerField) {
+        const state = getQspmState();
+        state.enablerText = enablerField.value || "";
+        setQspmState(state);
+        if (isStrategicHousePage()) {
+          renderStrategicHousePage();
+        }
       }
     });
 
@@ -4709,6 +4826,17 @@
       const state = getQspmState();
       state.priorityNote = noteField.value || "";
       setQspmState(state);
+    });
+
+    document.addEventListener("input", (event) => {
+      const enablerField = event.target.closest('[data-strategic-house-input="enabler"]');
+      if (!enablerField) return;
+      const state = getQspmState();
+      state.enablerText = enablerField.value || "";
+      setQspmState(state);
+      if (isStrategicHousePage()) {
+        renderStrategicHousePage();
+      }
     });
 
     document.addEventListener("click", (event) => {
@@ -4730,6 +4858,12 @@
         showToast("Ranking Strategic Themes diperbarui dari Sum TAS saat ini.", "success");
       }
     });
+  }
+
+  function attachStrategicHouseInteractions() {
+    if (!isStrategicHousePage()) return;
+    if (!document.querySelector("[data-strategic-house-pillars]")) return;
+    renderStrategicHousePage();
   }
 
   function updateIntersectionSummary() {
@@ -4992,7 +5126,7 @@
   function init() {
     attachExportActions();
 
-    if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-efe" || document.body.dataset.page === "phase-ife" || document.body.dataset.page === "phase-cpm" || document.body.dataset.page === "phase-swot" || document.body.dataset.page === "phase-space" || document.body.dataset.page === "phase-bcg" || document.body.dataset.page === "phase-ie" || document.body.dataset.page === "phase-intersection" || document.body.dataset.page === "phase-qspm") {
+    if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-efe" || document.body.dataset.page === "phase-ife" || document.body.dataset.page === "phase-cpm" || document.body.dataset.page === "phase-swot" || document.body.dataset.page === "phase-space" || document.body.dataset.page === "phase-bcg" || document.body.dataset.page === "phase-ie" || document.body.dataset.page === "phase-intersection" || document.body.dataset.page === "phase-qspm" || document.body.dataset.page === "phase-strategic-house") {
       attachDraftPersistence();
       if (document.body.dataset.page === "phase-ife") {
         attachIfeInteractions();
@@ -5019,6 +5153,9 @@
       }
       if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-qspm") {
         attachQspmInteractions();
+      }
+      if (document.body.dataset.page === "phase-strategic-house") {
+        attachStrategicHouseInteractions();
       }
       if (document.body.dataset.page === "analysis") {
         updatePhaseWorkspaceRouting();
