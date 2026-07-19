@@ -10,6 +10,7 @@
   const SPACE_STORAGE_KEY = "sotdrive-space-matrix-v1";
   const BCG_STORAGE_KEY = "sotdrive-bcg-matrix-v1";
   const INTERSECTION_STORAGE_KEY = "sotdrive-intersection-state-v1";
+  const QSPM_STORAGE_KEY = "sotdrive-qspm-state-v1";
   const TOWS_STRATEGY_OPTIONS = [
     { type: "Market Penetration", category: "Intensive" },
     { type: "Market Development", category: "Intensive" },
@@ -128,7 +129,7 @@
     { key: "p6", section: "phase-6", label: "P6 BCG Matrix", description: "Dedicated BCG Matrix workspace with RMSP, IGR, quadrant, and market-growth visualization.", href: "phase-6-bcg.html" },
     { key: "p7", section: "phase-7", label: "P7 IE Matrix", description: "Dedicated IE Matrix workspace based on approved total EFE and IFE scores.", href: "phase-7-ie.html" },
     { key: "p8", section: "phase-8", label: "P8 Intersection Rule", description: "Dedicated synthesis workspace for cross-tool strategy intersection and umbrella strategy preparation.", href: "phase-8-intersection.html" },
-    { key: "p9", section: "phase-9", label: "P9 QSPM Matrix", description: "Prioritization and strategic theme ranking workspace." },
+    { key: "p9", section: "phase-9", label: "P9 QSPM Matrix", description: "Prioritization and strategic theme ranking workspace.", href: "phase-9-qspm.html" },
     { key: "p10", section: "phase-10", label: "P10 BSC Financial", description: "Balanced Scorecard sub-page for financial perspective and downstream execution views." },
     { key: "p11", section: "phase-10", label: "P11 BSC Customer", description: "Balanced Scorecard sub-page for customer perspective within the shared BSC workspace." },
     { key: "p12", section: "phase-10", label: "P12 BSC Internal Process", description: "Balanced Scorecard sub-page for internal process perspective within the shared BSC workspace." },
@@ -4392,6 +4393,345 @@
       .join("");
   }
 
+  function slugify(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function getQspmState() {
+    return safeReadJson(QSPM_STORAGE_KEY, {
+      scores: {},
+      priorityNote: "Top strategies should become the basis for Strategic Themes and flow into BSC objectives.",
+    });
+  }
+
+  function setQspmState(state) {
+    return safeWriteJson(QSPM_STORAGE_KEY, {
+      scores: {},
+      priorityNote: "Top strategies should become the basis for Strategic Themes and flow into BSC objectives.",
+      ...state,
+    });
+  }
+
+  function getIntersectionReadyUmbrellas() {
+    return generateUmbrellaStrategies(buildIntersectionCandidates())
+      .map((umbrella, index) => {
+        const totalToolSupport = umbrella.items.reduce((total, item) => total + Number(item.toolCount || 0), 0);
+        const avgToolSupport = totalToolSupport / Math.max(umbrella.items.length, 1);
+        return {
+          ...umbrella,
+          id: slugify(umbrella.title) || `umbrella-${index + 1}`,
+          totalToolSupport,
+          avgToolSupport,
+        };
+      })
+      .sort(
+        (left, right) =>
+          right.totalToolSupport - left.totalToolSupport ||
+          right.avgToolSupport - left.avgToolSupport ||
+          right.items.length - left.items.length ||
+          left.title.localeCompare(right.title)
+      );
+  }
+
+  function getSelectedQspmUmbrellas() {
+    const umbrellas = getIntersectionReadyUmbrellas();
+    return umbrellas.length > 5 ? umbrellas.slice(0, 5) : umbrellas;
+  }
+
+  function buildQspmFactorGroups() {
+    const swot = getSwotPartOneData();
+    return [
+      { key: "strengths", label: "Strength", entries: swot.strengths },
+      { key: "weaknesses", label: "Weakness", entries: swot.weaknesses },
+      { key: "opportunities", label: "Opportunity", entries: swot.opportunities },
+      { key: "threats", label: "Threat", entries: swot.threats },
+    ]
+      .map((group) => ({
+        ...group,
+        entries: group.entries
+          .filter((entry) => entry.factor)
+          .map((entry) => ({
+            ...entry,
+            weightValue: Number(entry.weight || 0),
+            weightedScoreValue: Number(entry.weightedScore || 0),
+          })),
+      }))
+      .filter((group) => group.entries.length);
+  }
+
+  function buildQspmAsOptions(selectedValue = "") {
+    return ["", "1", "2", "3", "4"]
+      .map((value) => {
+        const label = value ? value : "Blank";
+        return `<option value="${value}"${value === selectedValue ? " selected" : ""}>${label}</option>`;
+      })
+      .join("");
+  }
+
+  function getQspmScoreKey(strategyId, factorCode) {
+    return `${strategyId}::${factorCode}`;
+  }
+
+  function getQspmAsValue(state, strategyId, factorCode) {
+    return String(state.scores?.[getQspmScoreKey(strategyId, factorCode)] || "");
+  }
+
+  function calculateQspmTas(weightValue, asValue) {
+    const weight = Number(weightValue || 0);
+    const as = Number(asValue || 0);
+    if (!weight || !as) return "";
+    return (weight * as).toFixed(2);
+  }
+
+  function calculateQspmStrategyTotals(umbrellas, factorGroups, state = getQspmState()) {
+    const factors = factorGroups.flatMap((group) => group.entries);
+    return umbrellas.map((umbrella) => {
+      const totalTas = factors.reduce((total, factor) => {
+        const asValue = getQspmAsValue(state, umbrella.id, factor.code);
+        return total + Number(calculateQspmTas(factor.weightValue, asValue) || 0);
+      }, 0);
+      return {
+        ...umbrella,
+        totalTas,
+      };
+    });
+  }
+
+  function renderQspmStrategyCards(umbrellas) {
+    const host = document.querySelector("[data-qspm-strategy-host]");
+    if (!host) return;
+    if (!umbrellas.length) {
+      host.innerHTML = `<article class="rounded-2xl border border-border-blue bg-white/5 p-4 text-sm leading-7 text-cool-gray xl:col-span-2">Belum ada umbrella strategy yang siap dipakai di QSPM. Selesaikan Intersection Rule dan pastikan strategi integration sudah lolos gate.</article>`;
+      return;
+    }
+    host.innerHTML = umbrellas
+      .map(
+        (umbrella) => `
+          <article class="rounded-2xl border border-border-blue bg-white/5 p-4">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-sm font-semibold text-soft-white">${umbrella.title}</p>
+                <p class="mt-2 text-sm leading-7 text-cool-gray">Kandidat umbrella ini dipopulasi otomatis dari Intersection Rule dan langsung menjadi kolom penilaian pada QSPM.</p>
+              </div>
+              <span class="inline-flex rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">${umbrella.totalToolSupport} Tool Support</span>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+              ${umbrella.items
+                .map(
+                  (item) =>
+                    `<span class="inline-flex rounded-full border border-maroon-glow/30 bg-maroon-glow/10 px-3 py-1 text-xs text-rose-100">${item.strategyType}</span>`
+                )
+                .join("")}
+            </div>
+          </article>
+        `
+      )
+      .join("");
+  }
+
+  function renderQspmTable(umbrellas, factorGroups, state = getQspmState()) {
+    const thead = document.querySelector("[data-qspm-head]");
+    const tbody = document.querySelector("[data-qspm-body]");
+    if (!thead || !tbody) return;
+
+    if (!umbrellas.length || !factorGroups.length) {
+      thead.innerHTML = `
+        <tr>
+          <th class="px-4 py-3">Key Factor</th>
+          <th class="px-4 py-3">Group</th>
+          <th class="px-4 py-3">Source</th>
+          <th class="px-4 py-3">Weight</th>
+        </tr>
+      `;
+      tbody.innerHTML = `<tr class="bg-white/5"><td colspan="4" class="px-4 py-5 text-sm text-cool-gray">${!umbrellas.length ? "Belum ada umbrella strategy dari Intersection." : "Belum ada faktor EFE/IFE yang siap dipakai di QSPM."}</td></tr>`;
+      return;
+    }
+
+    thead.innerHTML = `
+      <tr>
+        <th rowspan="2" class="px-4 py-3 align-middle">Code</th>
+        <th rowspan="2" class="px-4 py-3 align-middle">Key Factor</th>
+        <th rowspan="2" class="px-4 py-3 align-middle">Group</th>
+        <th rowspan="2" class="px-4 py-3 align-middle">Source</th>
+        <th rowspan="2" class="px-4 py-3 align-middle">Weight</th>
+        ${umbrellas.map((umbrella) => `<th colspan="2" class="px-4 py-3 text-center">${umbrella.title}</th>`).join("")}
+      </tr>
+      <tr>
+        ${umbrellas.map(() => `<th class="px-4 py-3">AS</th><th class="px-4 py-3">TAS</th>`).join("")}
+      </tr>
+    `;
+
+    tbody.innerHTML = factorGroups
+      .map((group) => {
+        const groupHeader = `
+          <tr class="bg-navy-surface/80">
+            <td colspan="${5 + umbrellas.length * 2}" class="px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-info">${group.label}</td>
+          </tr>
+        `;
+        const rows = group.entries
+          .map((entry, index) => {
+            const weightDisplay = entry.weightValue ? entry.weightValue.toFixed(2) : "-";
+            return `
+              <tr class="${index % 2 === 0 ? "bg-white/5" : "bg-black/10"}">
+                <td class="px-4 py-3 font-mono text-soft-white">${entry.code}</td>
+                <td class="px-4 py-3 text-soft-white">${entry.factor}</td>
+                <td class="px-4 py-3 text-cool-gray">${group.label}</td>
+                <td class="px-4 py-3 text-cool-gray">${entry.source || "-"}</td>
+                <td class="px-4 py-3 font-mono text-soft-white">${weightDisplay}</td>
+                ${umbrellas
+                  .map((umbrella) => {
+                    const asValue = getQspmAsValue(state, umbrella.id, entry.code);
+                    const tasValue = calculateQspmTas(entry.weightValue, asValue);
+                    return `
+                      <td class="px-4 py-3">
+                        <select data-qspm-as="true" data-strategy-id="${umbrella.id}" data-factor-code="${entry.code}" class="w-24 rounded-xl border border-border-blue bg-navy-deep px-3 py-2 text-sm text-soft-white">
+                          ${buildQspmAsOptions(asValue)}
+                        </select>
+                      </td>
+                      <td class="px-4 py-3 font-mono text-soft-white" data-qspm-tas="${umbrella.id}::${entry.code}">${tasValue || "-"}</td>
+                    `;
+                  })
+                  .join("")}
+              </tr>
+            `;
+          })
+          .join("");
+        return `${groupHeader}${rows}`;
+      })
+      .join("");
+  }
+
+  function renderQspmRanking(umbrellas, factorGroups, state = getQspmState()) {
+    const host = document.querySelector("[data-qspm-ranking-host]");
+    if (!host) return;
+    const ranked = calculateQspmStrategyTotals(umbrellas, factorGroups, state).sort(
+      (left, right) => right.totalTas - left.totalTas || right.totalToolSupport - left.totalToolSupport
+    );
+    if (!ranked.length) {
+      host.innerHTML = `<article class="rounded-2xl border border-border-blue bg-white/5 p-4 text-sm text-cool-gray xl:col-span-3">Ranking Strategic Themes belum tersedia karena kandidat QSPM belum lengkap.</article>`;
+      return;
+    }
+    host.innerHTML = ranked
+      .slice(0, 3)
+      .map(
+        (umbrella, index) => `
+          <article class="rounded-2xl border border-border-blue bg-white/5 p-4">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-maroon-glow">Strategic Theme ${index + 1}</p>
+            <p class="mt-2 text-base font-semibold text-soft-white">${umbrella.title}</p>
+            <p class="mt-3 text-sm text-cool-gray">Sum TAS sementara dihitung dari faktor EFE dan IFE yang aktif pada tabel QSPM.</p>
+            <div class="mt-4 flex items-center justify-between gap-3">
+              <span class="inline-flex rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">${umbrella.items.length} Strategy Items</span>
+              <span class="font-mono text-lg font-semibold text-soft-white">${umbrella.totalTas.toFixed(2)}</span>
+            </div>
+          </article>
+        `
+      )
+      .join("");
+  }
+
+  function updateQspmSummary(umbrellas, factorGroups, state = getQspmState()) {
+    const allUmbrellas = getIntersectionReadyUmbrellas();
+    const strategyRuleNode = document.querySelector('[data-qspm-summary="strategy-rule"]');
+    if (strategyRuleNode) {
+      strategyRuleNode.textContent =
+        allUmbrellas.length > 5
+          ? `Intersection menghasilkan ${allUmbrellas.length} umbrella strategies. QSPM hanya mengambil 5 teratas berdasarkan total tool support dan rata-rata dukungan lintas tools.`
+          : `Intersection menghasilkan ${allUmbrellas.length} umbrella strategies. Karena jumlahnya tidak lebih dari 5, semua umbrella strategy langsung dipakai di QSPM.`;
+    }
+    const factorRuleNode = document.querySelector('[data-qspm-summary="factor-rule"]');
+    if (factorRuleNode) {
+      const totalFactors = factorGroups.reduce((total, group) => total + group.entries.length, 0);
+      factorRuleNode.textContent = `QSPM saat ini memuat ${totalFactors} faktor dari EFE dan IFE: Strength, Weakness, Opportunity, dan Threat dipakai langsung sebagai basis penilaian AS dan TAS.`;
+    }
+    document.querySelectorAll('[data-qspm-summary="strategy-count"]').forEach((node) => {
+      node.value = String(umbrellas.length);
+    });
+    document.querySelectorAll('[data-qspm-summary="theme-count"]').forEach((node) => {
+      node.value = String(Math.min(3, umbrellas.length));
+    });
+    const noteField = document.querySelector('[data-qspm-summary="priority-note"]');
+    if (noteField) {
+      noteField.value = state.priorityNote || "";
+    }
+  }
+
+  function isQspmPage() {
+    return document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-qspm";
+  }
+
+  function renderQspmSection() {
+    if (!isQspmPage()) return;
+    if (!document.querySelector("[data-qspm-body]")) return;
+    const umbrellas = getSelectedQspmUmbrellas();
+    const factorGroups = buildQspmFactorGroups();
+    const state = getQspmState();
+    renderQspmStrategyCards(umbrellas);
+    renderQspmTable(umbrellas, factorGroups, state);
+    renderQspmRanking(umbrellas, factorGroups, state);
+    updateQspmSummary(umbrellas, factorGroups, state);
+  }
+
+  function attachQspmInteractions() {
+    if (!isQspmPage()) return;
+    if (!document.querySelector("[data-qspm-body]")) return;
+    renderQspmSection();
+
+    document.addEventListener("change", (event) => {
+      const asSelect = event.target.closest("[data-qspm-as]");
+      if (asSelect) {
+        const strategyId = asSelect.dataset.strategyId || "";
+        const factorCode = asSelect.dataset.factorCode || "";
+        if (!strategyId || !factorCode) return;
+        const state = getQspmState();
+        state.scores = {
+          ...(state.scores || {}),
+          [getQspmScoreKey(strategyId, factorCode)]: asSelect.value || "",
+        };
+        setQspmState(state);
+        renderQspmSection();
+        return;
+      }
+
+      const noteField = event.target.closest('[data-qspm-summary="priority-note"]');
+      if (noteField) {
+        const state = getQspmState();
+        state.priorityNote = noteField.value || "";
+        setQspmState(state);
+      }
+    });
+
+    document.addEventListener("input", (event) => {
+      const noteField = event.target.closest('[data-qspm-summary="priority-note"]');
+      if (!noteField) return;
+      const state = getQspmState();
+      state.priorityNote = noteField.value || "";
+      setQspmState(state);
+    });
+
+    document.addEventListener("click", (event) => {
+      const actionButton = event.target.closest("[data-qspm-action]");
+      if (!actionButton) return;
+      const action = actionButton.dataset.qspmAction;
+      const state = getQspmState();
+      const noteField = document.querySelector('[data-qspm-summary="priority-note"]');
+      if (noteField) {
+        state.priorityNote = noteField.value || "";
+        setQspmState(state);
+      }
+      if (action === "save") {
+        showToast("Draft QSPM berhasil disimpan ke browser.", "success");
+        return;
+      }
+      if (action === "rank") {
+        renderQspmSection();
+        showToast("Ranking Strategic Themes diperbarui dari Sum TAS saat ini.", "success");
+      }
+    });
+  }
+
   function updateIntersectionSummary() {
     if (document.body.dataset.page !== "phase-intersection") return;
     const candidates = buildIntersectionCandidates();
@@ -4652,7 +4992,7 @@
   function init() {
     attachExportActions();
 
-    if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-efe" || document.body.dataset.page === "phase-ife" || document.body.dataset.page === "phase-cpm" || document.body.dataset.page === "phase-swot" || document.body.dataset.page === "phase-space" || document.body.dataset.page === "phase-bcg" || document.body.dataset.page === "phase-ie" || document.body.dataset.page === "phase-intersection") {
+    if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-efe" || document.body.dataset.page === "phase-ife" || document.body.dataset.page === "phase-cpm" || document.body.dataset.page === "phase-swot" || document.body.dataset.page === "phase-space" || document.body.dataset.page === "phase-bcg" || document.body.dataset.page === "phase-ie" || document.body.dataset.page === "phase-intersection" || document.body.dataset.page === "phase-qspm") {
       attachDraftPersistence();
       if (document.body.dataset.page === "phase-ife") {
         attachIfeInteractions();
@@ -4676,6 +5016,9 @@
       }
       if (document.body.dataset.page === "phase-intersection") {
         attachIntersectionInteractions();
+      }
+      if (document.body.dataset.page === "analysis" || document.body.dataset.page === "phase-qspm") {
+        attachQspmInteractions();
       }
       if (document.body.dataset.page === "analysis") {
         updatePhaseWorkspaceRouting();

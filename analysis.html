@@ -261,7 +261,7 @@
                 <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P6</span>
                 <span class="mt-2 block font-semibold">BCG Matrix</span>
               </a>
-              <a href="analysis.html?phase=p9" data-phase-link="p9" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
+              <a href="phase-9-qspm.html" data-phase-link="p9" class="rounded-2xl border border-border-blue bg-navy-core/70 px-4 py-4 text-sm text-soft-white transition hover:border-info hover:bg-white/10">
                 <span class="block text-[11px] uppercase tracking-[0.16em] text-cool-gray">P9</span>
                 <span class="mt-2 block font-semibold">QSPM Input</span>
               </a>
@@ -293,7 +293,7 @@
                 <a href="phase-6-bcg.html" data-phase-link="p6" class="rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-soft-white transition hover:border-info/40">P6 BCG Matrix</a>
                 <a href="phase-7-ie.html" data-phase-link="p7" class="rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm text-soft-white transition hover:border-info/40">P7 IE Matrix</a>
                 <a href="phase-8-intersection.html" data-phase-link="p8" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P8 Intersection Rule</a>
-                <a href="analysis.html?phase=p9" data-phase-link="p9" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P9 QSPM Matrix</a>
+                <a href="phase-9-qspm.html" data-phase-link="p9" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P9 QSPM Matrix</a>
                 <a href="analysis.html?phase=p10" data-phase-link="p10" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P10 BSC Financial</a>
                 <a href="analysis.html?phase=p11" data-phase-link="p11" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P11 BSC Customer</a>
                 <a href="analysis.html?phase=p12" data-phase-link="p12" class="rounded-2xl border border-slate-600 bg-locked/10 px-4 py-3 text-sm text-slate-300 transition hover:border-info/40">P12 BSC Internal Process</a>
@@ -744,60 +744,46 @@
                 <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
                   <div>
                     <p class="text-[11px] uppercase tracking-[0.18em] text-info">P9 QSPM Matrix</p>
-                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Strategy prioritization with protected AS rules</h3>
+                    <h3 class="mt-2 text-lg font-semibold text-soft-white">Dedicated QSPM workspace with protected AS rules</h3>
                   </div>
-                  <span class="rounded-full border border-slate-600 bg-locked/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-300">Awaiting synthesis</span>
+                  <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-info">Dedicated Page</span>
                 </summary>
-                <div class="mt-5 overflow-x-auto rounded-2xl border border-border-blue">
-                  <table class="min-w-full text-left text-sm">
-                    <caption class="sr-only">QSPM weighted key factors with AS and TAS values</caption>
-                    <thead class="bg-navy-elevated text-slate-100">
-                      <tr>
-                        <th class="px-4 py-3">Key Factor</th>
-                        <th class="px-4 py-3">Weight</th>
-                        <th class="px-4 py-3">Strategy A AS</th>
-                        <th class="px-4 py-3">Strategy A TAS</th>
-                        <th class="px-4 py-3">Strategy B AS</th>
-                        <th class="px-4 py-3">Strategy B TAS</th>
-                      </tr>
-                    </thead>
-                    <tbody class="divide-y divide-border-blue/60">
-                      <tr class="bg-white/5">
-                        <td class="px-4 py-3">Distributor reach strength</td>
-                        <td class="px-4 py-3 font-mono">0.15</td>
-                        <td class="px-4 py-3">Blank / Not Relevant</td>
-                        <td class="px-4 py-3 font-mono">-</td>
-                        <td class="px-4 py-3 font-mono">4</td>
-                        <td class="px-4 py-3 font-mono">0.60</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="mt-5 grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">P9 Dedicated Flow</p>
+                    <p class="mt-2 text-sm leading-7 text-cool-gray">
+                      QSPM sekarang dibuka melalui halaman khusus seperti phase lainnya agar penilaian `AS`, perhitungan
+                      `TAS`, ranking `Strategic Theme`, dan review faktor `S/W/O/T` bisa dikerjakan lebih fokus.
+                    </p>
+                  </div>
+                  <div class="rounded-2xl border border-border-blue bg-white/5 p-4">
+                    <p class="text-sm font-semibold text-soft-white">Source Rule</p>
+                    <p class="mt-2 text-sm leading-7 text-cool-gray">
+                      Candidate strategy tetap diambil dari `Intersection Rule`, sedangkan faktor penilaian tetap
+                      menggunakan `EFE` dan `IFE` yang sudah lolos AQCD.
+                    </p>
+                  </div>
                 </div>
-                <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                  <label class="text-sm text-slate-100">Strategy A name<input type="text" value="Portfolio Focus Program" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
-                  <label class="text-sm text-slate-100">Strategy B name<input type="text" value="Channel Acceleration Program" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
-                  <label class="text-sm text-slate-100">AS selection rule<select class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white"><option>Blank or 1-4 only</option><option>Blank for not relevant</option></select></label>
-                  <label class="text-sm text-slate-100">Strategy A AS<input type="text" value="" placeholder="Kosongkan jika tidak relevan" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white placeholder:text-cool-gray" /></label>
-                  <label class="text-sm text-slate-100">Strategy B AS<input type="number" min="1" max="4" value="4" class="mt-2 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white" /></label>
-                  <label class="text-sm text-slate-100">Priority note<textarea class="mt-2 min-h-24 w-full rounded-2xl border border-border-blue bg-navy-deep px-4 py-3 text-sm text-soft-white">Top strategies should become the basis for Strategic Themes and flow into BSC objectives.</textarea></label>
-                </div>
-                <div class="mt-4 flex flex-wrap gap-3">
-                  <span class="rounded-full border border-error/30 bg-error/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-red-200">AS = 0 is not available</span>
-                  <span class="rounded-full border border-info/30 bg-info/10 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-info">Blank means not relevant, not zero</span>
+                <div class="mt-5 rounded-2xl border border-info/30 bg-info/10 p-4">
+                  <p class="text-sm font-semibold text-soft-white">What opens in the dedicated page</p>
+                  <ul class="mt-3 space-y-2 text-sm text-sky-50/90">
+                    <li>Top 5 umbrella strategies dari Intersection, atau semua jika kurang dari 5.</li>
+                    <li>QSPM factor table dari Strength, Weakness, Opportunity, dan Threat hasil EFE/IFE.</li>
+                    <li>Input `AS` blank atau `1-4` saja, plus kalkulasi `TAS` dan ranking `Strategic Theme`.</li>
+                  </ul>
                 </div>
                 <div class="mt-5 flex flex-col gap-3 sm:flex-row">
-                  <button
-                    type="button"
+                  <a
+                    href="phase-9-qspm.html"
                     class="inline-flex items-center justify-center rounded-2xl border border-info/30 bg-info/10 px-4 py-3 text-sm font-medium text-soft-white transition hover:bg-info/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
                   >
-                    Save QSPM Draft
-                  </button>
-                  <button
-                    type="button"
-                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray transition hover:text-soft-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+                    Open Dedicated P9 Page
+                  </a>
+                  <span
+                    class="inline-flex items-center justify-center rounded-2xl border border-border-blue bg-white/5 px-4 py-3 text-sm font-medium text-cool-gray"
                   >
-                    Rank Strategic Themes
-                  </button>
+                    Results remain next
+                  </span>
                 </div>
               </details>
 

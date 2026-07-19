@@ -22,6 +22,7 @@
 - `phase-6-bcg.html`
 - `phase-7-ie.html`
 - `phase-8-intersection.html`
+- `phase-9-qspm.html`
 - `results.html`
 - `assets/js/app.js`
 - `docs/PRD.md`
@@ -60,6 +61,7 @@
 - P6 now has a dedicated workspace at `phase-6-bcg.html` with market share inputs, automatic market leader detection, RMSP calculation, revenue-based IGR calculation, quadrant reading, and a live BCG Matrix visualization
 - P7 now has a dedicated workspace at `phase-7-ie.html` that reads approved total IFE and EFE scores, maps the active coordinate into the 9-cell IE Matrix, and shows the resulting cell, zone, and strategy direction without requiring extra input fields
 - P8 now has a dedicated workspace at `phase-8-intersection.html` with a cross-tool synthesis table, tool-count scoring, integration gate controls, and umbrella strategy grouping for QSPM preparation
+- P9 now has a dedicated workspace at `phase-9-qspm.html` that pulls up to the top `5` umbrella strategies from Intersection, auto-loads `S/W/O/T` factors from approved EFE and IFE tables, and calculates QSPM `AS/TAS` ranking in a focused page
 - EFE guidance now reflects `AQCD` quality screening and `pairwise comparison` as the recommended weight-setting method
 - EFE factors now support frontend `save`, `edit`, and `delete` behavior with live table refresh in the analysis workspace
 - Legacy seeded EFE demo rows are automatically cleaned from browser storage so the workspace opens in a cleaner state
